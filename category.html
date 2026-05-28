@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类详情 - 赛博方舟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🏛️</span>
+                <span class="logo-text">赛博方舟</span>
+                <span class="logo-subtitle">Cyber Ark</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="index.html#categories" class="nav-link">分类</a>
+                <a href="#" class="nav-link" onclick="showAbout()">关于</a>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="search-box">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input" id="globalSearch" placeholder="搜索实体、分类、标签...">
+                </div>
+                
+                <button class="nav-btn" onclick="toggleDarkMode()" title="切换暗黑模式">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                
+                <button class="nav-btn" onclick="showFavorites()" title="收藏夹">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+                
+                <button class="nav-btn" onclick="showUserPanel()" title="用户">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 分类详情区 -->
+    <section class="category-detail" style="padding: 120px 0 80px; min-height: calc(100vh - 200px);">
+        <div class="container">
+            <!-- 分类信息头部 -->
+            <div id="categoryHeader" style="
+                background: rgba(15,15,25,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0,212,255,0.2);
+                border-radius: 20px;
+                padding: 40px;
+                margin-bottom: 40px;
+            ">
+                <h1 id="categoryTitle" style="
+                    font-size: 3rem;
+                    background: linear-gradient(135deg, #00d4ff, #c9a84c);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 20px;
+                ">加载中...</h1>
+                <p id="categoryDesc" style="color: #a0a0b5; font-size: 18px;">加载中...</p>
+            </div>
+            
+            <!-- 实体榜单列表 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: #e0e0f6; font-size: 28px;">典藏榜单</h2>
+                
+                <div class="view-toggle" style="display: flex; gap: 10px;">
+                    <button class="toggle-btn active" onclick="switchView('grid')" style="
+                        padding: 8px 20px;
+                        border: 1px solid rgba(0,212,255,0.3);
+                        border-radius: 8px;
+                        background: rgba(0,212,255,0.1);
+                        color: #00d4ff;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">卡片</button>
+                    <button class="toggle-btn" onclick="switchView('list')" style="
+                        padding: 8px 20px;
+                        border: 1px solid rgba(0,212,255,0.3);
+                        border-radius: 8px;
+                        background: transparent;
+                        color: #9090a0;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">列表</button>
+                </div>
+            </div>
+            
+            <!-- 卡片视图 -->
+            <div id="entityListGrid" class="entities-grid" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            ">
+                加载中...
+            </div>
+            
+            <!-- 列表视图 -->
+            <div id="entityListList" style="display: none;">
+                加载中...
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer style="
+        background: rgba(10,10,15,0.98);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(0,212,255,0.1);
+        padding: 60px 0 30px;
+        margin-top: 80px;
+    ">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div>
+                    <h3 style="color: #e0e0f6; font-size: 1.2rem; margin-bottom: 20px;">赛博方舟</h3>
+                    <p style="color: #9090a0; font-size: 14px; line-height: 1.8;">AI时代高质量数字文明资产典藏平台，致力于保存、整理、展示人类顶级文明成果。</p>
+                </div>
+                
+                <div>
+                    <h3 style="color: #e0e0f6; font-size: 1.2rem; margin-bottom: 20px;">快速链接</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><a href="index.html" style="color: #9090a0; text-decoration: none; transition: color 0.3s ease;">首页</a></li>
+                        <li style="margin-bottom: 10px;"><a href="index.html#categories" style="color: #9090a0; text-decoration: none; transition: color 0.3s ease;">全部分类</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #9090a0; text-decoration: none; transition: color 0.3s ease;">精选推荐</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #9090a0; text-decoration: none; transition: color 0.3s ease;">关于我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="color: #e0e0f6; font-size: 1.2rem; margin-bottom: 20px;">联系我们</h3>
+                    <p style="color: #9090a0; font-size: 14px; line-height: 1.8;">
+                        邮箱: contact@cyberark.ai<br>
+                        GitHub: github.com/cyberark
+                    </p>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(0,212,255,0.1); padding-top: 30px; text-align: center;">
+                <p style="color: #9090a0; font-size: 14px;">© 2026 赛博方舟 Cyber Ark. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+    // 渲染分类页面逻辑
+    function renderCategoryPage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('cat');
+        const category = categories.find(c => c.slug === slug);
+        
+        if (!category) {
+            document.getElementById('categoryTitle').textContent = '未找到该分类';
+            document.getElementById('categoryDesc').textContent = '';
+            return;
+        }
+        
+        // 更新页面标题
+        document.title = `${category.name} - 赛博方舟`;
+        
+        // 渲染分类信息
+        document.getElementById('categoryTitle').textContent = `${category.icon} ${category.name}`;
+        document.getElementById('categoryDesc').textContent = category.desc;
+        
+        // 渲染子分类标签
+        const header = document.getElementById('categoryHeader');
+        const tagsDiv = document.createElement('div');
+        tagsDiv.style.marginTop = '20px';
+        tagsDiv.innerHTML = category.subcategories.map(sub => `<span class="tag">${sub}</span>`).join(' ');
+        header.appendChild(tagsDiv);
+        
+        // 渲染该分类下的实体
+        renderCategoryEntities(slug);
+    }
+    
+    function renderCategoryEntities(slug) {
+        const grid = document.getElementById('entityListGrid');
+        const list = document.getElementById('entityListList');
+        
+        if (!grid || !list) return;
+        
+        const entities = sampleEntities.filter(e => e.categorySlug === slug);
+        
+        if (entities.length === 0) {
+            grid.innerHTML = '<p style="color:#9090a0;text-align:center;">暂无该分类下的实体数据。</p>';
+            list.innerHTML = '';
+            return;
+        }
+        
+        // 卡片视图
+        grid.innerHTML = entities.map((entity, index) => {
+            const stars = '★'.repeat(entity.rating) + '☆'.repeat(5 - entity.rating);
+            return `
+                <div class="entity-card" style="animation-delay: ${index * 0.05}s;" onclick="window.location.href='entity.html?id=${entity.id}'">
+                    <div class="entity-thumbnail">${entity.thumbnail}</div>
+                    <h3 class="entity-name">${entity.name}</h3>
+                    <p class="entity-category">${entity.category} · ${entity.year}</p>
+                    <p class="entity-desc">${entity.desc}</p>
+                    <div class="entity-tags">
+                        ${entity.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="entity-rating">${stars}</div>
+                </div>
+            `;
+        }).join('');
+        
+        // 列表视图
+        list.innerHTML = entities.map((entity, index) => {
+            const stars = '★'.repeat(entity.rating) + '☆'.repeat(5 - entity.rating);
+            return `
+                <div style="
+                    background: rgba(15,15,25,0.95);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid rgba(0,212,255,0.2);
+                    border-radius: 12px;
+                    padding: 20px;
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.borderColor='rgba(0,212,255,0.6)'; this.style.transform='translateX(5px)';" onmouseout="this.style.borderColor='rgba(0,212,255,0.2)'; this.style.transform='translateX(0)';" onclick="window.location.href='entity.html?id=${entity.id}'">
+                    <div style="font-size: 3rem;">${entity.thumbnail}</div>
+                    <div style="flex: 1;">
+                        <h3 style="color: #e0e0f6; font-size: 1.3rem; margin-bottom: 8px;">${entity.name}</h3>
+                        <p style="color: #9090a0; font-size: 14px; margin-bottom: 8px;">${entity.category} · ${entity.year}</p>
+                        <p style="color: #a0a0b5; font-size: 14px; margin-bottom: 10px;">${entity.desc}</p>
+                        <div class="entity-tags">
+                            ${entity.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="entity-rating">${stars}</div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    function switchView(view) {
+        const grid = document.getElementById('entityListGrid');
+        const list = document.getElementById('entityListList');
+        const buttons = document.querySelectorAll('.view-toggle button');
+        
+        if (view === 'grid') {
+            grid.style.display = 'grid';
+            list.style.display = 'none';
+            buttons[0].classList.add('active');
+            buttons[1].classList.remove('active');
+        } else {
+            grid.style.display = 'none';
+            list.style.display = 'block';
+            buttons[0].classList.remove('active');
+            buttons[1].classList.add('active');
+        }
+    }
+    
+    // 页面加载完成后渲染
+    document.addEventListener('DOMContentLoaded', renderCategoryPage);
+    </script>
+</body>
+</html>
