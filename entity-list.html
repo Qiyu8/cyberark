@@ -551,13 +551,6 @@
     
     // 页面加载
     document.addEventListener('DOMContentLoaded', async function() {
-        // 等待 navTree
-        let waited = 0;
-        while ((!window.navTree || window.navTree.length === 0) && waited < 5000) {
-            await new Promise(r => setTimeout(r, 100));
-            waited += 100;
-        }
-        
         const urlParams = new URLSearchParams(window.location.search);
         catSlug = urlParams.get('cat') || '';
         subSlug = urlParams.get('sub') || '';
@@ -569,10 +562,19 @@
             return;
         }
         
+        // 直接加载 nav-tree.json（不依赖 script.js 全局变量）
+        let navData = window.navTree || [];
+        if (!navData.length) {
+            try {
+                const r = await fetch('data/nav-tree.json');
+                if (r.ok) navData = await r.json();
+            } catch(e) { /* 静默 */ }
+        }
+        
         // 找分类信息
         let category = null, subcategory = null;
-        if (window.navTree) {
-            category = window.navTree.find(c => c.slug === catSlug);
+        if (navData.length) {
+            category = navData.find(c => c.slug === catSlug);
             if (category) {
                 subcategory = category.subcategories.find(s => s.slug === subSlug);
             }
