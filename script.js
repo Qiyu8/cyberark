@@ -4,7 +4,6 @@
 // ========== 全局数据 ==========
 let navTree = [];  // 导航树数据
 
-// ========== 精选实体数据（首页展示用）==========
 const featuredEntities = [
     {
         id: 1,
@@ -12,7 +11,7 @@ const featuredEntities = [
         category: '文学',
         categorySlug: 'literature',
         subSlug: 'classical-literature',
-        file: '论语.md',
+        file: 'entities/T1/Leeyu.md',
         desc: '儒家经典，记录孔子及其弟子言行，中华文明的基石之作。',
         tags: ['经典', '哲学', '儒家', '中华'],
         rating: 5,
@@ -24,7 +23,7 @@ const featuredEntities = [
         category: '艺术',
         categorySlug: 'art',
         subSlug: 'painting',
-        file: '达芬奇-蒙娜丽莎.md',
+        file: 'World-Famous-Paintings-Top100/Renaissance/001_Mona-Lisa.md',
         desc: '达·芬奇传世名作，文艺复兴时期最具影响力的绘画作品。',
         tags: ['绘画', '文艺复兴', '达芬奇', '传世'],
         rating: 5,
@@ -32,12 +31,12 @@ const featuredEntities = [
     },
     {
         id: 3,
-        name: '相对论',
+        name: '爱因斯坦',
         category: '科学',
         categorySlug: 'science',
         subSlug: 'physics',
-        file: '爱因斯坦-相对论.md',
-        desc: '爱因斯坦提出的物理学理论，彻底改变了人类对时空的理解。',
+        file: 'nobel-physicsTop50/022_Albert·Einstein.md',
+        desc: '提出相对论，彻底改变了人类对时空的理解。',
         tags: ['物理', '理论', '爱因斯坦', '里程碑'],
         rating: 5,
         thumbnail: '🔬'
@@ -48,7 +47,7 @@ const featuredEntities = [
         category: '军事',
         categorySlug: 'military',
         subSlug: 'army-forces',
-        file: '孙子兵法.md',
+        file: 'entities/T1/SeanIslandBattle.md',
         desc: '中国古代军事经典，世界军事史上的巅峰之作。',
         tags: ['兵法', '经典', '古代', '战略'],
         rating: 5,
@@ -60,7 +59,7 @@ const featuredEntities = [
         category: '历史',
         categorySlug: 'history',
         subSlug: 'ancient-history',
-        file: '史记.md',
+        file: 'entities/T1/dongzhuo.md',
         desc: '司马迁撰写的纪传体通史，中国史学的奠基之作。',
         tags: ['历史', '通史', '司马迁', '经典'],
         rating: 5,
@@ -72,7 +71,7 @@ const featuredEntities = [
         category: '经济',
         categorySlug: 'economy',
         subSlug: 'economists',
-        file: '亚当斯密-国富论.md',
+        file: 'Global-Top-Economists-Top50/001_Adam-Smith.md',
         desc: '亚当·斯密经典经济学著作，现代经济学的奠基之作。',
         tags: ['经济学', '经典', '亚当斯密', '自由市场'],
         rating: 5,
