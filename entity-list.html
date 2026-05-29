@@ -6,35 +6,287 @@
     <title>实体列表 - 赛博方舟</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        .entity-card-item {
-            background: rgba(15,15,25,0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,212,255,0.2);
-            border-radius: 12px;
-            padding: 20px;
+        /* ===== 画廊网格布局 ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+        
+        /* ===== 单张画廊卡片 ===== */
+        .gallery-card {
+            background: rgba(10,10,20,0.9);
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 16px;
+            overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease forwards;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            animation: cardFadeIn 0.6s ease forwards;
             opacity: 0;
         }
-        .entity-card-item:hover {
-            border-color: rgba(0,212,255,0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,212,255,0.2);
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201,168,76,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(201,168,76,0.1);
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+        
+        /* 封面图区域 */
+        .card-cover {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+        }
+        .card-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.85) saturate(1.1);
+        }
+        .gallery-card:hover .card-cover img {
+            transform: scale(1.08);
+            filter: brightness(0.95) saturate(1.2);
+        }
+        
+        /* 排名标签 */
+        .card-rank {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201,168,76,0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #c9a84c;
+            z-index: 2;
+        }
+        
+        /* 封面上的渐变遮罩 */
+        .card-cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(10,10,20,0.9) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        /* 卡片信息 */
+        .card-body {
+            padding: 16px 20px 20px;
+        }
+        .card-title {
+            font-family: 'Noto Sans SC', 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e8e0d0;
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card-meta {
+            font-size: 0.82rem;
+            color: #808090;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card-desc {
+            font-size: 0.8rem;
+            color: #606070;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 0;
+        }
+        
+        /* 卡片底部标签 */
+        .card-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .card-tag {
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.2);
+            color: #c9a84c;
+        }
+        .card-tag.blue {
+            background: rgba(0,212,255,0.1);
+            border-color: rgba(0,212,255,0.2);
+            color: #00d4ff;
+        }
+        
+        /* 悬浮时显示"查看详情" */
+        .card-hover-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+            z-index: 3;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .gallery-card:hover .card-hover-overlay {
+            background: rgba(0,0,0,0.3);
+        }
+        .card-view-btn {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            background: rgba(201,168,76,0.9);
+            color: #0a0a0f;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .gallery-card:hover .card-view-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 骨架屏加载动画 */
+        .skeleton-card {
+            background: rgba(10,10,20,0.9);
+            border: 1px solid rgba(201,168,76,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+        .skeleton-cover {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-body { padding: 16px 20px 20px; }
+        .skeleton-line {
+            height: 14px;
+            background: linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%);
+            background-size: 200% 100%;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* 榜单信息头部 */
+        .ranking-header {
+            background: rgba(15,15,25,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 20px;
+            padding: 30px 35px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .ranking-header h1 {
+            font-family: 'Playfair Display', 'Noto Sans SC', serif;
+            font-size: 2rem;
+            color: #e8e0d0;
+            margin: 0;
+            background: linear-gradient(135deg, #e8e0d0, #c9a84c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ranking-stats {
+            display: flex;
+            gap: 24px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #c9a84c;
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            color: #606070;
+            margin-top: 2px;
+        }
+        
+        /* 搜索栏 */
+        .search-area {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(15,15,25,0.9);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 12px;
+            color: #e0e0f6;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            border-color: rgba(201,168,76,0.5);
+            box-shadow: 0 0 20px rgba(201,168,76,0.1);
+        }
+        .search-input::placeholder { color: #505060; }
     </style>
 </head>
 <body>
-    <!-- 粒子背景 -->
     <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
     
-    <!-- 导航栏 -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -45,122 +297,85 @@
                     <span class="logo-en">Cyber Ark</span>
                 </a>
             </div>
-            
             <div class="nav-center">
                 <div class="search-box">
-                    <input type="text" placeholder="搜索实体..." id="globalSearch">
+                    <input type="text" placeholder="搜索文明瑰宝..." id="globalSearch">
                     <button class="search-btn" onclick="performSearch()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                     </button>
                 </div>
             </div>
-            
             <div class="nav-right">
-                <button class="nav-btn" onclick="toggleDarkMode()" title="暗黑模式切换">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
+                <button class="nav-btn" onclick="toggleDarkMode()" title="暗黑模式">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
                 <button class="nav-btn" onclick="showFavorites()" title="收藏夹">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                </button>
-                <button class="nav-btn" onclick="showAbout()" title="关于本站">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- 主内容区 -->
-    <section class="entity-list-page" style="padding: 120px 2rem 80px; min-height: calc(100vh - 200px);">
-        <div class="container" style="max-width: 1400px; margin: 0 auto;">
-            <!-- 面包屑导航 -->
-            <div class="breadcrumb" style="margin-bottom: 30px; color: #9090a0; font-size: 14px;">
+    <section style="padding: 120px 2rem 80px; min-height: calc(100vh - 200px);">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <!-- 面包屑 -->
+            <div style="margin-bottom: 24px; color: #9090a0; font-size: 14px;">
                 <a href="index.html" style="color: #00d4ff; text-decoration: none;">首页</a>
-                <span style="margin: 0 10px;">/</span>
-                <a id="breadcrumbCategory" href="#" style="color: #00d4ff; text-decoration: none;">加载中...</a>
-                <span style="margin: 0 10px;">/</span>
-                <span id="breadcrumbCurrent">加载中...</span>
+                <span style="margin: 0 10px;">›</span>
+                <a id="breadcrumbCat" href="#" style="color: #00d4ff; text-decoration: none;">加载中...</a>
+                <span style="margin: 0 10px;">›</span>
+                <span id="breadcrumbSub" style="color: #9090a0;">加载中...</span>
             </div>
             
-            <!-- 榜单信息头部 -->
-            <div id="rankingHeader" style="
-                background: rgba(15,15,25,0.95);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(0,212,255,0.2);
-                border-radius: 20px;
-                padding: 40px;
-                margin-bottom: 40px;
-            ">
-                <h1 id="rankingTitle" style="
-                    font-size: 2.5rem;
-                    background: linear-gradient(135deg, #00d4ff, #c9a84c);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    margin-bottom: 15px;
-                ">加载中...</h1>
-                <p id="rankingDesc" style="color: #a0a0b5; font-size: 16px;"></p>
-            </div>
-            
-            <!-- 实体列表 -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h2 style="color: #e0e0f6; font-size: 24px;">
-                    共 <span id="entityCount">0</span> 个实体
-                </h2>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="localSearch" placeholder="在此榜单内搜索..." style="
-                        padding: 10px 15px;
-                        background: rgba(15,15,25,0.95);
-                        border: 1px solid rgba(0,212,255,0.3);
-                        border-radius: 8px;
-                        color: #e0e0f6;
-                        font-size: 14px;
-                        width: 250px;
-                    ">
+            <!-- 榜单头部 -->
+            <div id="rankingHeader" class="ranking-header">
+                <div>
+                    <h1 id="rankingTitle">🏛️ 典藏榜单</h1>
+                    <p id="rankingDesc" style="color: #606070; font-size: 0.88rem; margin: 6px 0 0 0;"></p>
+                </div>
+                <div class="ranking-stats">
+                    <div class="stat-item">
+                        <div class="stat-num" id="totalCount">0</div>
+                        <div class="stat-label">典藏数量</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num" id="filteredCount">0</div>
+                        <div class="stat-label">当前显示</div>
+                    </div>
                 </div>
             </div>
             
-            <div id="entityGrid" style="
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-            ">
-                加载中...
+            <!-- 搜索 -->
+            <div class="search-area">
+                <input type="text" id="localSearch" class="search-input" placeholder="🔍 在当前榜单中搜索...">
             </div>
             
-            <!-- 加载更多 -->
-            <div id="loadMoreArea" style="text-align: center; margin-top: 40px; display: none;">
-                <button id="loadMoreBtn" onclick="loadMore()" style="
-                    padding: 12px 40px;
-                    background: linear-gradient(135deg, #00d4ff, #0099cc);
-                    border: none;
-                    border-radius: 8px;
-                    color: #0a0a0f;
-                    font-size: 16px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                ">加载更多</button>
+            <!-- 骨架屏 -->
+            <div id="skeletonGrid" class="gallery-grid">
+                <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line" style="width:80%"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:50%"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line" style="width:80%"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:50%"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line" style="width:80%"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:50%"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line" style="width:80%"></div><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:50%"></div></div></div>
+            </div>
+            
+            <!-- 画廊网格 -->
+            <div id="entityGrid" class="gallery-grid" style="display:none;"></div>
+            
+            <!-- 无结果 -->
+            <div id="emptyState" style="display:none; text-align:center; padding:80px 0;">
+                <p style="font-size:4rem; margin-bottom:20px;">🔍</p>
+                <p style="color:#9090a0; font-size:1.1rem;">未找到匹配的典藏</p>
+                <p style="color:#505060; font-size:0.85rem; margin-top:8px;">换个关键词试试吧</p>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
                     <h3>🏛️ 赛博方舟 | Cyber Ark</h3>
-                    <p>人类顶级文明数字载体</p>
+                    <p>人类顶级文明数字载体，典藏全球高价值资产</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -171,153 +386,251 @@
     
     <script src="script.js"></script>
     <script>
-    // 实体列表页面逻辑 - 使用 script.js 全局 navTree
-    let allEntities = [];
+    // ===== 实体列表页 - 画廊模式 =====
+    let allEntities = [];       // 原始列表
+    let enrichedEntities = [];  // 富媒体数据（带图片+简介）
     let filteredEntities = [];
-    let currentPage = 0;
-    let catSlug = '';
-    let subSlug = '';
-    const PAGE_SIZE = 60;
+    let catSlug = '', subSlug = '';
     
-    async function loadEntities() {
-        const urlParams = new URLSearchParams(window.location.search);
-        catSlug = urlParams.get('cat');
-        subSlug = urlParams.get('sub');
+    // 从 md 文本提取信息
+    function extractFromMd(mdText, fileName) {
+        const lines = mdText.split('\n');
+        let title = fileName.replace(/\.md$/, '').replace(/^\d+_/, '');
+        let artist = '', year = '', imageUrl = '', desc = '', extra = '';
         
-        if (!catSlug || !subSlug) {
-            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">参数错误</p>';
-            return;
-        }
-        
-        const category = navTree.find(c => c.slug === catSlug);
-        if (!category) {
-            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">分类不存在</p>';
-            return;
-        }
-        
-        const subcategory = category.subcategories.find(s => s.slug === subSlug);
-        if (!subcategory) {
-            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">榜单不存在</p>';
-            return;
-        }
-        
-        // 更新页面标题
-        document.title = `${subcategory.name} - ${category.name} - 赛博方舟`;
-        
-        // 更新面包屑
-        document.getElementById('breadcrumbCategory').textContent = category.name;
-        document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
-        document.getElementById('breadcrumbCurrent').textContent = subcategory.name;
-        
-        // 更新头部信息
-        document.getElementById('rankingTitle').textContent = subcategory.name;
-        document.getElementById('rankingDesc').textContent = `分类: ${category.name} · ${category.icon}`;
-        
-        // 加载实体数据
-        try {
-            const response = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
-            if (!response.ok) {
-                throw new Error('实体数据文件不存在');
+        for (const line of lines) {
+            const l = line.trim();
+            if (l.startsWith('# ')) {
+                title = l.replace(/^#+\s*/, '').trim();
+            } else if (l.startsWith('![封面') || l.startsWith('![图片') || l.startsWith('![')) {
+                const m = l.match(/!\[.*?\]\((.*?)\)/);
+                if (m && !imageUrl) imageUrl = m[1];
+            } else if (l.includes('|') && l.includes('艺术家')) {
+                const m = l.match(/\|\s*艺术家\s*\|\s*(.+?)\s*\|/);
+                if (m) artist = m[1].trim();
+            } else if (l.includes('|') && l.includes('作者')) {
+                const m = l.match(/\|\s*作者\s*\|\s*(.+?)\s*\|/);
+                if (m && !artist) artist = m[1].trim();
+            } else if (l.includes('|') && l.includes('创作年份')) {
+                const m = l.match(/\|\s*创作年份\s*\|\s*(.+?)\s*\|/);
+                if (m) year = m[1].trim();
+            } else if (l.includes('|') && l.includes('建成年份') && !year) {
+                const m = l.match(/\|\s*建成年份\s*\|\s*(.+?)\s*\|/);
+                if (m) year = m[1].trim();
+            } else if (l.includes('|') && l.includes('拍卖价格')) {
+                const m = l.match(/\|\s*拍卖价格\s*\|\s*(.+?)\s*\|/);
+                if (m) extra = m[1].trim();
+            } else if (l.includes('|') && l.includes('价格')) {
+                const m = l.match(/\|\s*价格\s*\|\s*(.+?)\s*\|/);
+                if (m && !extra) extra = m[1].trim();
+            } else if (l.includes('|') && l.includes('成交价')) {
+                const m = l.match(/\|\s*成交价\s*\|\s*(.+?)\s*\|/);
+                if (m) extra = m[1].trim();
+            } else if (!desc && l && !l.startsWith('##') && !l.startsWith('---') && 
+                       !l.startsWith('|') && l.length > 20 && l.length < 120) {
+                desc = l;
             }
-            allEntities = await response.json();
-            filteredEntities = allEntities;
-            document.getElementById('entityCount').textContent = allEntities.length;
-            
-            renderEntities();
-        } catch (error) {
-            console.error('加载实体数据失败:', error);
-            document.getElementById('entityGrid').innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                    <p style="color: #9090a0; font-size: 16px;">该榜单暂无实体数据</p>
-                    <p style="color: #606070; font-size: 14px; margin-top: 10px;">请稍后再来查看</p>
-                </div>
-            `;
         }
+        return { title, artist, year, imageUrl, desc, extra };
     }
     
-    function renderEntities() {
-        const grid = document.getElementById('entityGrid');
-        const start = 0;
-        const end = (currentPage + 1) * PAGE_SIZE;
-        const entitiesToShow = filteredEntities.slice(start, end);
+    // 生成卡片 HTML
+    function buildCard(entity, index) {
+        const rank = index + 1;
+        const delay = Math.min(index * 0.06, 1.2);
         
-        grid.innerHTML = entitiesToShow.map((entity, index) => `
-            <div class="entity-card-item" style="animation-delay: ${Math.min(index * 0.02, 1)}s;" onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(entity.file)}'">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="
-                        width: 40px;
-                        height: 40px;
-                        background: linear-gradient(135deg, #00d4ff20, #c9a84c20);
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 1.2rem;
-                    ">📄</div>
-                    <div style="flex: 1; min-width: 0;">
-                        <h4 style="color: #e0e0f6; font-size: 0.95rem; font-weight: 500; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${entity.name}</h4>
-                        <p style="color: #707080; font-size: 0.8rem; margin: 4px 0 0 0;">${entity.file}</p>
+        // 封面处理
+        let coverContent;
+        if (entity.imageUrl && !entity.imageUrl.includes('wikipedia.org/wiki/Special:') && 
+            (entity.imageUrl.startsWith('http') || entity.imageUrl.startsWith('//'))) {
+            coverContent = `<img src="${entity.imageUrl}" alt="${entity.title}" loading="lazy" 
+                onerror="this.parentElement.innerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);font-size:3rem;>🎨</div>'">`;
+        } else {
+            coverContent = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e,#1a1520);">
+                <span style="font-size:3.5rem;">"${entity.title.substring(0,2)}"</span>
+            </div>`;
+        }
+        
+        const tags = [];
+        if (entity.year) tags.push(`<span class="card-tag blue">${entity.year}</span>`);
+        if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
+        
+        return `
+            <div class="gallery-card" style="animation-delay:${delay}s" 
+                 onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(entity.file)}'">
+                <div class="card-hover-overlay">
+                    <button class="card-view-btn">✦ 查看详情</button>
+                </div>
+                <div class="card-cover">
+                    <div class="card-rank">${rank}</div>
+                    ${coverContent}
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${entity.title}</h3>
+                    <div class="card-meta">
+                        ${entity.artist ? `<span>👤 ${entity.artist}</span>` : ''}
                     </div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
+                    ${entity.desc ? `<p class="card-desc">${entity.desc}</p>` : ''}
+                    ${tags.length ? `<div class="card-tags">${tags.join('')}</div>` : ''}
                 </div>
             </div>
-        `).join('');
+        `;
+    }
+    
+    // 渲染网格
+    function renderGrid(entities) {
+        const grid = document.getElementById('entityGrid');
+        const skeleton = document.getElementById('skeletonGrid');
+        const empty = document.getElementById('emptyState');
+        const countEl = document.getElementById('filteredCount');
         
-        // 显示/隐藏加载更多按钮
-        const loadMoreArea = document.getElementById('loadMoreArea');
-        if (end < filteredEntities.length) {
-            loadMoreArea.style.display = 'block';
-        } else {
-            loadMoreArea.style.display = 'none';
+        skeleton.style.display = 'none';
+        countEl.textContent = entities.length;
+        
+        if (entities.length === 0) {
+            grid.style.display = 'none';
+            empty.style.display = 'block';
+            return;
         }
+        
+        empty.style.display = 'none';
+        grid.style.display = 'grid';
+        grid.innerHTML = entities.map((e, i) => buildCard(e, i)).join('');
     }
     
-    function loadMore() {
-        currentPage++;
-        renderEntities();
+    // 并行加载 md 内容（提取图片和简介）
+    async function enrichEntities(entities) {
+        // 限制并发数为 8
+        const concurrency = 8;
+        const results = [];
+        for (let i = 0; i < entities.length; i += concurrency) {
+            const batch = entities.slice(i, i + concurrency);
+            const batchResults = await Promise.all(
+                batch.map(async (e) => {
+                    if (e.file === 'index.md' || e.file === 'INDEX.md') return { ...e, _enriched: null };
+                    try {
+                        const r = await fetch(`data/md/${catSlug}/${subSlug}/${e.file}`);
+                        if (!r.ok) return { ...e, _enriched: null };
+                        const text = await r.text();
+                        return { ...e, _enriched: extractFromMd(text, e.file) };
+                    } catch {
+                        return { ...e, _enriched: null };
+                    }
+                })
+            );
+            results.push(...batchResults);
+            // 渐进渲染：每批完成后立即显示
+            if (i === 0) {
+                document.getElementById('skeletonGrid').style.display = 'none';
+                const grid = document.getElementById('entityGrid');
+                grid.style.display = 'grid';
+                grid.innerHTML = batchResults.map((e, idx) => buildCard(mergeEnriched(e), idx)).join('');
+            } else {
+                // 追加新卡片
+                const grid = document.getElementById('entityGrid');
+                const existingCount = grid.querySelectorAll('.gallery-card').length;
+                const newCards = batchResults.map((e, idx) => buildCard(mergeEnriched(e), existingCount + idx)).join('');
+                grid.insertAdjacentHTML('beforeend', newCards);
+            }
+        }
+        return results;
     }
     
-    // 本地搜索
-    document.addEventListener('DOMContentLoaded', function() {
-        const localSearch = document.getElementById('localSearch');
-        if (localSearch) {
-            localSearch.addEventListener('input', function(e) {
-                const query = e.target.value.toLowerCase().trim();
-                if (!query) {
-                    filteredEntities = allEntities;
-                } else {
-                    filteredEntities = allEntities.filter(entity => 
-                        entity.name.toLowerCase().includes(query) ||
-                        entity.file.toLowerCase().includes(query)
-                    );
-                }
-                currentPage = 0;
-                renderEntities();
-                document.getElementById('entityCount').textContent = filteredEntities.length;
-            });
-        }
-    });
+    function mergeEnriched(entity) {
+        if (!entity._enriched) return entity;
+        return {
+            ...entity,
+            title: entity._enriched.title || entity.name,
+            imageUrl: entity._enriched.imageUrl,
+            artist: entity._enriched.artist,
+            year: entity._enriched.year,
+            desc: entity._enriched.desc,
+            extra: entity._enriched.extra
+        };
+    }
     
-    // 页面加载完成后渲染
+    // 页面加载
     document.addEventListener('DOMContentLoaded', async function() {
-        // 等待 script.js 的全局 navTree 就绪
+        // 等待 navTree
         let waited = 0;
-        while ((!navTree || navTree.length === 0) && waited < 3000) {
+        while ((!window.navTree || window.navTree.length === 0) && waited < 5000) {
             await new Promise(r => setTimeout(r, 100));
             waited += 100;
         }
-        if (!navTree || navTree.length === 0) {
-            try {
-                const response = await fetch('data/nav-tree.json');
-                navTree = await response.json();
-            } catch(e) {
-                document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败</p>';
-                return;
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        catSlug = urlParams.get('cat') || '';
+        subSlug = urlParams.get('sub') || '';
+        
+        if (!catSlug || !subSlug) {
+            document.getElementById('skeletonGrid').style.display = 'none';
+            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;grid-column:1/-1;padding:60px 0;">参数错误</p>';
+            document.getElementById('entityGrid').style.display = 'grid';
+            return;
+        }
+        
+        // 找分类信息
+        let category = null, subcategory = null;
+        if (window.navTree) {
+            category = window.navTree.find(c => c.slug === catSlug);
+            if (category) {
+                subcategory = category.subcategories.find(s => s.slug === subSlug);
             }
         }
-        await loadEntities();
+        
+        // 更新页面标题
+        const titleEl = document.getElementById('rankingTitle');
+        const descEl = document.getElementById('rankingDesc');
+        document.title = subcategory ? `${subcategory.name} - 赛博方舟` : '典藏榜单 - 赛博方舟';
+        
+        if (subcategory) {
+            titleEl.textContent = subcategory.name;
+            descEl.textContent = subcategory.description || `收录 ${subcategory.entityCount || 0} 件珍贵典藏`;
+        }
+        
+        // 面包屑
+        if (category) {
+            document.getElementById('breadcrumbCat').textContent = category.name;
+            document.getElementById('breadcrumbCat').href = `rankings.html?cat=${catSlug}`;
+        }
+        document.getElementById('breadcrumbSub').textContent = subcategory ? subcategory.name : subSlug;
+        document.getElementById('totalCount').textContent = subcategory ? (subcategory.entityCount || 0) : '?';
+        
+        // 加载实体列表
+        let entities = [];
+        try {
+            const r = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+            if (r.ok) entities = await r.json();
+        } catch(e) { /* 忽略 */ }
+        
+        filteredEntities = entities.filter(e => e.file && !e.file.endsWith('index.md') && !e.file.endsWith('INDEX.md'));
+        allEntities = [...filteredEntities];
+        document.getElementById('totalCount').textContent = filteredEntities.length;
+        
+        // 富媒体加载（并行 + 渐进渲染）
+        await enrichEntities(filteredEntities);
+        enrichedEntities = filteredEntities.map(e => {
+            const el = document.querySelector(`.gallery-card[onclick*="${encodeURIComponent(e.file)}"]`);
+            return e; // 渲染已完成，保留原始数据用于搜索过滤
+        });
+        
+        // 本地搜索
+        const searchInput = document.getElementById('localSearch');
+        searchInput.addEventListener('input', function() {
+            const q = this.value.toLowerCase().trim();
+            if (!q) {
+                filteredEntities = [...allEntities];
+            } else {
+                filteredEntities = allEntities.filter(e => {
+                    const en = mergeEnriched(e);
+                    return (en.title || '').toLowerCase().includes(q) ||
+                           (en.artist || '').toLowerCase().includes(q) ||
+                           (en.year || '').toLowerCase().includes(q) ||
+                           (en.file || '').toLowerCase().includes(q);
+                });
+            }
+            renderGrid(filteredEntities);
+        });
     });
     </script>
 </body>
