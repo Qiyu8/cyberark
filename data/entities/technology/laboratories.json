@@ -1,0 +1,86 @@
+[
+  {
+    "name": "001_CERN",
+    "file": "001_CERN.md"
+  },
+  {
+    "name": "002_Bell_Labs",
+    "file": "002_Bell_Labs.md"
+  },
+  {
+    "name": "003_MIT_Computer_Science_and_Artificial_Intelligence_Laboratory",
+    "file": "003_MIT_Computer_Science_and_Artificial_Intelligence_Laboratory.md"
+  },
+  {
+    "name": "004_Max_Planck_Institute",
+    "file": "004_Max_Planck_Institute.md"
+  },
+  {
+    "name": "005_Google_DeepMind",
+    "file": "005_Google_DeepMind.md"
+  },
+  {
+    "name": "006_Los_Alamos_National_Laboratory",
+    "file": "006_Los_Alamos_National_Laboratory.md"
+  },
+  {
+    "name": "007_Stanford_Artificial_Intelligence_Laboratory",
+    "file": "007_Stanford_Artificial_Intelligence_Laboratory.md"
+  },
+  {
+    "name": "008_Broad_Institute",
+    "file": "008_Broad_Institute.md"
+  },
+  {
+    "name": "009_Jet_Propulsion_Laboratory",
+    "file": "009_Jet_Propulsion_Laboratory.md"
+  },
+  {
+    "name": "010_IBM_Research",
+    "file": "010_IBM_Research.md"
+  },
+  {
+    "name": "011_Argonne_National_Laboratory",
+    "file": "011_Argonne_National_Laboratory.md"
+  },
+  {
+    "name": "012_Scripps_Research_Institute",
+    "file": "012_Scripps_Research_Institute.md"
+  },
+  {
+    "name": "013_OpenAI",
+    "file": "013_OpenAI.md"
+  },
+  {
+    "name": "014_Riken",
+    "file": "014_Riken.md"
+  },
+  {
+    "name": "015_National_Institute_of_Standards_and_Technology",
+    "file": "015_National_Institute_of_Standards_and_Technology.md"
+  },
+  {
+    "name": "016_Howard_Hughes_Medical_Institute",
+    "file": "016_Howard_Hughes_Medical_Institute.md"
+  },
+  {
+    "name": "017_European_Molecular_Biology_Laboratory",
+    "file": "017_European_Molecular_Biology_Laboratory.md"
+  },
+  {
+    "name": "018_Tsinghua_University_Laboratory",
+    "file": "018_Tsinghua_University_Laboratory.md"
+  },
+  {
+    "name": "019_INRIA",
+    "file": "019_INRIA.md"
+  },
+  {
+    "name": "020_Lawrence_Berkeley_National_Laboratory",
+    "file": "020_Lawrence_Berkeley_National_Laboratory.md"
+  },
+  {
+    "name": "index",
+    "file": "index.md"
+  }
+]

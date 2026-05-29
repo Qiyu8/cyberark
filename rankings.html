@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>榜单列表 - 赛博方舟</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🏛️</span>
+                    <span class="logo-text">赛博方舟</span>
+                    <span class="logo-divider">|</span>
+                    <span class="logo-en">Cyber Ark</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文明瑰宝..." id="globalSearch">
+                    <button class="search-btn" onclick="performSearch()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" onclick="toggleDarkMode()" title="暗黑模式切换">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="nav-btn" onclick="showFavorites()" title="收藏夹">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+                <button class="nav-btn" onclick="showAbout()" title="关于本站">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <section class="rankings-page" style="padding: 120px 2rem 80px; min-height: calc(100vh - 200px);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto;">
+            <!-- 面包屑导航 -->
+            <div class="breadcrumb" style="margin-bottom: 30px; color: #9090a0; font-size: 14px;">
+                <a href="index.html" style="color: #00d4ff; text-decoration: none;">首页</a>
+                <span style="margin: 0 10px;">/</span>
+                <span id="breadcrumbCurrent">加载中...</span>
+            </div>
+            
+            <!-- 分类信息头部 -->
+            <div id="categoryHeader" class="category-header" style="
+                background: rgba(15,15,25,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0,212,255,0.2);
+                border-radius: 20px;
+                padding: 40px;
+                margin-bottom: 40px;
+            ">
+                <h1 id="categoryTitle" style="
+                    font-size: 3rem;
+                    background: linear-gradient(135deg, #00d4ff, #c9a84c);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                ">加载中...</h1>
+                <p id="categoryDesc" style="color: #a0a0b5; font-size: 18px; line-height: 1.8;"></p>
+            </div>
+            
+            <!-- 榜单列表 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: #e0e0f6; font-size: 28px;">
+                    <span id="rankingCount">0</span> 个典藏榜单
+                </h2>
+            </div>
+            
+            <div id="rankingsGrid" class="rankings-grid" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 25px;
+            ">
+                加载中...
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>🏛️ 赛博方舟 | Cyber Ark</h3>
+                    <p>人类顶级文明数字载体，典藏全球高价值资产</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>关于本站</h4>
+                        <a href="#" onclick="showAbout()">文明典藏理念</a>
+                        <a href="#" onclick="showAbout()">站点说明</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>全站导航</h4>
+                        <a href="index.html">首页</a>
+                        <a href="index.html#categories">分类浏览</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 赛博方舟 Cyber Ark. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+    // 榜单列表页面逻辑
+    let navTree = [];
+    
+    async function loadNavTree() {
+        try {
+            const response = await fetch('data/nav-tree.json');
+            navTree = await response.json();
+            renderRankingsPage();
+        } catch (error) {
+            console.error('加载数据失败:', error);
+            document.getElementById('rankingsGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败，请刷新页面重试</p>';
+        }
+    }
+    
+    function renderRankingsPage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const catSlug = urlParams.get('cat');
+        
+        if (!catSlug) {
+            document.getElementById('categoryTitle').textContent = '参数错误';
+            document.getElementById('rankingsGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">缺少分类参数</p>';
+            return;
+        }
+        
+        const category = navTree.find(c => c.slug === catSlug);
+        
+        if (!category) {
+            document.getElementById('categoryTitle').textContent = '分类不存在';
+            document.getElementById('rankingsGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">未找到该分类</p>';
+            return;
+        }
+        
+        // 更新页面标题
+        document.title = `${category.name} - 赛博方舟`;
+        
+        // 更新面包屑
+        document.getElementById('breadcrumbCurrent').textContent = category.name;
+        
+        // 渲染分类信息
+        document.getElementById('categoryTitle').innerHTML = `
+            <span style="font-size: 2.5rem;">${category.icon}</span>
+            ${category.name}
+        `;
+        document.getElementById('categoryDesc').textContent = `共 ${category.subcategoryCount} 个榜单，${category.entityCount.toLocaleString()} 个实体`;
+        
+        // 渲染榜单卡片
+        const grid = document.getElementById('rankingsGrid');
+        document.getElementById('rankingCount').textContent = category.subcategories.length;
+        
+        if (category.subcategories.length === 0) {
+            grid.innerHTML = '<p style="color:#9090a0;text-align:center;grid-column:1/-1;">该分类下暂无榜单</p>';
+            return;
+        }
+        
+        grid.innerHTML = category.subcategories.map((sub, index) => `
+            <div class="ranking-card" style="
+                background: rgba(15,15,25,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0,212,255,0.2);
+                border-radius: 16px;
+                padding: 25px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                animation: fadeInUp 0.5s ease forwards;
+                animation-delay: ${index * 0.05}s;
+                opacity: 0;
+            " onmouseover="this.style.borderColor='${category.color}'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 40px ${category.color}30';" onmouseout="this.style.borderColor='rgba(0,212,255,0.2)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${sub.slug}'">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <h3 style="color: #e0e0f6; font-size: 1.3rem; font-weight: 600;">${sub.name}</h3>
+                    <span style="
+                        background: ${category.color}20;
+                        color: ${category.color};
+                        padding: 4px 12px;
+                        border-radius: 20px;
+                        font-size: 0.85rem;
+                        font-weight: 500;
+                    ">${sub.entityCount} 个实体</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <span style="color: #9090a0; font-size: 0.9rem;">
+                        ${sub.hasSubDirs ? '📁 包含子目录' : '📄 直接列表'}
+                    </span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${category.color}" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // 加载动画
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // 页面加载完成后渲染
+    document.addEventListener('DOMContentLoaded', loadNavTree);
+    </script>
+</body>
+</html>

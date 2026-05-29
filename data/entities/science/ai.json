@@ -1,0 +1,202 @@
+[
+  {
+    "name": "01_GitHub_Copilot",
+    "file": "01_GitHub_Copilot.md"
+  },
+  {
+    "name": "02_Claude_Code",
+    "file": "02_Claude_Code.md"
+  },
+  {
+    "name": "03_Cursor",
+    "file": "03_Cursor.md"
+  },
+  {
+    "name": "04_DeepSeek_Coder",
+    "file": "04_DeepSeek_Coder.md"
+  },
+  {
+    "name": "05_tongyilingm",
+    "file": "05_tongyilingm.md"
+  },
+  {
+    "name": "06_Code_Llama",
+    "file": "06_Code_Llama.md"
+  },
+  {
+    "name": "07_Gemini_Code",
+    "file": "07_Gemini_Code.md"
+  },
+  {
+    "name": "08_CodeGeex",
+    "file": "08_CodeGeex.md"
+  },
+  {
+    "name": "09_Replit_Agent",
+    "file": "09_Replit_Agent.md"
+  },
+  {
+    "name": "10_Supermaven",
+    "file": "10_Supermaven.md"
+  },
+  {
+    "name": "Amazon",
+    "file": "Amazon.md"
+  },
+  {
+    "name": "Anthropic",
+    "file": "Anthropic.md"
+  },
+  {
+    "name": "Bark",
+    "file": "Bark.md"
+  },
+  {
+    "name": "Character.AI",
+    "file": "Character.AI.md"
+  },
+  {
+    "name": "ChatTTS",
+    "file": "ChatTTS.md"
+  },
+  {
+    "name": "Claude 3 Opus",
+    "file": "Claude 3 Opus.md"
+  },
+  {
+    "name": "Claude 3.5 Sonnet",
+    "file": "Claude 3.5 Sonnet.md"
+  },
+  {
+    "name": "Cohere",
+    "file": "Cohere.md"
+  },
+  {
+    "name": "DeepSeek-V3",
+    "file": "DeepSeek-V3.md"
+  },
+  {
+    "name": "ElevenLabs",
+    "file": "ElevenLabs.md"
+  },
+  {
+    "name": "Fish Speech",
+    "file": "Fish Speech.md"
+  },
+  {
+    "name": "GPT-4 Turbo",
+    "file": "GPT-4 Turbo.md"
+  },
+  {
+    "name": "GPT-4o",
+    "file": "GPT-4o.md"
+  },
+  {
+    "name": "Gemini 1.5 Pro",
+    "file": "Gemini 1.5 Pro.md"
+  },
+  {
+    "name": "Gemini 2.5 Pro",
+    "file": "Gemini 2.5 Pro.md"
+  },
+  {
+    "name": "Google DeepMind",
+    "file": "Google DeepMind.md"
+  },
+  {
+    "name": "Google SoundStorm",
+    "file": "Google SoundStorm.md"
+  },
+  {
+    "name": "Google Veo 3.1",
+    "file": "Google Veo 3.1.md"
+  },
+  {
+    "name": "Groq LLaMA3 70B",
+    "file": "Groq LLaMA3 70B.md"
+  },
+  {
+    "name": "HappyHorse-1.0",
+    "file": "HappyHorse-1.0.md"
+  },
+  {
+    "name": "Kling 3.0 Pro",
+    "file": "Kling 3.0 Pro.md"
+  },
+  {
+    "name": "Llama 3.1 405B",
+    "file": "Llama 3.1 405B.md"
+  },
+  {
+    "name": "Luma Dream Machine",
+    "file": "Luma Dream Machine.md"
+  },
+  {
+    "name": "Meta AI",
+    "file": "Meta AI.md"
+  },
+  {
+    "name": "Meta AudioCraft",
+    "file": "Meta AudioCraft.md"
+  },
+  {
+    "name": "Microsoft",
+    "file": "Microsoft.md"
+  },
+  {
+    "name": "MiniMax Hailuo 02",
+    "file": "MiniMax Hailuo 02.md"
+  },
+  {
+    "name": "Moonshot AI",
+    "file": "Moonshot AI.md"
+  },
+  {
+    "name": "NVIDIA",
+    "file": "NVIDIA.md"
+  },
+  {
+    "name": "OpenAI Whisper",
+    "file": "OpenAI Whisper.md"
+  },
+  {
+    "name": "OpenAI",
+    "file": "OpenAI.md"
+  },
+  {
+    "name": "Pika 1.5",
+    "file": "Pika 1.5.md"
+  },
+  {
+    "name": "Qwen 2.5 Max",
+    "file": "Qwen 2.5 Max.md"
+  },
+  {
+    "name": "Runway Gen-4.5",
+    "file": "Runway Gen-4.5.md"
+  },
+  {
+    "name": "Seedance 2.0",
+    "file": "Seedance 2.0.md"
+  },
+  {
+    "name": "Sora",
+    "file": "Sora.md"
+  },
+  {
+    "name": "Stability AI Audio",
+    "file": "Stability AI Audio.md"
+  },
+  {
+    "name": "Suno AI",
+    "file": "Suno AI.md"
+  },
+  {
+    "name": "Udio",
+    "file": "Udio.md"
+  },
+  {
+    "name": "Vidu Q3",
+    "file": "Vidu Q3.md"
+  }
+]

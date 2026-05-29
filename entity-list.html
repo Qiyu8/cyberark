@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实体列表 - 赛博方舟</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .entity-card-item {
+            background: rgba(15,15,25,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        .entity-card-item:hover {
+            border-color: rgba(0,212,255,0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.2);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🏛️</span>
+                    <span class="logo-text">赛博方舟</span>
+                    <span class="logo-divider">|</span>
+                    <span class="logo-en">Cyber Ark</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-box">
+                    <input type="text" placeholder="搜索实体..." id="globalSearch">
+                    <button class="search-btn" onclick="performSearch()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" onclick="toggleDarkMode()" title="暗黑模式切换">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="nav-btn" onclick="showFavorites()" title="收藏夹">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+                <button class="nav-btn" onclick="showAbout()" title="关于本站">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <section class="entity-list-page" style="padding: 120px 2rem 80px; min-height: calc(100vh - 200px);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto;">
+            <!-- 面包屑导航 -->
+            <div class="breadcrumb" style="margin-bottom: 30px; color: #9090a0; font-size: 14px;">
+                <a href="index.html" style="color: #00d4ff; text-decoration: none;">首页</a>
+                <span style="margin: 0 10px;">/</span>
+                <a id="breadcrumbCategory" href="#" style="color: #00d4ff; text-decoration: none;">加载中...</a>
+                <span style="margin: 0 10px;">/</span>
+                <span id="breadcrumbCurrent">加载中...</span>
+            </div>
+            
+            <!-- 榜单信息头部 -->
+            <div id="rankingHeader" style="
+                background: rgba(15,15,25,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0,212,255,0.2);
+                border-radius: 20px;
+                padding: 40px;
+                margin-bottom: 40px;
+            ">
+                <h1 id="rankingTitle" style="
+                    font-size: 2.5rem;
+                    background: linear-gradient(135deg, #00d4ff, #c9a84c);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 15px;
+                ">加载中...</h1>
+                <p id="rankingDesc" style="color: #a0a0b5; font-size: 16px;"></p>
+            </div>
+            
+            <!-- 实体列表 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: #e0e0f6; font-size: 24px;">
+                    共 <span id="entityCount">0</span> 个实体
+                </h2>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="localSearch" placeholder="在此榜单内搜索..." style="
+                        padding: 10px 15px;
+                        background: rgba(15,15,25,0.95);
+                        border: 1px solid rgba(0,212,255,0.3);
+                        border-radius: 8px;
+                        color: #e0e0f6;
+                        font-size: 14px;
+                        width: 250px;
+                    ">
+                </div>
+            </div>
+            
+            <div id="entityGrid" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            ">
+                加载中...
+            </div>
+            
+            <!-- 加载更多 -->
+            <div id="loadMoreArea" style="text-align: center; margin-top: 40px; display: none;">
+                <button id="loadMoreBtn" onclick="loadMore()" style="
+                    padding: 12px 40px;
+                    background: linear-gradient(135deg, #00d4ff, #0099cc);
+                    border: none;
+                    border-radius: 8px;
+                    color: #0a0a0f;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">加载更多</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>🏛️ 赛博方舟 | Cyber Ark</h3>
+                    <p>人类顶级文明数字载体</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 赛博方舟 Cyber Ark. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+    // 实体列表页面逻辑
+    let navTree = [];
+    let allEntities = [];
+    let filteredEntities = [];
+    let currentPage = 0;
+    let catSlug = '';
+    let subSlug = '';
+    const PAGE_SIZE = 60;
+    
+    async function loadNavTree() {
+        try {
+            const response = await fetch('data/nav-tree.json');
+            navTree = await response.json();
+            await loadEntities();
+        } catch (error) {
+            console.error('加载数据失败:', error);
+            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败</p>';
+        }
+    }
+    
+    async function loadEntities() {
+        const urlParams = new URLSearchParams(window.location.search);
+        catSlug = urlParams.get('cat');
+        subSlug = urlParams.get('sub');
+        
+        if (!catSlug || !subSlug) {
+            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">参数错误</p>';
+            return;
+        }
+        
+        const category = navTree.find(c => c.slug === catSlug);
+        if (!category) {
+            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">分类不存在</p>';
+            return;
+        }
+        
+        const subcategory = category.subcategories.find(s => s.slug === subSlug);
+        if (!subcategory) {
+            document.getElementById('entityGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">榜单不存在</p>';
+            return;
+        }
+        
+        // 更新页面标题
+        document.title = `${subcategory.name} - ${category.name} - 赛博方舟`;
+        
+        // 更新面包屑
+        document.getElementById('breadcrumbCategory').textContent = category.name;
+        document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
+        document.getElementById('breadcrumbCurrent').textContent = subcategory.name;
+        
+        // 更新头部信息
+        document.getElementById('rankingTitle').textContent = subcategory.name;
+        document.getElementById('rankingDesc').textContent = `分类: ${category.name} · ${category.icon}`;
+        
+        // 加载实体数据
+        try {
+            const response = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+            if (!response.ok) {
+                throw new Error('实体数据文件不存在');
+            }
+            allEntities = await response.json();
+            filteredEntities = allEntities;
+            document.getElementById('entityCount').textContent = allEntities.length;
+            
+            renderEntities();
+        } catch (error) {
+            console.error('加载实体数据失败:', error);
+            document.getElementById('entityGrid').innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <p style="color: #9090a0; font-size: 16px;">该榜单暂无实体数据</p>
+                    <p style="color: #606070; font-size: 14px; margin-top: 10px;">请稍后再来查看</p>
+                </div>
+            `;
+        }
+    }
+    
+    function renderEntities() {
+        const grid = document.getElementById('entityGrid');
+        const start = 0;
+        const end = (currentPage + 1) * PAGE_SIZE;
+        const entitiesToShow = filteredEntities.slice(start, end);
+        
+        grid.innerHTML = entitiesToShow.map((entity, index) => `
+            <div class="entity-card-item" style="animation-delay: ${Math.min(index * 0.02, 1)}s;" onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(entity.file)}'">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="
+                        width: 40px;
+                        height: 40px;
+                        background: linear-gradient(135deg, #00d4ff20, #c9a84c20);
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.2rem;
+                    ">📄</div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h4 style="color: #e0e0f6; font-size: 0.95rem; font-weight: 500; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${entity.name}</h4>
+                        <p style="color: #707080; font-size: 0.8rem; margin: 4px 0 0 0;">${entity.file}</p>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+        `).join('');
+        
+        // 显示/隐藏加载更多按钮
+        const loadMoreArea = document.getElementById('loadMoreArea');
+        if (end < filteredEntities.length) {
+            loadMoreArea.style.display = 'block';
+        } else {
+            loadMoreArea.style.display = 'none';
+        }
+    }
+    
+    function loadMore() {
+        currentPage++;
+        renderEntities();
+    }
+    
+    // 本地搜索
+    document.addEventListener('DOMContentLoaded', function() {
+        const localSearch = document.getElementById('localSearch');
+        if (localSearch) {
+            localSearch.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) {
+                    filteredEntities = allEntities;
+                } else {
+                    filteredEntities = allEntities.filter(entity => 
+                        entity.name.toLowerCase().includes(query) ||
+                        entity.file.toLowerCase().includes(query)
+                    );
+                }
+                currentPage = 0;
+                renderEntities();
+                document.getElementById('entityCount').textContent = filteredEntities.length;
+            });
+        }
+    });
+    
+    // 页面加载完成后渲染
+    document.addEventListener('DOMContentLoaded', loadNavTree);
+    </script>
+</body>
+</html>

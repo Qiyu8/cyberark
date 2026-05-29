@@ -1,0 +1,1162 @@
+[
+  {
+    "name": "00-index",
+    "file": "00-index.md"
+  },
+  {
+    "name": "001-MIT",
+    "file": "001-MIT.md"
+  },
+  {
+    "name": "002-Imperial-College",
+    "file": "002-Imperial-College.md"
+  },
+  {
+    "name": "003-Oxford",
+    "file": "003-Oxford.md"
+  },
+  {
+    "name": "004-Harvard",
+    "file": "004-Harvard.md"
+  },
+  {
+    "name": "005-Cambridge",
+    "file": "005-Cambridge.md"
+  },
+  {
+    "name": "006-Stanford",
+    "file": "006-Stanford.md"
+  },
+  {
+    "name": "007-ETH-Zurich",
+    "file": "007-ETH-Zurich.md"
+  },
+  {
+    "name": "008-NUS",
+    "file": "008-NUS.md"
+  },
+  {
+    "name": "009-Caltech",
+    "file": "009-Caltech.md"
+  },
+  {
+    "name": "010-UCL",
+    "file": "010-UCL.md"
+  },
+  {
+    "name": "011-UChicago",
+    "file": "011-UChicago.md"
+  },
+  {
+    "name": "012-Princeton",
+    "file": "012-Princeton.md"
+  },
+  {
+    "name": "013-Penn",
+    "file": "013-Penn.md"
+  },
+  {
+    "name": "014-Yale",
+    "file": "014-Yale.md"
+  },
+  {
+    "name": "015-JHU",
+    "file": "015-JHU.md"
+  },
+  {
+    "name": "016-Peking-University",
+    "file": "016-Peking-University.md"
+  },
+  {
+    "name": "017-Tsinghua-University",
+    "file": "017-Tsinghua-University.md"
+  },
+  {
+    "name": "018-Columbia",
+    "file": "018-Columbia.md"
+  },
+  {
+    "name": "019-Edinburgh",
+    "file": "019-Edinburgh.md"
+  },
+  {
+    "name": "020-UTokyo",
+    "file": "020-UTokyo.md"
+  },
+  {
+    "name": "021-UofT",
+    "file": "021-UofT.md"
+  },
+  {
+    "name": "022-TUM",
+    "file": "022-TUM.md"
+  },
+  {
+    "name": "023-Melbourne",
+    "file": "023-Melbourne.md"
+  },
+  {
+    "name": "024-HKU",
+    "file": "024-HKU.md"
+  },
+  {
+    "name": "025-UC-Berkeley",
+    "file": "025-UC-Berkeley.md"
+  },
+  {
+    "name": "026-Cornell",
+    "file": "026-Cornell.md"
+  },
+  {
+    "name": "027-Shanghai-Jiao-Tong-University",
+    "file": "027-Shanghai-Jiao-Tong-University.md"
+  },
+  {
+    "name": "028-xinUniversity",
+    "file": "028-xinUniversity.md"
+  },
+  {
+    "name": "029-nyangligongUniversity",
+    "file": "029-nyangligongUniversity.md"
+  },
+  {
+    "name": "030-ParisGaodengArchitectFanCollege",
+    "file": "030-ParisGaodengArchitectFanCollege.md"
+  },
+  {
+    "name": "031-ManchesTeUniversity",
+    "file": "031-ManchesTeUniversity.md"
+  },
+  {
+    "name": "032-Zhejiang-University",
+    "file": "032-Zhejiang-University.md"
+  },
+  {
+    "name": "033-mNasUniversity",
+    "file": "033-mNasUniversity.md"
+  },
+  {
+    "name": "034-SeoulNationalUniversity",
+    "file": "034-SeoulNationalUniversity.md"
+  },
+  {
+    "name": "035-AmsTedanUniversity",
+    "file": "035-AmsTedanUniversity.md"
+  },
+  {
+    "name": "036-Fudan-University",
+    "file": "036-Fudan-University.md"
+  },
+  {
+    "name": "037-msKeNationalUniversity",
+    "file": "037-msKeNationalUniversity.md"
+  },
+  {
+    "name": "038-XinnwersUniversity",
+    "file": "038-XinnwersUniversity.md"
+  },
+  {
+    "name": "039-LondonCountrykCollege",
+    "file": "039-LondonCountrykCollege.md"
+  },
+  {
+    "name": "040-DuKeUniversity",
+    "file": "040-DuKeUniversity.md"
+  },
+  {
+    "name": "041-MichiganUniversityAnnaFortCampus",
+    "file": "041-MichiganUniversityAnnaFortCampus.md"
+  },
+  {
+    "name": "042-KanjmlUniversity",
+    "file": "042-KanjmlUniversity.md"
+  },
+  {
+    "name": "043-bListUniversity",
+    "file": "043-bListUniversity.md"
+  },
+  {
+    "name": "044-CaliforniaUniversitylshanyanCampus",
+    "file": "044-CaliforniaUniversitylshanyanCampus.md"
+  },
+  {
+    "name": "045-NWU",
+    "file": "045-NWU.md"
+  },
+  {
+    "name": "046-hwUniversity",
+    "file": "046-hwUniversity.md"
+  },
+  {
+    "name": "047-jdouUniversity",
+    "file": "047-jdouUniversity.md"
+  },
+  {
+    "name": "048-deKessUniversityAostingCampus",
+    "file": "048-deKessUniversityAostingCampus.md"
+  },
+  {
+    "name": "049-kunslUniversity",
+    "file": "049-kunslUniversity.md"
+  },
+  {
+    "name": "050-LausannelianbangligongCollege",
+    "file": "050-LausannelianbangligongCollege.md"
+  },
+  {
+    "name": "051-lwenUniversity",
+    "file": "051-lwenUniversity.md"
+  },
+  {
+    "name": "052-Hong-KongTechUniversity",
+    "file": "052-Hong-KongTechUniversity.md"
+  },
+  {
+    "name": "053-herxjUniversity",
+    "file": "053-herxjUniversity.md"
+  },
+  {
+    "name": "054-daierovTeligongUniversity",
+    "file": "054-daierovTeligongUniversity.md"
+  },
+  {
+    "name": "055-mjerUniversity",
+    "file": "055-mjerUniversity.md"
+  },
+  {
+    "name": "056-BerlinhongFortUniversity",
+    "file": "056-BerlinhongFortUniversity.md"
+  },
+  {
+    "name": "057-buldianColumbia",
+    "file": "057-buldianColumbia.md"
+  },
+  {
+    "name": "058-USTC",
+    "file": "058-USTC.md"
+  },
+  {
+    "name": "059-bxifnyzhouliUniversity",
+    "file": "059-bxifnyzhouliUniversity.md"
+  },
+  {
+    "name": "060-KaLuolsKamedicineInstitute",
+    "file": "060-KaLuolsKamedicineInstitute.md"
+  },
+  {
+    "name": "061-yansUniversity",
+    "file": "061-yansUniversity.md"
+  },
+  {
+    "name": "062-ldUniversity",
+    "file": "062-ldUniversity.md"
+  },
+  {
+    "name": "063-ParisligongCollege",
+    "file": "063-ParisligongCollege.md"
+  },
+  {
+    "name": "064-Nanjing-University",
+    "file": "064-Nanjing-University.md"
+  },
+  {
+    "name": "065-gTeUniversity",
+    "file": "065-gTeUniversity.md"
+  },
+  {
+    "name": "066-gbHagUniversity",
+    "file": "066-gbHagUniversity.md"
+  },
+  {
+    "name": "067-AosluUniversity",
+    "file": "067-AosluUniversity.md"
+  },
+  {
+    "name": "068-wyeNaUniversity",
+    "file": "068-wyeNaUniversity.md"
+  },
+  {
+    "name": "069-SeadeFortUniversity",
+    "file": "069-SeadeFortUniversity.md"
+  },
+  {
+    "name": "070-AoKelUniversity",
+    "file": "070-AoKelUniversity.md"
+  },
+  {
+    "name": "071-Hong-KongZhongwUniversity",
+    "file": "071-Hong-KongZhongwUniversity.md"
+  },
+  {
+    "name": "072-SaintPaulUniversity",
+    "file": "072-SaintPaulUniversity.md"
+  },
+  {
+    "name": "073-bKaLuolaiNaUniversityChurchMountainCampus",
+    "file": "073-bKaLuolaiNaUniversityChurchMountainCampus.md"
+  },
+  {
+    "name": "074-HaerbinindustryUniversity",
+    "file": "074-HaerbinindustryUniversity.md"
+  },
+  {
+    "name": "075-wupsLaUniversity",
+    "file": "075-wupsLaUniversity.md"
+  },
+  {
+    "name": "076-bsLuonUniversity",
+    "file": "076-bsLuonUniversity.md"
+  },
+  {
+    "name": "077-gLasgUniversity",
+    "file": "077-gLasgUniversity.md"
+  },
+  {
+    "name": "078-DulUniversity",
+    "file": "078-DulUniversity.md"
+  },
+  {
+    "name": "079-YilnYiUniversityebNaxiangbinCampus",
+    "file": "079-YilnYiUniversityebNaxiangbinCampus.md"
+  },
+  {
+    "name": "080-DabanUniversity",
+    "file": "080-DabanUniversity.md"
+  },
+  {
+    "name": "081-blserziyouUniversity",
+    "file": "081-blserziyouUniversity.md"
+  },
+  {
+    "name": "082-bsdUniversity",
+    "file": "082-bsdUniversity.md"
+  },
+  {
+    "name": "083-MingnSudUniversityshuangCityCampus",
+    "file": "083-MingnSudUniversityshuangCityCampus.md"
+  },
+  {
+    "name": "084-chaermsligongUniversity",
+    "file": "084-chaermsligongUniversity.md"
+  },
+  {
+    "name": "085-puxianggongKeUniversity",
+    "file": "085-puxianggongKeUniversity.md"
+  },
+  {
+    "name": "086-SCUT",
+    "file": "086-SCUT.md"
+  },
+  {
+    "name": "087-hshengdUniversitySaintLewisCampus",
+    "file": "087-hshengdUniversitySaintLewisCampus.md"
+  },
+  {
+    "name": "088-Wuhan-University",
+    "file": "088-Wuhan-University.md"
+  },
+  {
+    "name": "089-hshengdUniversityxyatCampus",
+    "file": "089-hshengdUniversityxyatCampus.md"
+  },
+  {
+    "name": "090-KadovUniversity",
+    "file": "090-KadovUniversity.md"
+  },
+  {
+    "name": "091-Tongji-University",
+    "file": "091-Tongji-University.md"
+  },
+  {
+    "name": "092-mKemsTeUniversity",
+    "file": "092-mKemsTeUniversity.md"
+  },
+  {
+    "name": "093-SaintPeterFortNationalUniversity",
+    "file": "093-SaintPeterFortNationalUniversity.md"
+  },
+  {
+    "name": "094-sLiovligongUniversity",
+    "file": "094-sLiovligongUniversity.md"
+  },
+  {
+    "name": "095-NorwayTechUniversity",
+    "file": "095-NorwayTechUniversity.md"
+  },
+  {
+    "name": "096-mkaoruiUniversity",
+    "file": "096-mkaoruiUniversity.md"
+  },
+  {
+    "name": "097-douBerlinSaint31University",
+    "file": "097-douBerlinSaint31University.md"
+  },
+  {
+    "name": "098-SaintAndrewsUniversity",
+    "file": "098-SaintAndrewsUniversity.md"
+  },
+  {
+    "name": "099-yiselligongCollege",
+    "file": "099-yiselligongCollege.md"
+  },
+  {
+    "name": "100-yinduligongCollegemengmaiCampus",
+    "file": "100-yinduligongCollegemengmaiCampus.md"
+  },
+  {
+    "name": "AmsTedanUniversity",
+    "file": "AmsTedanUniversity.md"
+  },
+  {
+    "name": "AohusUniversity",
+    "file": "AohusUniversity.md"
+  },
+  {
+    "name": "AosluUniversity",
+    "file": "AosluUniversity.md"
+  },
+  {
+    "name": "AustraliaNationalUniversity",
+    "file": "AustraliaNationalUniversity.md"
+  },
+  {
+    "name": "BIT",
+    "file": "BIT.md"
+  },
+  {
+    "name": "BJTU",
+    "file": "BJTU.md"
+  },
+  {
+    "name": "Beijing-Normal-University",
+    "file": "Beijing-Normal-University.md"
+  },
+  {
+    "name": "BeijingSportsUniversity",
+    "file": "BeijingSportsUniversity.md"
+  },
+  {
+    "name": "BeijingZhongyyaoUniversity",
+    "file": "BeijingZhongyyaoUniversity.md"
+  },
+  {
+    "name": "BeijinghangkongaerospaceUniversity",
+    "file": "BeijinghangkongaerospaceUniversity.md"
+  },
+  {
+    "name": "BeijinghuagongUniversity",
+    "file": "BeijinghuagongUniversity.md"
+  },
+  {
+    "name": "BeijingindustryUniversity",
+    "file": "BeijingindustryUniversity.md"
+  },
+  {
+    "name": "BeijinglyUniversity",
+    "file": "BeijinglyUniversity.md"
+  },
+  {
+    "name": "BeijingwaiCountryyuUniversity",
+    "file": "BeijingwaiCountryyuUniversity.md"
+  },
+  {
+    "name": "BeijingxiehemedicineInstitute",
+    "file": "BeijingxiehemedicineInstitute.md"
+  },
+  {
+    "name": "BeijingyoudUniversity",
+    "file": "BeijingyoudUniversity.md"
+  },
+  {
+    "name": "BerlinhongFortUniversity",
+    "file": "BerlinhongFortUniversity.md"
+  },
+  {
+    "name": "BerlinziyouUniversity",
+    "file": "BerlinziyouUniversity.md"
+  },
+  {
+    "name": "CAU",
+    "file": "CAU.md"
+  },
+  {
+    "name": "CQU",
+    "file": "CQU.md"
+  },
+  {
+    "name": "CSU",
+    "file": "CSU.md"
+  },
+  {
+    "name": "CUG",
+    "file": "CUG.md"
+  },
+  {
+    "name": "CUMT",
+    "file": "CUMT.md"
+  },
+  {
+    "name": "CaliforniaUniversitySaintdygCampus",
+    "file": "CaliforniaUniversitySaintdygCampus.md"
+  },
+  {
+    "name": "CaliforniaUniversitylshanyanCampus",
+    "file": "CaliforniaUniversitylshanyanCampus.md"
+  },
+  {
+    "name": "Caltech",
+    "file": "Caltech.md"
+  },
+  {
+    "name": "Cambridge",
+    "file": "Cambridge.md"
+  },
+  {
+    "name": "ChangAnUniversity",
+    "file": "ChangAnUniversity.md"
+  },
+  {
+    "name": "ChinasyouUniversity",
+    "file": "ChinasyouUniversity.md"
+  },
+  {
+    "name": "ChinazhengfUniversity",
+    "file": "ChinazhengfUniversity.md"
+  },
+  {
+    "name": "Columbia",
+    "file": "Columbia.md"
+  },
+  {
+    "name": "Cornell",
+    "file": "Cornell.md"
+  },
+  {
+    "name": "DHU",
+    "file": "DHU.md"
+  },
+  {
+    "name": "DLUT",
+    "file": "DLUT.md"
+  },
+  {
+    "name": "DabanUniversity",
+    "file": "DabanUniversity.md"
+  },
+  {
+    "name": "DuKeUniversity",
+    "file": "DuKeUniversity.md"
+  },
+  {
+    "name": "DulUniversity",
+    "file": "DulUniversity.md"
+  },
+  {
+    "name": "ECNU",
+    "file": "ECNU.md"
+  },
+  {
+    "name": "ECUST",
+    "file": "ECUST.md"
+  },
+  {
+    "name": "ETH-Zurich",
+    "file": "ETH-Zurich.md"
+  },
+  {
+    "name": "Edinburgh",
+    "file": "Edinburgh.md"
+  },
+  {
+    "name": "FZU",
+    "file": "FZU.md"
+  },
+  {
+    "name": "Fudan-University",
+    "file": "Fudan-University.md"
+  },
+  {
+    "name": "GXU",
+    "file": "GXU.md"
+  },
+  {
+    "name": "GZU",
+    "file": "GZU.md"
+  },
+  {
+    "name": "GaoliUniversity",
+    "file": "GaoliUniversity.md"
+  },
+  {
+    "name": "HEU",
+    "file": "HEU.md"
+  },
+  {
+    "name": "HKU",
+    "file": "HKU.md"
+  },
+  {
+    "name": "HNU",
+    "file": "HNU.md"
+  },
+  {
+    "name": "HUST",
+    "file": "HUST.md"
+  },
+  {
+    "name": "HaerbinindustryUniversity",
+    "file": "HaerbinindustryUniversity.md"
+  },
+  {
+    "name": "Harvard",
+    "file": "Harvard.md"
+  },
+  {
+    "name": "Hong-KongTechUniversity",
+    "file": "Hong-KongTechUniversity.md"
+  },
+  {
+    "name": "Hong-KongZhongwUniversity",
+    "file": "Hong-KongZhongwUniversity.md"
+  },
+  {
+    "name": "IMU",
+    "file": "IMU.md"
+  },
+  {
+    "name": "Imperial-College",
+    "file": "Imperial-College.md"
+  },
+  {
+    "name": "JLU",
+    "file": "JLU.md"
+  },
+  {
+    "name": "JNU",
+    "file": "JNU.md"
+  },
+  {
+    "name": "JU",
+    "file": "JU.md"
+  },
+  {
+    "name": "Johns·hopjsUniversity",
+    "file": "Johns·hopjsUniversity.md"
+  },
+  {
+    "name": "KanjmlUniversity",
+    "file": "KanjmlUniversity.md"
+  },
+  {
+    "name": "LakenArchitectFanUniversity",
+    "file": "LakenArchitectFanUniversity.md"
+  },
+  {
+    "name": "LakenUniversity",
+    "file": "LakenUniversity.md"
+  },
+  {
+    "name": "Lanzhou-University",
+    "file": "Lanzhou-University.md"
+  },
+  {
+    "name": "LausannelianbangligongCollege",
+    "file": "LausannelianbangligongCollege.md"
+  },
+  {
+    "name": "LondonCountrykCollege",
+    "file": "LondonCountrykCollege.md"
+  },
+  {
+    "name": "LondonzhengzhiEconomicsInstitute",
+    "file": "LondonzhengzhiEconomicsInstitute.md"
+  },
+  {
+    "name": "MIT",
+    "file": "MIT.md"
+  },
+  {
+    "name": "ManchesTeUniversity",
+    "file": "ManchesTeUniversity.md"
+  },
+  {
+    "name": "Melbourne",
+    "file": "Melbourne.md"
+  },
+  {
+    "name": "MichiganUniversity",
+    "file": "MichiganUniversity.md"
+  },
+  {
+    "name": "NCU",
+    "file": "NCU.md"
+  },
+  {
+    "name": "NENU",
+    "file": "NENU.md"
+  },
+  {
+    "name": "NEU",
+    "file": "NEU.md"
+  },
+  {
+    "name": "NUS",
+    "file": "NUS.md"
+  },
+  {
+    "name": "NUST",
+    "file": "NUST.md"
+  },
+  {
+    "name": "NWAFU",
+    "file": "NWAFU.md"
+  },
+  {
+    "name": "NWU",
+    "file": "NWU.md"
+  },
+  {
+    "name": "NXU",
+    "file": "NXU.md"
+  },
+  {
+    "name": "Nanjing-University",
+    "file": "Nanjing-University.md"
+  },
+  {
+    "name": "Nankai-University",
+    "file": "Nankai-University.md"
+  },
+  {
+    "name": "New-YorkUniversity",
+    "file": "New-YorkUniversity.md"
+  },
+  {
+    "name": "OUC",
+    "file": "OUC.md"
+  },
+  {
+    "name": "Oxford",
+    "file": "Oxford.md"
+  },
+  {
+    "name": "ParissKeRayUniversity",
+    "file": "ParissKeRayUniversity.md"
+  },
+  {
+    "name": "PariswliResearchUniversity",
+    "file": "PariswliResearchUniversity.md"
+  },
+  {
+    "name": "Peking-University",
+    "file": "Peking-University.md"
+  },
+  {
+    "name": "Penn",
+    "file": "Penn.md"
+  },
+  {
+    "name": "Princeton",
+    "file": "Princeton.md"
+  },
+  {
+    "name": "QHU",
+    "file": "QHU.md"
+  },
+  {
+    "name": "RiverSeaUniversity",
+    "file": "RiverSeaUniversity.md"
+  },
+  {
+    "name": "RiverbindustryUniversity",
+    "file": "RiverbindustryUniversity.md"
+  },
+  {
+    "name": "SCUT",
+    "file": "SCUT.md"
+  },
+  {
+    "name": "SDU",
+    "file": "SDU.md"
+  },
+  {
+    "name": "SEU",
+    "file": "SEU.md"
+  },
+  {
+    "name": "SHU",
+    "file": "SHU.md"
+  },
+  {
+    "name": "SHZU",
+    "file": "SHZU.md"
+  },
+  {
+    "name": "SNU",
+    "file": "SNU.md"
+  },
+  {
+    "name": "SU",
+    "file": "SU.md"
+  },
+  {
+    "name": "SWJTU",
+    "file": "SWJTU.md"
+  },
+  {
+    "name": "SaintAndrewsUniversity",
+    "file": "SaintAndrewsUniversity.md"
+  },
+  {
+    "name": "SeadeFortUniversity",
+    "file": "SeadeFortUniversity.md"
+  },
+  {
+    "name": "SeoulNationalUniversity",
+    "file": "SeoulNationalUniversity.md"
+  },
+  {
+    "name": "Shanghai-Jiao-Tong-University",
+    "file": "Shanghai-Jiao-Tong-University.md"
+  },
+  {
+    "name": "ShanghaiZhongyyaoUniversity",
+    "file": "ShanghaiZhongyyaoUniversity.md"
+  },
+  {
+    "name": "ShanghaicaijUniversity",
+    "file": "ShanghaicaijUniversity.md"
+  },
+  {
+    "name": "Sichuan-University",
+    "file": "Sichuan-University.md"
+  },
+  {
+    "name": "Stanford",
+    "file": "Stanford.md"
+  },
+  {
+    "name": "Sun-Yat-sen-University",
+    "file": "Sun-Yat-sen-University.md"
+  },
+  {
+    "name": "TUM",
+    "file": "TUM.md"
+  },
+  {
+    "name": "Tianjin-University",
+    "file": "Tianjin-University.md"
+  },
+  {
+    "name": "TokyoindustryUniversity",
+    "file": "TokyoindustryUniversity.md"
+  },
+  {
+    "name": "Tongji-University",
+    "file": "Tongji-University.md"
+  },
+  {
+    "name": "Tsinghua-University",
+    "file": "Tsinghua-University.md"
+  },
+  {
+    "name": "UC-Berkeley",
+    "file": "UC-Berkeley.md"
+  },
+  {
+    "name": "UCL",
+    "file": "UCL.md"
+  },
+  {
+    "name": "UChicago",
+    "file": "UChicago.md"
+  },
+  {
+    "name": "UESTC",
+    "file": "UESTC.md"
+  },
+  {
+    "name": "USTB",
+    "file": "USTB.md"
+  },
+  {
+    "name": "USTC",
+    "file": "USTC.md"
+  },
+  {
+    "name": "UTokyo",
+    "file": "UTokyo.md"
+  },
+  {
+    "name": "UofT",
+    "file": "UofT.md"
+  },
+  {
+    "name": "WUT",
+    "file": "WUT.md"
+  },
+  {
+    "name": "Wuhan-University",
+    "file": "Wuhan-University.md"
+  },
+  {
+    "name": "XJU",
+    "file": "XJU.md"
+  },
+  {
+    "name": "Xi-an-Jiao-Tong-University",
+    "file": "Xi-an-Jiao-Tong-University.md"
+  },
+  {
+    "name": "Xiamen-University",
+    "file": "Xiamen-University.md"
+  },
+  {
+    "name": "Xidian-University",
+    "file": "Xidian-University.md"
+  },
+  {
+    "name": "XinnwersUniversity",
+    "file": "XinnwersUniversity.md"
+  },
+  {
+    "name": "YNU",
+    "file": "YNU.md"
+  },
+  {
+    "name": "Yale",
+    "file": "Yale.md"
+  },
+  {
+    "name": "YilnYiUniversityebNa-xiangbinCampus",
+    "file": "YilnYiUniversityebNa-xiangbinCampus.md"
+  },
+  {
+    "name": "ZZU",
+    "file": "ZZU.md"
+  },
+  {
+    "name": "Zhejiang-University",
+    "file": "Zhejiang-University.md"
+  },
+  {
+    "name": "ZhongncaijzhengfUniversity",
+    "file": "ZhongncaijzhengfUniversity.md"
+  },
+  {
+    "name": "ZhongyangminzuUniversity",
+    "file": "ZhongyangminzuUniversity.md"
+  },
+  {
+    "name": "ZurichUniversity",
+    "file": "ZurichUniversity.md"
+  },
+  {
+    "name": "bKaLuolaiNaUniversityChurchMountainCampus",
+    "file": "bKaLuolaiNaUniversityChurchMountainCampus.md"
+  },
+  {
+    "name": "bListUniversity",
+    "file": "bListUniversity.md"
+  },
+  {
+    "name": "bMinghanUniversity",
+    "file": "bMinghanUniversity.md"
+  },
+  {
+    "name": "bSeadUniversity",
+    "file": "bSeadUniversity.md"
+  },
+  {
+    "name": "blUniversity",
+    "file": "blUniversity.md"
+  },
+  {
+    "name": "buldianColumbia",
+    "file": "buldianColumbia.md"
+  },
+  {
+    "name": "bxifnyzhouliUniversity",
+    "file": "bxifnyzhouliUniversity.md"
+  },
+  {
+    "name": "byinsalsUniversity",
+    "file": "byinsalsUniversity.md"
+  },
+  {
+    "name": "chengjunHallUniversity",
+    "file": "chengjunHallUniversity.md"
+  },
+  {
+    "name": "daierovTeligongUniversity",
+    "file": "daierovTeligongUniversity.md"
+  },
+  {
+    "name": "deKessUniversityAostingCampus",
+    "file": "deKessUniversityAostingCampus.md"
+  },
+  {
+    "name": "duiwaiEconomyTradeUniversity",
+    "file": "duiwaiEconomyTradeUniversity.md"
+  },
+  {
+    "name": "ehligongUniversity",
+    "file": "ehligongUniversity.md"
+  },
+  {
+    "name": "gLasgUniversity",
+    "file": "gLasgUniversity.md"
+  },
+  {
+    "name": "gLuongUniversity",
+    "file": "gLuongUniversity.md"
+  },
+  {
+    "name": "gbHagUniversity",
+    "file": "gbHagUniversity.md"
+  },
+  {
+    "name": "hZhongnongyUniversity",
+    "file": "hZhongnongyUniversity.md"
+  },
+  {
+    "name": "hanCountryScienceTechnologyInstitute",
+    "file": "hanCountryScienceTechnologyInstitute.md"
+  },
+  {
+    "name": "hbdliUniversity",
+    "file": "hbdliUniversity.md"
+  },
+  {
+    "name": "hefeiindustryUniversity",
+    "file": "hefeiindustryUniversity.md"
+  },
+  {
+    "name": "hnArchitectFanUniversity",
+    "file": "hnArchitectFanUniversity.md"
+  },
+  {
+    "name": "hwUniversity",
+    "file": "hwUniversity.md"
+  },
+  {
+    "name": "jdouUniversity",
+    "file": "jdouUniversity.md"
+  },
+  {
+    "name": "kunslUniversity",
+    "file": "kunslUniversity.md"
+  },
+  {
+    "name": "ldUniversity",
+    "file": "ldUniversity.md"
+  },
+  {
+    "name": "liaonUniversity",
+    "file": "liaonUniversity.md"
+  },
+  {
+    "name": "luTedanYiLasmsUniversity",
+    "file": "luTedanYiLasmsUniversity.md"
+  },
+  {
+    "name": "lwenUniversity",
+    "file": "lwenUniversity.md"
+  },
+  {
+    "name": "mNashUniversity",
+    "file": "mNashUniversity.md"
+  },
+  {
+    "name": "mjerUniversity",
+    "file": "mjerUniversity.md"
+  },
+  {
+    "name": "munHeiUniversity",
+    "file": "munHeiUniversity.md"
+  },
+  {
+    "name": "nAnpdUniversity",
+    "file": "nAnpdUniversity.md"
+  },
+  {
+    "name": "njArchitectFanUniversity",
+    "file": "njArchitectFanUniversity.md"
+  },
+  {
+    "name": "njhangkongaerospaceUniversity",
+    "file": "njhangkongaerospaceUniversity.md"
+  },
+  {
+    "name": "njnongyUniversity",
+    "file": "njnongyUniversity.md"
+  },
+  {
+    "name": "njxinxiEngineeringUniversity",
+    "file": "njxinxiEngineeringUniversity.md"
+  },
+  {
+    "name": "nyangligongUniversity",
+    "file": "nyangligongUniversity.md"
+  },
+  {
+    "name": "pduUniversity",
+    "file": "pduUniversity.md"
+  },
+  {
+    "name": "puxiangTechUniversity",
+    "file": "puxiangTechUniversity.md"
+  },
+  {
+    "name": "taiTheorygongUniversity",
+    "file": "taiTheorygongUniversity.md"
+  },
+  {
+    "name": "taiwanUniversity",
+    "file": "taiwanUniversity.md"
+  },
+  {
+    "name": "wskxingUniversitymdXunCampus",
+    "file": "wskxingUniversitymdXunCampus.md"
+  },
+  {
+    "name": "wudeLezhiUniversity",
+    "file": "wudeLezhiUniversity.md"
+  },
+  {
+    "name": "wupsLaUniversity",
+    "file": "wupsLaUniversity.md"
+  },
+  {
+    "name": "xbindustryUniversity",
+    "file": "xbindustryUniversity.md"
+  },
+  {
+    "name": "xcangUniversity",
+    "file": "xcangUniversity.md"
+  },
+  {
+    "name": "xinUniversity",
+    "file": "xinUniversity.md"
+  },
+  {
+    "name": "xnUniversity",
+    "file": "xnUniversity.md"
+  },
+  {
+    "name": "xncaijUniversity",
+    "file": "xncaijUniversity.md"
+  },
+  {
+    "name": "yanbianUniversity",
+    "file": "yanbianUniversity.md"
+  },
+  {
+    "name": "yansUniversity",
+    "file": "yansUniversity.md"
+  },
+  {
+    "name": "zuozhiyligongCollege",
+    "file": "zuozhiyligongCollege.md"
+  }
+]

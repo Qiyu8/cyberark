@@ -1005,3 +1005,166 @@ body.dark-mode {
 .text-cyan { color: var(--tech-cyan); }
 .mt-2 { margin-top: 2rem; }
 .mb-2 { margin-bottom: 2rem; }
+
+/* ========== 榜单卡片样式 ========== */
+.ranking-card {
+    background: rgba(15,15,25,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 16px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ranking-card:hover {
+    border-color: var(--tech-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+}
+
+.ranking-card h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.ranking-card .entity-count {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--tech-cyan);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ========== 实体列表卡片样式 ========== */
+.entity-item-card {
+    background: rgba(15,15,25,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 12px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.entity-item-card:hover {
+    border-color: rgba(0,212,255,0.6);
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.15);
+}
+
+.entity-item-card .entity-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(201,168,76,0.15));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.entity-item-card .entity-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.entity-item-card .entity-name {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.entity-item-card .entity-file {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.entity-item-card .entity-arrow {
+    color: var(--tech-cyan);
+    flex-shrink: 0;
+}
+
+/* ========== 分类头部样式 ========== */
+.category-header {
+    background: rgba(15,15,25,0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+}
+
+/* ========== 面包屑导航 ========== */
+.breadcrumb {
+    margin-bottom: 30px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: var(--tech-cyan);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--dark-gold);
+}
+
+/* ========== 榜单网格布局 ========== */
+.rankings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* ========== 实体网格布局 ========== */
+.entities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* ========== 动画 ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 响应式补充 ========== */
+@media (max-width: 768px) {
+    .rankings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .entities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-header {
+        padding: 25px;
+    }
+    
+    #categoryTitle {
+        font-size: 2rem;
+    }
+}

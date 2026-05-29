@@ -1,0 +1,1448 @@
+[
+  {
+    "slug": "architecture",
+    "name": "建筑",
+    "icon": "🏗️",
+    "color": "#7F8C8D",
+    "subcategoryCount": 6,
+    "entityCount": 244,
+    "subcategories": [
+      {
+        "slug": "famous-ancient-city-wallsTop30",
+        "name": "Famous Ancient City Walls",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-bridgesTop50",
+        "name": "Famous Bridges",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-clock-towersTop30",
+        "name": "Famous Clock Towers",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-palacesTop30",
+        "name": "Famous Palaces",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "most-fantastic-castlesTop50",
+        "name": "Most Fantastic Castles",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "skyscrapers",
+        "name": "Skyscrapers",
+        "entityCount": 50,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "art",
+    "name": "艺术",
+    "icon": "🎨",
+    "color": "#E74C3C",
+    "subcategoryCount": 17,
+    "entityCount": 691,
+    "subcategories": [
+      {
+        "slug": "architectural-art",
+        "name": "Architectural Art",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "auction-masterpieces",
+        "name": "Auction Masterpieces",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "classical-art",
+        "name": "Classical Art",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "contemporary-art",
+        "name": "Contemporary Art",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "dance",
+        "name": "Dance",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "design",
+        "name": "Design",
+        "entityCount": 73,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-museumsTop30",
+        "name": "Famous Museums",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "most-expensive-artTop20",
+        "name": "Most Expensive Art",
+        "entityCount": 20,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "most-famous-buildingsTop50",
+        "name": "Most Famous Buildings",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "music",
+        "name": "Music",
+        "entityCount": 93,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "opera",
+        "name": "Opera",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "painting",
+        "name": "Painting",
+        "entityCount": 104,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "painting-calligraphy",
+        "name": "Painting Calligraphy",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "photography",
+        "name": "Photography",
+        "entityCount": 51,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sculpture",
+        "name": "Sculpture",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-artistsTop100",
+        "name": "Top Artists",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-design-awardsTop20",
+        "name": "Top Design Awards",
+        "entityCount": 20,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "business",
+    "name": "商业",
+    "icon": "💼",
+    "color": "#2C3E50",
+    "subcategoryCount": 5,
+    "entityCount": 454,
+    "subcategories": [
+      {
+        "slug": "GHVR",
+        "name": "Ghvr",
+        "entityCount": 51,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "billionaires",
+        "name": "Billionaires",
+        "entityCount": 200,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "entrepreneurs",
+        "name": "Entrepreneurs",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-business-schools",
+        "name": "Top Business Schools",
+        "entityCount": 51,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-investors",
+        "name": "Top Investors",
+        "entityCount": 51,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "consumption",
+    "name": "消费",
+    "icon": "🛒",
+    "color": "#D35400",
+    "subcategoryCount": 15,
+    "entityCount": 726,
+    "subcategories": [
+      {
+        "slug": "automobiles",
+        "name": "Automobiles",
+        "entityCount": 71,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "collectibles",
+        "name": "Collectibles",
+        "entityCount": 134,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "e-commerce",
+        "name": "E Commerce",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-tea-coffeeTop30",
+        "name": "Famous Tea Coffee",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "fmcg",
+        "name": "Fmcg",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "jewelry",
+        "name": "Jewelry",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "luxury-goods",
+        "name": "Luxury Goods",
+        "entityCount": 147,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "luxury-homes",
+        "name": "Luxury Homes",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nev",
+        "name": "Nev",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "pets",
+        "name": "Pets",
+        "entityCount": 22,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "retail",
+        "name": "Retail",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-hotelsTop50",
+        "name": "Top Hotels",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-michelin-restaurantsTop50",
+        "name": "Top Michelin Restaurants",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "ultra-luxury",
+        "name": "Ultra Luxury",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "yachts",
+        "name": "Yachts",
+        "entityCount": 21,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "culture",
+    "name": "文化",
+    "icon": "🎭",
+    "color": "#16A085",
+    "subcategoryCount": 13,
+    "entityCount": 587,
+    "subcategories": [
+      {
+        "slug": "academics",
+        "name": "Academics",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "art",
+        "name": "Art",
+        "entityCount": 256,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-philosophy",
+        "name": "Classical Philosophy",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cultural-heritageTop50",
+        "name": "Cultural Heritage",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "education",
+        "name": "Education",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "law",
+        "name": "Law",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "literary-award-winners",
+        "name": "Literary Award Winners",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "media",
+        "name": "Media",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-philosophy",
+        "name": "Modern Philosophy",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "philosophy",
+        "name": "Philosophy",
+        "entityCount": 102,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "thought",
+        "name": "Thought",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-museumsTop50",
+        "name": "Top Museums",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "traditional-culture",
+        "name": "Traditional Culture",
+        "entityCount": 2,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "ecology",
+    "name": "生态",
+    "icon": "🌿",
+    "color": "#229954",
+    "subcategoryCount": 1,
+    "entityCount": 48,
+    "subcategories": [
+      {
+        "slug": "endangered-animalsTop50",
+        "name": "Endangered Animals",
+        "entityCount": 48,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "economy",
+    "name": "经济",
+    "icon": "💰",
+    "color": "#F39C12",
+    "subcategoryCount": 11,
+    "entityCount": 111,
+    "subcategories": [
+      {
+        "slug": "construction",
+        "name": "Construction",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "economists",
+        "name": "Economists",
+        "entityCount": 53,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "emerging-markets",
+        "name": "Emerging Markets",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "energy-economy",
+        "name": "Energy Economy",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "entrepreneurs",
+        "name": "Entrepreneurs",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "global-financial",
+        "name": "Global Financial",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "industry",
+        "name": "Industry",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "infrastructure",
+        "name": "Infrastructure",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "investment-banksTop50",
+        "name": "Investment Banks",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "major-economies",
+        "name": "Major Economies",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "trade-logistics",
+        "name": "Trade Logistics",
+        "entityCount": 0,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "education",
+    "name": "教育",
+    "icon": "📚",
+    "color": "#9B59B6",
+    "subcategoryCount": 11,
+    "entityCount": 652,
+    "subcategories": [
+      {
+        "slug": "education-policy",
+        "name": "Education Policy",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "online-education",
+        "name": "Online Education",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "primary-education",
+        "name": "Primary Education",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-business-schoolsTop50",
+        "name": "Top Business Schools",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-high-schools",
+        "name": "Top High Schools",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-law-schoolsTop50",
+        "name": "Top Law Schools",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-music-schoolsTop30",
+        "name": "Top Music Schools",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-polytechnicsTop30",
+        "name": "Top Polytechnics",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-primary-schools",
+        "name": "Top Primary Schools",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-universities",
+        "name": "Top Universities",
+        "entityCount": 290,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "vocational-education",
+        "name": "Vocational Education",
+        "entityCount": 0,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "entertainment",
+    "name": "娱乐",
+    "icon": "🎮",
+    "color": "#1ABC9C",
+    "subcategoryCount": 22,
+    "entityCount": 4003,
+    "subcategories": [
+      {
+        "slug": "Anime-Characters-Top100",
+        "name": "Anime Characters ",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "Chinese-Anime-Top100",
+        "name": "Chinese Anime ",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "Japanese-Anime-Top100",
+        "name": "Japanese Anime ",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "World-Animation-Movies-Top100",
+        "name": "World Animation Movies ",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "World-National-Parks-Top50",
+        "name": "World National Parks ",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top100-Actresses",
+        "name": "World Top100 Actresses",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top100-Best-selling-Childrens-Books",
+        "name": "World Top100 Best Selling Childrens Books",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "accommodation",
+        "name": "Accommodation",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "circuses",
+        "name": "Circuses",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "film-tv",
+        "name": "Film Tv",
+        "entityCount": 209,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "games",
+        "name": "Games",
+        "entityCount": 320,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "martial-arts",
+        "name": "Martial Arts",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "movies",
+        "name": "Movies",
+        "entityCount": 832,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "music",
+        "name": "Music",
+        "entityCount": 1073,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "social-media",
+        "name": "Social Media",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sports",
+        "name": "Sports",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-100-male-actors",
+        "name": "Top 100 Male Actors",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "tourism",
+        "name": "Tourism",
+        "entityCount": 332,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "traditional-opera",
+        "name": "Traditional Opera",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "travel",
+        "name": "Travel",
+        "entityCount": 252,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "variety-shows",
+        "name": "Variety Shows",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "world-top-zoosTop50",
+        "name": "World Top Zoos",
+        "entityCount": 51,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "food",
+    "name": "美食",
+    "icon": "🍜",
+    "color": "#E74C3C",
+    "subcategoryCount": 2,
+    "entityCount": 99,
+    "subcategories": [
+      {
+        "slug": "World-Top-Restaurants-Top50",
+        "name": "World Top Restaurants ",
+        "entityCount": 49,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "wine",
+        "name": "Wine",
+        "entityCount": 50,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "healthcare",
+    "name": "医疗",
+    "icon": "🏥",
+    "color": "#27AE60",
+    "subcategoryCount": 3,
+    "entityCount": 201,
+    "subcategories": [
+      {
+        "slug": "Century-Pharmaceutical-Companies-Top50",
+        "name": "Century Pharmaceutical Companies ",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Hospitals-Top100",
+        "name": "World Top Hospitals ",
+        "entityCount": 100,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Hospitals-Top50",
+        "name": "World Top Hospitals ",
+        "entityCount": 51,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "history",
+    "name": "历史",
+    "icon": "📜",
+    "color": "#E67E22",
+    "subcategoryCount": 15,
+    "entityCount": 391,
+    "subcategories": [
+      {
+        "slug": "World-Famous-Royal-Dynasties-Top50",
+        "name": "World Famous Royal Dynasties ",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Landmark-Court-Cases-Top50",
+        "name": "World Landmark Court Cases ",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "age-of-exploration",
+        "name": "Age Of Exploration",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ancient-civilizations",
+        "name": "Ancient Civilizations",
+        "entityCount": 19,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ancient-history",
+        "name": "Ancient History",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cultural-history",
+        "name": "Cultural History",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "disasters",
+        "name": "Disasters",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "explorers",
+        "name": "Explorers",
+        "entityCount": 53,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-archaeological-sitesTop50",
+        "name": "Famous Archaeological Sites",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "history-of-science",
+        "name": "History Of Science",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "medieval-history",
+        "name": "Medieval History",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-history",
+        "name": "Modern History",
+        "entityCount": 34,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "napoleonic-era",
+        "name": "Napoleonic Era",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "war-history",
+        "name": "War History",
+        "entityCount": 72,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "wwii-history",
+        "name": "Wwii History",
+        "entityCount": 2,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "literature",
+    "name": "文学",
+    "icon": "📖",
+    "color": "#C0392B",
+    "subcategoryCount": 14,
+    "entityCount": 668,
+    "subcategories": [
+      {
+        "slug": "children-literature",
+        "name": "Children Literature",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-literature",
+        "name": "Classical Literature",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-poetry",
+        "name": "Classical Poetry",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "drama-theater",
+        "name": "Drama Theater",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-literature",
+        "name": "Modern Literature",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nobel-literature",
+        "name": "Nobel Literature",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nobel-literature-worksTop100",
+        "name": "Nobel Literature Works",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "novels",
+        "name": "Novels",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "poetry",
+        "name": "Poetry",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "prose",
+        "name": "Prose",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sci-fi",
+        "name": "Sci Fi",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-100-literati",
+        "name": "Top 100 Literati",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-50-brain-booster-books",
+        "name": "Top 50 Brain Booster Books",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-50-brain-teaser-books",
+        "name": "Top 50 Brain Teaser Books",
+        "entityCount": 51,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "military",
+    "name": "军事",
+    "icon": "⚔️",
+    "color": "#C0392B",
+    "subcategoryCount": 10,
+    "entityCount": 277,
+    "subcategories": [
+      {
+        "slug": "World-Top100-Military-Leaders",
+        "name": "World Top100 Military Leaders",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "air-forces",
+        "name": "Air Forces",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "aircraft-carriers",
+        "name": "Aircraft Carriers",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "army-forces",
+        "name": "Army Forces",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cyber-warfare",
+        "name": "Cyber Warfare",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "fighter-jets",
+        "name": "Fighter Jets",
+        "entityCount": 52,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "naval-forces",
+        "name": "Naval Forces",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nuclear-strategy",
+        "name": "Nuclear Strategy",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "submarines",
+        "name": "Submarines",
+        "entityCount": 57,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "tanks",
+        "name": "Tanks",
+        "entityCount": 31,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "politics",
+    "name": "政治",
+    "icon": "🏛️",
+    "color": "#4A90D9",
+    "subcategoryCount": 10,
+    "entityCount": 47,
+    "subcategories": [
+      {
+        "slug": "cross-strait",
+        "name": "Cross Strait",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "diplomatic-relations",
+        "name": "Diplomatic Relations",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "europe",
+        "name": "Europe",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "geopolitics",
+        "name": "Geopolitics",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "global-governance",
+        "name": "Global Governance",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "international-organizations",
+        "name": "International Organizations",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "international-relations",
+        "name": "International Relations",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "labor-movements",
+        "name": "Labor Movements",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "national-governance",
+        "name": "National Governance",
+        "entityCount": 34,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "social-movements",
+        "name": "Social Movements",
+        "entityCount": 1,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "puzzle",
+    "name": "益智",
+    "icon": "🧩",
+    "color": "#8E44AD",
+    "subcategoryCount": 1,
+    "entityCount": 51,
+    "subcategories": [
+      {
+        "slug": "educational-toys",
+        "name": "Educational Toys",
+        "entityCount": 51,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "religion",
+    "name": "宗教",
+    "icon": "🙏",
+    "color": "#8E44AD",
+    "subcategoryCount": 5,
+    "entityCount": 36,
+    "subcategories": [
+      {
+        "slug": "major-religions",
+        "name": "Major Religions",
+        "entityCount": 28,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "new-religious-movements",
+        "name": "New Religious Movements",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religion-culture",
+        "name": "Religion Culture",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religion-politics",
+        "name": "Religion Politics",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religious-organizations",
+        "name": "Religious Organizations",
+        "entityCount": 1,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "religion-culture",
+    "name": "宗教文化",
+    "icon": "🕉️",
+    "color": "#6C3483",
+    "subcategoryCount": 1,
+    "entityCount": 215,
+    "subcategories": [
+      {
+        "slug": "buddhism",
+        "name": "Buddhism",
+        "entityCount": 215,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "science",
+    "name": "科学",
+    "icon": "🔬",
+    "color": "#27AE60",
+    "subcategoryCount": 29,
+    "entityCount": 2339,
+    "subcategories": [
+      {
+        "slug": "World-Unsolved-Mysteries-Top100",
+        "name": "World Unsolved Mysteries ",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "aerospace",
+        "name": "Aerospace",
+        "entityCount": 53,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ai",
+        "name": "Ai",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "architectural-engineering",
+        "name": "Architectural Engineering",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "astronomy",
+        "name": "Astronomy",
+        "entityCount": 45,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "basic-medicine",
+        "name": "Basic Medicine",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "basic-science",
+        "name": "Basic Science",
+        "entityCount": 14,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "biology",
+        "name": "Biology",
+        "entityCount": 213,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "chemistry",
+        "name": "Chemistry",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cutting-edge-tech",
+        "name": "Cutting Edge Tech",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-astronautsTop50",
+        "name": "Famous Astronauts",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-waterfallsTop50",
+        "name": "Famous Waterfalls",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "geography",
+        "name": "Geography",
+        "entityCount": 645,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "geology",
+        "name": "Geology",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "life-sciences",
+        "name": "Life Sciences",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "materials-energy",
+        "name": "Materials Energy",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "mathematics",
+        "name": "Mathematics",
+        "entityCount": 176,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "medicine",
+        "name": "Medicine",
+        "entityCount": 53,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "natural-wondersTop50",
+        "name": "Natural Wonders",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-chemistryTop50",
+        "name": "Nobel Chemistry",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-economicsTop50",
+        "name": "Nobel Economics",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-medicineTop50",
+        "name": "Nobel Medicine",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-physicsTop50",
+        "name": "Nobel Physics",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-physiology-medicineTop50",
+        "name": "Nobel Physiology Medicine",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "physics",
+        "name": "Physics",
+        "entityCount": 152,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "psychology",
+        "name": "Psychology",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "space-exploration",
+        "name": "Space Exploration",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-scientistsTop100",
+        "name": "Top Scientists",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-spacecraftTop20",
+        "name": "Top Spacecraft",
+        "entityCount": 21,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "sports",
+    "name": "体育",
+    "icon": "⚽",
+    "color": "#2980B9",
+    "subcategoryCount": 10,
+    "entityCount": 414,
+    "subcategories": [
+      {
+        "slug": "World-Famous-Athletes-Top100",
+        "name": "World Famous Athletes ",
+        "entityCount": 100,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Football-Clubs-Top50",
+        "name": "World Top Football Clubs ",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "basketball",
+        "name": "Basketball",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "chinese-chess",
+        "name": "Chinese Chess",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-ski-runsTop30",
+        "name": "Famous Ski Runs",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "football-soccer",
+        "name": "Football Soccer",
+        "entityCount": 36,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "go-chess",
+        "name": "Go Chess",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-f1-circuitsTop20",
+        "name": "Top F1 Circuits",
+        "entityCount": 21,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-golf-coursesTop30",
+        "name": "Top Golf Courses",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-stadiumsTop30",
+        "name": "Top Stadiums",
+        "entityCount": 31,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "technology",
+    "name": "科技",
+    "icon": "💻",
+    "color": "#3498DB",
+    "subcategoryCount": 5,
+    "entityCount": 277,
+    "subcategories": [
+      {
+        "slug": "internet-resources",
+        "name": "Internet Resources",
+        "entityCount": 94,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "inventions",
+        "name": "Inventions",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "laboratories",
+        "name": "Laboratories",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-tech-companiesTop50",
+        "name": "Top Tech Companies",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "video-editing-software",
+        "name": "Video Editing Software",
+        "entityCount": 11,
+        "hasSubDirs": true
+      }
+    ]
+  }
+]

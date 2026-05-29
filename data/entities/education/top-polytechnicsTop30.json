@@ -1,0 +1,122 @@
+[
+  {
+    "name": "001_MIT",
+    "file": "001_MIT.md"
+  },
+  {
+    "name": "002_Stanford",
+    "file": "002_Stanford.md"
+  },
+  {
+    "name": "003_UC-Berkeley",
+    "file": "003_UC-Berkeley.md"
+  },
+  {
+    "name": "004_Caltech",
+    "file": "004_Caltech.md"
+  },
+  {
+    "name": "005_Cambridge",
+    "file": "005_Cambridge.md"
+  },
+  {
+    "name": "006_Oxford",
+    "file": "006_Oxford.md"
+  },
+  {
+    "name": "007_Harvard",
+    "file": "007_Harvard.md"
+  },
+  {
+    "name": "008_ETH-Zurich",
+    "file": "008_ETH-Zurich.md"
+  },
+  {
+    "name": "009_Imperial-College",
+    "file": "009_Imperial-College.md"
+  },
+  {
+    "name": "010_NUS",
+    "file": "010_NUS.md"
+  },
+  {
+    "name": "011_Tsinghua-University",
+    "file": "011_Tsinghua-University.md"
+  },
+  {
+    "name": "012_Peking-University",
+    "file": "012_Peking-University.md"
+  },
+  {
+    "name": "013_UTokyo",
+    "file": "013_UTokyo.md"
+  },
+  {
+    "name": "014_zuozhiyligongCollege",
+    "file": "014_zuozhiyligongCollege.md"
+  },
+  {
+    "name": "015_YilnYiUniversityxiangbinCampus",
+    "file": "015_YilnYiUniversityxiangbinCampus.md"
+  },
+  {
+    "name": "016_Princeton",
+    "file": "016_Princeton.md"
+  },
+  {
+    "name": "017_MichiganUniversity",
+    "file": "017_MichiganUniversity.md"
+  },
+  {
+    "name": "018_KanjmlUniversity",
+    "file": "018_KanjmlUniversity.md"
+  },
+  {
+    "name": "019_munHeigongyUniversity",
+    "file": "019_munHeigongyUniversity.md"
+  },
+  {
+    "name": "020_daierovTeligongUniversity",
+    "file": "020_daierovTeligongUniversity.md"
+  },
+  {
+    "name": "021_LausannelianbangligongCollege",
+    "file": "021_LausannelianbangligongCollege.md"
+  },
+  {
+    "name": "022_TokyogongyUniversity",
+    "file": "022_TokyogongyUniversity.md"
+  },
+  {
+    "name": "023_Shanghai-Jiao-Tong-University",
+    "file": "023_Shanghai-Jiao-Tong-University.md"
+  },
+  {
+    "name": "024_Zhejiang-University",
+    "file": "024_Zhejiang-University.md"
+  },
+  {
+    "name": "025_USTC",
+    "file": "025_USTC.md"
+  },
+  {
+    "name": "026_Fudan-University",
+    "file": "026_Fudan-University.md"
+  },
+  {
+    "name": "027_Hong-KongTechUniversity",
+    "file": "027_Hong-KongTechUniversity.md"
+  },
+  {
+    "name": "028_Tongji-University",
+    "file": "028_Tongji-University.md"
+  },
+  {
+    "name": "029_Harbin-Institute",
+    "file": "029_Harbin-Institute.md"
+  },
+  {
+    "name": "030_Nanjing-University",
+    "file": "030_Nanjing-University.md"
+  }
+]
