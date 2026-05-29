@@ -7,6 +7,79 @@ let navTree = [];  // 导航树数据
 const featuredEntities = [
     {
         id: 1,
+        name: '李煜',
+        category: '文学',
+        categorySlug: 'literature',
+        subSlug: 'classical-literature',
+        file: 'entities/T1/Leeyu.md',
+        desc: '南唐后主，婉约派代表词人，千古杰作《虞美人》等。',
+        tags: ['南唐', '词人', '婉约派', '千古杰作'],
+        rating: 5,
+        thumbnail: '📖'
+    },
+    {
+        id: 2,
+        name: '蒙娜丽莎',
+        category: '艺术',
+        categorySlug: 'art',
+        subSlug: 'painting',
+        file: 'World-Famous-Paintings-Top100/Renaissance/001_Mona-Lisa.md',
+        desc: '达·芬奇传世名作，文艺复兴时期最具影响力的绘画作品。',
+        tags: ['绘画', '文艺复兴', '达芬奇', '传世'],
+        rating: 5,
+        thumbnail: '🎨'
+    },
+    {
+        id: 3,
+        name: '阿尔伯特·爱因斯坦',
+        category: '科学',
+        categorySlug: 'science',
+        subSlug: 'physics',
+        file: 'nobel-physicsTop50/022_Albert·Einstein.md',
+        desc: '提出相对论，彻底改变了人类对时空的理解。',
+        tags: ['物理', '相对论', '诺贝尔物理学奖', '里程碑'],
+        rating: 5,
+        thumbnail: '🔬'
+    },
+    {
+        id: 4,
+        name: '海南岛战役',
+        category: '军事',
+        categorySlug: 'military',
+        subSlug: 'army-forces',
+        file: 'entities/T1/SeanIslandBattle.md',
+        desc: '1950年中国人民解放军攻打海南岛的战役，解放海南全境。',
+        tags: ['解放战争', '战役', '1950年', '解放军'],
+        rating: 5,
+        thumbnail: '⚔️'
+    },
+    {
+        id: 5,
+        name: '董卓',
+        category: '历史',
+        categorySlug: 'history',
+        subSlug: 'ancient-history',
+        file: 'entities/T1/dongzhuo.md',
+        desc: '东汉末年权臣，废少帝立献帝，暴虐专权。',
+        tags: ['东汉', '权臣', '暴虐', '三国'],
+        rating: 5,
+        thumbnail: '📜'
+    },
+    {
+        id: 6,
+        name: '亚当·斯密',
+        category: '经济',
+        categorySlug: 'economy',
+        subSlug: 'economists',
+        file: 'Global-Top-Economists-Top50/001_Adam-Smith.md',
+        desc: '现代经济学之父，《国富论》作者，提出"看不见的手"。',
+        tags: ['经济学', '国富论', '看不见的手', '古典经济学'],
+        rating: 5,
+        thumbnail: '💰'
+    }
+];
+    {
+        id: 1,
         name: '论语',
         category: '文学',
         categorySlug: 'literature',
