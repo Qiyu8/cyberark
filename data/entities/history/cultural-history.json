@@ -1,14 +1,14 @@
 [
   {
     "name": "simguang",
-    "file": "simguang.md"
+    "file": "entities/T1/simguang.md"
   },
   {
     "name": "xuxiake",
-    "file": "xuxiake.md"
+    "file": "entities/T1/xuxiake.md"
   },
   {
     "name": "yinNoAnpDay",
-    "file": "yinNoAnpDay.md"
+    "file": "entities/T3/yinNoAnpDay.md"
   }
 ]

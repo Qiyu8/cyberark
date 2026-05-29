@@ -1,14 +1,14 @@
 [
   {
     "name": "SeaCountrytzhi",
-    "file": "SeaCountrytzhi.md"
+    "file": "entities/T1/SeaCountrytzhi.md"
   },
   {
     "name": "kxizidian",
-    "file": "kxizidian.md"
+    "file": "entities/T1/kxizidian.md"
   },
   {
     "name": "zhouyouguang",
-    "file": "zhouyouguang.md"
+    "file": "entities/T1/zhouyouguang.md"
   }
 ]

@@ -1,14 +1,14 @@
 [
   {
     "name": "John·Milton",
-    "file": "John·Milton.md"
+    "file": "entities/T1/John·Milton.md"
   },
   {
     "name": "Leonardo-da-Vinci",
-    "file": "Leonardo-da-Vinci.md"
+    "file": "entities/T1/Leonardo-da-Vinci.md"
   },
   {
     "name": "da-Vinci",
-    "file": "da-Vinci.md"
+    "file": "entities/T1/da-Vinci.md"
   }
 ]

@@ -1,10 +1,10 @@
 [
   {
     "name": "ChinaguzhiFuturesshangCity",
-    "file": "ChinaguzhiFuturesshangCity.md"
+    "file": "entities/T2/ChinaguzhiFuturesshangCity.md"
   },
   {
     "name": "mg",
-    "file": "mg.md"
+    "file": "entities/T1/mg.md"
   }
 ]

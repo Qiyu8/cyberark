@@ -1,14 +1,14 @@
 [
   {
     "name": "Leeyu",
-    "file": "Leeyu.md"
+    "file": "entities/T1/Leeyu.md"
   },
   {
     "name": "Sushi",
-    "file": "Sushi.md"
+    "file": "entities/T1/Sushi.md"
   },
   {
     "name": "wujingZi",
-    "file": "wujingZi.md"
+    "file": "entities/T1/wujingZi.md"
   }
 ]

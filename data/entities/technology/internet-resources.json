@@ -1,378 +1,378 @@
 [
   {
     "name": "163.com",
-    "file": "163.com.md"
+    "file": "websites/entities/T1/163.com.md"
   },
   {
     "name": "Adobe",
-    "file": "Adobe.md"
+    "file": "websites/entities/T1/Adobe.md"
   },
   {
     "name": "Airtable",
-    "file": "Airtable.md"
+    "file": "websites/entities/T1/Airtable.md"
   },
   {
     "name": "Alipay",
-    "file": "Alipay.md"
+    "file": "websites/entities/T1/Alipay.md"
   },
   {
     "name": "Amazon Prime Video",
-    "file": "Amazon Prime Video.md"
+    "file": "websites/entities/T1/Amazon Prime Video.md"
   },
   {
     "name": "Amazon",
-    "file": "Amazon.md"
+    "file": "websites/entities/T1/Amazon.md"
   },
   {
     "name": "Apple TV+",
-    "file": "Apple TV+.md"
+    "file": "websites/entities/T1/Apple TV+.md"
   },
   {
     "name": "Apple",
-    "file": "Apple.md"
+    "file": "websites/entities/T1/Apple.md"
   },
   {
     "name": "Asana",
-    "file": "Asana.md"
+    "file": "websites/entities/T1/Asana.md"
   },
   {
     "name": "Baidu",
-    "file": "Baidu.md"
+    "file": "websites/entities/T1/Baidu.md"
   },
   {
     "name": "Bilibili",
-    "file": "Bilibili.md"
+    "file": "websites/entities/T1/Bilibili.md"
   },
   {
     "name": "Binance",
-    "file": "Binance.md"
+    "file": "websites/entities/T1/Binance.md"
   },
   {
     "name": "Bing",
-    "file": "Bing.md"
+    "file": "websites/entities/T1/Bing.md"
   },
   {
     "name": "Canva",
-    "file": "Canva.md"
+    "file": "websites/entities/T1/Canva.md"
   },
   {
     "name": "CoinGecko",
-    "file": "CoinGecko.md"
+    "file": "websites/entities/T1/CoinGecko.md"
   },
   {
     "name": "CoinMarketCap",
-    "file": "CoinMarketCap.md"
+    "file": "websites/entities/T1/CoinMarketCap.md"
   },
   {
     "name": "Coinbase",
-    "file": "Coinbase.md"
+    "file": "websites/entities/T1/Coinbase.md"
   },
   {
     "name": "Discord",
-    "file": "Discord.md"
+    "file": "websites/entities/T1/Discord.md"
   },
   {
     "name": "Disney+",
-    "file": "Disney+.md"
+    "file": "websites/entities/T1/Disney+.md"
   },
   {
     "name": "Dropbox",
-    "file": "Dropbox.md"
+    "file": "websites/entities/T1/Dropbox.md"
   },
   {
     "name": "DuckDuckGo",
-    "file": "DuckDuckGo.md"
+    "file": "websites/entities/T1/DuckDuckGo.md"
   },
   {
     "name": "Epic Games",
-    "file": "Epic Games.md"
+    "file": "websites/entities/T1/Epic Games.md"
   },
   {
     "name": "Facebook",
-    "file": "Facebook.md"
+    "file": "websites/entities/T1/Facebook.md"
   },
   {
     "name": "Figma",
-    "file": "Figma.md"
+    "file": "websites/entities/T1/Figma.md"
   },
   {
     "name": "GitHub",
-    "file": "GitHub.md"
+    "file": "websites/entities/T1/GitHub.md"
   },
   {
     "name": "Google",
-    "file": "Google.md"
+    "file": "websites/entities/T1/Google.md"
   },
   {
     "name": "HBO Max",
-    "file": "HBO Max.md"
+    "file": "websites/entities/T1/HBO Max.md"
   },
   {
     "name": "HubSpot",
-    "file": "HubSpot.md"
+    "file": "websites/entities/T1/HubSpot.md"
   },
   {
     "name": "Hulu",
-    "file": "Hulu.md"
+    "file": "websites/entities/T1/Hulu.md"
   },
   {
     "name": "Instagram",
-    "file": "Instagram.md"
+    "file": "websites/entities/T1/Instagram.md"
   },
   {
     "name": "Intercom",
-    "file": "Intercom.md"
+    "file": "websites/entities/T1/Intercom.md"
   },
   {
     "name": "JD.com",
-    "file": "JD.com.md"
+    "file": "websites/entities/T1/JD.com.md"
   },
   {
     "name": "Kick",
-    "file": "Kick.md"
+    "file": "websites/entities/T1/Kick.md"
   },
   {
     "name": "Kraken",
-    "file": "Kraken.md"
+    "file": "websites/entities/T1/Kraken.md"
   },
   {
     "name": "LinkedIn",
-    "file": "LinkedIn.md"
+    "file": "websites/entities/T1/LinkedIn.md"
   },
   {
     "name": "Mail.ru",
-    "file": "Mail.ru.md"
+    "file": "websites/entities/T1/Mail.ru.md"
   },
   {
     "name": "Mailchimp",
-    "file": "Mailchimp.md"
+    "file": "websites/entities/T1/Mailchimp.md"
   },
   {
     "name": "Medium",
-    "file": "Medium.md"
+    "file": "websites/entities/T1/Medium.md"
   },
   {
     "name": "Microsoft",
-    "file": "Microsoft.md"
+    "file": "websites/entities/T1/Microsoft.md"
   },
   {
     "name": "Minecraft",
-    "file": "Minecraft.md"
+    "file": "websites/entities/T1/Minecraft.md"
   },
   {
     "name": "Miro",
-    "file": "Miro.md"
+    "file": "websites/entities/T1/Miro.md"
   },
   {
     "name": "Monday.com",
-    "file": "Monday.com.md"
+    "file": "websites/entities/T1/Monday.com.md"
   },
   {
     "name": "Naver",
-    "file": "Naver.md"
+    "file": "websites/entities/T1/Naver.md"
   },
   {
     "name": "Netflix",
-    "file": "Netflix.md"
+    "file": "websites/entities/T1/Netflix.md"
   },
   {
     "name": "Notion",
-    "file": "Notion.md"
+    "file": "websites/entities/T1/Notion.md"
   },
   {
     "name": "OnlyFans",
-    "file": "OnlyFans.md"
+    "file": "websites/entities/T1/OnlyFans.md"
   },
   {
     "name": "Paramount+",
-    "file": "Paramount+.md"
+    "file": "websites/entities/T1/Paramount+.md"
   },
   {
     "name": "PayPal",
-    "file": "PayPal.md"
+    "file": "websites/entities/T1/PayPal.md"
   },
   {
     "name": "Pinterest",
-    "file": "Pinterest.md"
+    "file": "websites/entities/T1/Pinterest.md"
   },
   {
     "name": "Pornhub",
-    "file": "Pornhub.md"
+    "file": "websites/entities/T1/Pornhub.md"
   },
   {
     "name": "Quora",
-    "file": "Quora.md"
+    "file": "websites/entities/T1/Quora.md"
   },
   {
     "name": "Reddit",
-    "file": "Reddit.md"
+    "file": "websites/entities/T1/Reddit.md"
   },
   {
     "name": "Robinhood",
-    "file": "Robinhood.md"
+    "file": "websites/entities/T1/Robinhood.md"
   },
   {
     "name": "Roblox",
-    "file": "Roblox.md"
+    "file": "websites/entities/T1/Roblox.md"
   },
   {
     "name": "Salesforce",
-    "file": "Salesforce.md"
+    "file": "websites/entities/T1/Salesforce.md"
   },
   {
     "name": "SendGrid",
-    "file": "SendGrid.md"
+    "file": "websites/entities/T1/SendGrid.md"
   },
   {
     "name": "Shopify",
-    "file": "Shopify.md"
+    "file": "websites/entities/T1/Shopify.md"
   },
   {
     "name": "Signal",
-    "file": "Signal.md"
+    "file": "websites/entities/T1/Signal.md"
   },
   {
     "name": "Sina",
-    "file": "Sina.md"
+    "file": "websites/entities/T1/Sina.md"
   },
   {
     "name": "Slack",
-    "file": "Slack.md"
+    "file": "websites/entities/T1/Slack.md"
   },
   {
     "name": "Snapchat",
-    "file": "Snapchat.md"
+    "file": "websites/entities/T1/Snapchat.md"
   },
   {
     "name": "Sohu",
-    "file": "Sohu.md"
+    "file": "websites/entities/T1/Sohu.md"
   },
   {
     "name": "Spotify",
-    "file": "Spotify.md"
+    "file": "websites/entities/T1/Spotify.md"
   },
   {
     "name": "Square",
-    "file": "Square.md"
+    "file": "websites/entities/T1/Square.md"
   },
   {
     "name": "Stack Overflow",
-    "file": "Stack Overflow.md"
+    "file": "websites/entities/T1/Stack Overflow.md"
   },
   {
     "name": "Steam",
-    "file": "Steam.md"
+    "file": "websites/entities/T1/Steam.md"
   },
   {
     "name": "Stripe",
-    "file": "Stripe.md"
+    "file": "websites/entities/T1/Stripe.md"
   },
   {
     "name": "Taobao",
-    "file": "Taobao.md"
+    "file": "websites/entities/T1/Taobao.md"
   },
   {
     "name": "Teams",
-    "file": "Teams.md"
+    "file": "websites/entities/T1/Teams.md"
   },
   {
     "name": "Telegram",
-    "file": "Telegram.md"
+    "file": "websites/entities/T1/Telegram.md"
   },
   {
     "name": "Tencent QQ",
-    "file": "Tencent QQ.md"
+    "file": "websites/entities/T1/Tencent QQ.md"
   },
   {
     "name": "TikTok",
-    "file": "TikTok.md"
+    "file": "websites/entities/T1/TikTok.md"
   },
   {
     "name": "Tmall",
-    "file": "Tmall.md"
+    "file": "websites/entities/T1/Tmall.md"
   },
   {
     "name": "Trello",
-    "file": "Trello.md"
+    "file": "websites/entities/T1/Trello.md"
   },
   {
     "name": "Tumblr",
-    "file": "Tumblr.md"
+    "file": "websites/entities/T1/Tumblr.md"
   },
   {
     "name": "Twilio",
-    "file": "Twilio.md"
+    "file": "websites/entities/T1/Twilio.md"
   },
   {
     "name": "Twitch",
-    "file": "Twitch.md"
+    "file": "websites/entities/T1/Twitch.md"
   },
   {
     "name": "Twitter",
-    "file": "Twitter.md"
+    "file": "websites/entities/T1/Twitter.md"
   },
   {
     "name": "VK",
-    "file": "VK.md"
+    "file": "websites/entities/T1/VK.md"
   },
   {
     "name": "WeChat",
-    "file": "WeChat.md"
+    "file": "websites/entities/T1/WeChat.md"
   },
   {
     "name": "Weibo",
-    "file": "Weibo.md"
+    "file": "websites/entities/T1/Weibo.md"
   },
   {
     "name": "WhatsApp",
-    "file": "WhatsApp.md"
+    "file": "websites/entities/T1/WhatsApp.md"
   },
   {
     "name": "Wikipedia English",
-    "file": "Wikipedia English.md"
+    "file": "websites/entities/T1/Wikipedia English.md"
   },
   {
     "name": "Wikipedia",
-    "file": "Wikipedia.md"
+    "file": "websites/entities/T1/Wikipedia.md"
   },
   {
     "name": "Wire",
-    "file": "Wire.md"
+    "file": "websites/entities/T1/Wire.md"
   },
   {
     "name": "WordPress",
-    "file": "WordPress.md"
+    "file": "websites/entities/T1/WordPress.md"
   },
   {
     "name": "XHamster",
-    "file": "XHamster.md"
+    "file": "websites/entities/T1/XHamster.md"
   },
   {
     "name": "Xiaomi",
-    "file": "Xiaomi.md"
+    "file": "websites/entities/T1/Xiaomi.md"
   },
   {
     "name": "Yahoo",
-    "file": "Yahoo.md"
+    "file": "websites/entities/T1/Yahoo.md"
   },
   {
     "name": "Yandex",
-    "file": "Yandex.md"
+    "file": "websites/entities/T1/Yandex.md"
   },
   {
     "name": "YouTube",
-    "file": "YouTube.md"
+    "file": "websites/entities/T1/YouTube.md"
   },
   {
     "name": "Zendesk",
-    "file": "Zendesk.md"
+    "file": "websites/entities/T1/Zendesk.md"
   },
   {
     "name": "Zoom",
-    "file": "Zoom.md"
+    "file": "websites/entities/T1/Zoom.md"
   },
   {
     "name": "xvideos",
-    "file": "xvideos.md"
+    "file": "websites/entities/T1/xvideos.md"
   }
 ]

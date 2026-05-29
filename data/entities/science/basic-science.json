@@ -1,58 +1,58 @@
 [
   {
     "name": "Galileo",
-    "file": "Galileo.md"
+    "file": "entities/T1/Galileo.md"
   },
   {
     "name": "Gaos",
-    "file": "Gaos.md"
+    "file": "entities/T1/Gaos.md"
   },
   {
     "name": "HaRay",
-    "file": "HaRay.md"
+    "file": "entities/T1/HaRay.md"
   },
   {
     "name": "Hawking",
-    "file": "Hawking.md"
+    "file": "entities/T1/Hawking.md"
   },
   {
     "name": "Henry·pangJial",
-    "file": "Henry·pangJial.md"
+    "file": "entities/T1/Henry·pangJial.md"
   },
   {
     "name": "Kelde·xiangnong",
-    "file": "Kelde·xiangnong.md"
+    "file": "entities/T1/Kelde·xiangnong.md"
   },
   {
     "name": "Lee4guang",
-    "file": "Lee4guang.md"
+    "file": "entities/T1/Lee4guang.md"
   },
   {
     "name": "Max·Planck",
-    "file": "Max·Planck.md"
+    "file": "entities/T1/Max·Planck.md"
   },
   {
     "name": "Max·wb",
-    "file": "Max·wb.md"
+    "file": "entities/T1/Max·wb.md"
   },
   {
     "name": "Newton",
-    "file": "Newton.md"
+    "file": "entities/T1/Newton.md"
   },
   {
     "name": "Robert·Oppenheimer",
-    "file": "Robert·Oppenheimer.md"
+    "file": "entities/T1/Robert·Oppenheimer.md"
   },
   {
     "name": "Wilhelm-Roentgen",
-    "file": "Wilhelm-Roentgen.md"
+    "file": "entities/T1/Wilhelm-Roentgen.md"
   },
   {
     "name": "fm",
-    "file": "fm.md"
+    "file": "entities/T1/fm.md"
   },
   {
     "name": "kerTe·gdeer",
-    "file": "kerTe·gdeer.md"
+    "file": "entities/T1/kerTe·gdeer.md"
   }
 ]

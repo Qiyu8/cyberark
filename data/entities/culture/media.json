@@ -1,14 +1,14 @@
 [
   {
     "name": "qiujinchuangbanChinafbao",
-    "file": "qiujinchuangbanChinafbao.md"
+    "file": "entities/T1/qiujinchuangbanChinafbao.md"
   },
   {
     "name": "shenbao",
-    "file": "shenbao.md"
+    "file": "entities/T1/shenbao.md"
   },
   {
     "name": "twusbao",
-    "file": "twusbao.md"
+    "file": "entities/T1/twusbao.md"
   }
 ]
