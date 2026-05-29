@@ -7,12 +7,58 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* Markdown 渲染样式 */
+        .md-content { color: #e0e0f6; line-height: 1.9; font-size: 16px; }
+        .md-content h1 { font-size: 2.2rem; background: linear-gradient(135deg, #00d4ff, #c9a84c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 25px 0; padding-bottom: 15px; border-bottom: 1px solid rgba(0,212,255,0.2); }
+        .md-content h2 { font-size: 1.6rem; color: #00d4ff; margin: 35px 0 15px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(0,212,255,0.15); }
+        .md-content h3 { font-size: 1.3rem; color: #c9a84c; margin: 25px 0 12px 0; }
+        .md-content h4 { font-size: 1.1rem; color: #a0a0b5; margin: 20px 0 10px 0; }
+        .md-content p { margin: 12px 0; color: #d0d0e6; }
+        .md-content strong { color: #00d4ff; font-weight: 600; }
+        .md-content em { color: #c9a84c; font-style: italic; }
+        .md-content a { color: #00d4ff; text-decoration: none; border-bottom: 1px dashed rgba(0,212,255,0.4); transition: all 0.2s; }
+        .md-content a:hover { color: #c9a84c; border-bottom-color: #c9a84c; }
+        .md-content ul, .md-content ol { margin: 12px 0; padding-left: 25px; }
+        .md-content li { margin: 6px 0; color: #d0d0e6; }
+        .md-content li::marker { color: #00d4ff; }
+        .md-content blockquote { border-left: 3px solid #c9a84c; margin: 20px 0; padding: 10px 20px; background: rgba(201,168,76,0.08); border-radius: 0 8px 8px 0; }
+        .md-content blockquote p { color: #c9a84c; margin: 5px 0; }
+        .md-content code { background: rgba(0,212,255,0.1); color: #00d4ff; padding: 2px 8px; border-radius: 4px; font-size: 0.9em; font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+        .md-content pre { background: rgba(10,10,20,0.9); border: 1px solid rgba(0,212,255,0.2); border-radius: 10px; padding: 20px; overflow-x: auto; margin: 15px 0; }
+        .md-content pre code { background: none; padding: 0; color: #e0e0f6; }
+        .md-content img { max-width: 100%; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(0,212,255,0.2); }
+        .md-content table { width: 100%; border-collapse: collapse; margin: 20px 0; background: rgba(15,15,25,0.6); border-radius: 10px; overflow: hidden; }
+        .md-content thead { background: rgba(0,212,255,0.1); }
+        .md-content th { padding: 12px 16px; text-align: left; color: #00d4ff; font-weight: 600; border-bottom: 2px solid rgba(0,212,255,0.2); }
+        .md-content td { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #d0d0e6; }
+        .md-content tr:hover td { background: rgba(0,212,255,0.05); }
+        .md-content hr { border: none; border-top: 1px solid rgba(0,212,255,0.15); margin: 30px 0; }
+        
+        /* 上下实体导航 */
+        .entity-nav { display: flex; justify-content: space-between; margin-top: 40px; gap: 15px; flex-wrap: wrap; }
+        .entity-nav a { 
+            display: flex; align-items: center; gap: 10px; padding: 15px 25px;
+            background: rgba(15,15,25,0.95); border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 12px; color: #00d4ff; text-decoration: none;
+            transition: all 0.3s ease; flex: 1; min-width: 200px;
+        }
+        .entity-nav a:hover { border-color: #00d4ff; transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,212,255,0.2); }
+        .entity-nav a.next { text-align: right; justify-content: flex-end; }
+        .entity-nav .nav-label { font-size: 12px; color: #9090a0; }
+        .entity-nav .nav-title { font-size: 15px; color: #e0e0f6; }
+        
+        /* 加载动画 */
+        @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .loading-dots span { animation: pulse 1.4s ease-in-out infinite; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    </style>
 </head>
 <body>
-    <!-- 粒子背景 -->
     <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
     
-    <!-- 导航栏 -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -23,45 +69,31 @@
                     <span class="logo-en">Cyber Ark</span>
                 </a>
             </div>
-            
             <div class="nav-center">
                 <div class="search-box">
                     <input type="text" placeholder="搜索文明瑰宝..." id="globalSearch">
                     <button class="search-btn" onclick="performSearch()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                     </button>
                 </div>
             </div>
-            
             <div class="nav-right">
                 <button class="nav-btn" onclick="toggleDarkMode()" title="暗黑模式切换">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
                 <button class="nav-btn" onclick="showFavorites()" title="收藏夹">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                 </button>
                 <button class="nav-btn" onclick="showAbout()" title="关于本站">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- 实体详情区 -->
     <section class="entity-detail-page" style="padding: 120px 2rem 80px; min-height: calc(100vh - 200px);">
-        <div class="container" style="max-width: 1200px; margin: 0 auto;">
-            <!-- 面包屑导航 -->
+        <div class="container" style="max-width: 1000px; margin: 0 auto;">
+            <!-- 面包屑 -->
             <div class="breadcrumb" style="margin-bottom: 30px; color: #9090a0; font-size: 14px;">
                 <a href="index.html" style="color: #00d4ff; text-decoration: none;">首页</a>
                 <span style="margin: 0 10px;">/</span>
@@ -72,20 +104,29 @@
                 <span id="breadcrumbEntity">加载中...</span>
             </div>
             
-            <div id="entityDetail">
-                <!-- 实体详情将通过 JavaScript 动态渲染 -->
-                <p style="color: #9090a0; text-align: center; padding: 100px 0;">加载中...</p>
+            <div id="entityDetail" style="
+                background: rgba(15,15,25,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0,212,255,0.2);
+                border-radius: 20px;
+                padding: 40px;
+            ">
+                <div class="loading-dots" style="text-align:center; padding:60px 0; color:#9090a0; font-size:18px;">
+                    <span>●</span> <span>●</span> <span>●</span>
+                </div>
             </div>
+            
+            <!-- 上下实体导航 -->
+            <div id="entityNav" class="entity-nav" style="display:none;"></div>
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
                     <h3>🏛️ 赛博方舟 | Cyber Ark</h3>
-                    <p>人类顶级文明数字载体</p>
+                    <p>人类顶级文明数字载体，典藏全球高价值资产</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -96,212 +137,123 @@
     
     <script src="script.js"></script>
     <script>
-    // 实体详情页面逻辑
-    let navTree = [];
+    // 实体详情页 - 加载并渲染 Markdown 内容
+    let entityData = null; // 当前榜单的实体列表
+    let currentEntityIndex = -1;
     
-    async function loadNavTree() {
-        try {
-            const response = await fetch('data/nav-tree.json');
-            navTree = await response.json();
-            renderEntityDetailPage();
-        } catch (error) {
-            console.error('加载数据失败:', error);
-            document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败</p>';
+    document.addEventListener('DOMContentLoaded', async function() {
+        // 等待全局 navTree 就绪
+        let waited = 0;
+        while ((!navTree || navTree.length === 0) && waited < 5000) {
+            await new Promise(r => setTimeout(r, 100));
+            waited += 100;
         }
-    }
-    
-    function renderEntityDetailPage() {
+        if (!navTree || navTree.length === 0) {
+            try {
+                const r = await fetch('data/nav-tree.json');
+                navTree = await r.json();
+            } catch(e) {
+                document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">数据加载失败</p>';
+                return;
+            }
+        }
+        
         const urlParams = new URLSearchParams(window.location.search);
         const catSlug = urlParams.get('cat');
         const subSlug = urlParams.get('sub');
         const entityFile = urlParams.get('entity');
         
-        if (!catSlug || !entityFile) {
-            document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">参数错误</p>';
+        if (!catSlug || !subSlug || !entityFile) {
+            document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">参数错误：缺少 cat/sub/entity</p>';
             return;
         }
         
-        // 查找分类和榜单信息
+        // 查找分类和榜单
         const category = navTree.find(c => c.slug === catSlug);
-        if (!category) {
-            document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">分类不存在</p>';
-            return;
-        }
-        
-        let subcategory = null;
-        if (subSlug) {
-            subcategory = category.subcategories.find(s => s.slug === subSlug);
-        }
-        
-        // 从文件名提取实体名称
-        const entityName = entityFile.replace('.md', '');
-        
-        // 更新页面标题
-        document.title = `${entityName} - 赛博方舟`;
+        const subcategory = category ? category.subcategories.find(s => s.slug === subSlug) : null;
         
         // 更新面包屑
-        document.getElementById('breadcrumbCategory').textContent = category.name;
-        document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
-        
+        if (category) {
+            document.getElementById('breadcrumbCategory').textContent = category.name;
+            document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
+        }
         if (subcategory) {
             document.getElementById('breadcrumbRanking').textContent = subcategory.name;
             document.getElementById('breadcrumbRanking').href = `entity-list.html?cat=${catSlug}&sub=${subSlug}`;
-        } else {
-            document.getElementById('breadcrumbRanking').textContent = '未知榜单';
         }
         
-        document.getElementById('breadcrumbEntity').textContent = entityName;
+        // 加载实体列表（用于上下导航）
+        try {
+            const idxResp = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+            if (idxResp.ok) {
+                entityData = await idxResp.json();
+                currentEntityIndex = entityData.findIndex(e => e.file === entityFile);
+            }
+        } catch(e) { /* 忽略，导航功能可选 */ }
         
-        const detail = document.getElementById('entityDetail');
-        
-        // 渲染详情页（暂时不解析 md 文件）
-        detail.innerHTML = `
-            <div class="entity-detail-header" style="
-                display: flex;
-                gap: 40px;
-                margin-bottom: 50px;
-                background: rgba(15,15,25,0.95);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(0,212,255,0.2);
-                border-radius: 20px;
-                padding: 40px;
-                flex-wrap: wrap;
-            ">
-                <div class="entity-detail-thumbnail" style="
-                    font-size: 6rem;
-                    text-align: center;
-                    min-width: 150px;
-                ">📄</div>
-                <div class="entity-detail-info" style="flex: 1; min-width: 300px;">
-                    <h2 class="entity-detail-name" style="
-                        font-size: 2.5rem;
-                        background: linear-gradient(135deg, #00d4ff, #c9a84c);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        margin-bottom: 15px;
-                        word-break: break-word;
-                    ">${entityName}</h2>
-                    <div class="entity-detail-meta" style="
-                        display: flex;
-                        gap: 20px;
-                        margin-bottom: 20px;
-                        color: #9090a0;
-                        font-size: 14px;
-                        flex-wrap: wrap;
-                    ">
-                        <span class="meta-item">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                            </svg>
-                            ${category.name} ${category.icon}
-                        </span>
-                        ${subcategory ? `
-                        <span class="meta-item">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px;">
-                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                            ${subcategory.name}
-                        </span>
-                        ` : ''}
-                    </div>
-                    <div class="entity-file-info" style="
-                        background: rgba(0,212,255,0.1);
-                        padding: 12px 16px;
-                        border-radius: 8px;
-                        margin-bottom: 20px;
-                    ">
-                        <span style="color: #9090a0; font-size: 13px;">文件名: </span>
-                        <code style="color: #00d4ff; font-size: 13px;">${entityFile}</code>
-                    </div>
-                    <div class="entity-detail-actions" style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <button class="btn-primary" onclick="alert('收藏功能开发中')" style="
-                            padding: 10px 25px;
-                            border: none;
-                            border-radius: 8px;
-                            background: linear-gradient(135deg, #00d4ff, #0099cc);
-                            color: #0a0a0f;
-                            font-weight: 600;
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                            transition: all 0.3s ease;
-                        ">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                            收藏
-                        </button>
-                        <button class="btn-secondary" onclick="alert('分享功能开发中')" style="
-                            padding: 10px 25px;
-                            border: 1px solid rgba(0,212,255,0.3);
-                            border-radius: 8px;
-                            background: transparent;
-                            color: #00d4ff;
-                            font-weight: 600;
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                            transition: all 0.3s ease;
-                        ">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="18" cy="5" r="3"></circle>
-                                <circle cx="6" cy="12" r="3"></circle>
-                                <circle cx="18" cy="19" r="3"></circle>
-                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                            </svg>
-                            分享
-                        </button>
-                    </div>
+        // 加载 Markdown 文件
+        const mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
+        try {
+            const mdResp = await fetch(mdUrl);
+            if (!mdResp.ok) throw new Error(`HTTP ${mdResp.status}`);
+            const mdText = await mdResp.text();
+            
+            // 用 marked 渲染
+            const htmlContent = marked.parse(mdText);
+            document.getElementById('entityDetail').innerHTML = `<div class="md-content">${htmlContent}</div>`;
+            
+            // 提取 h1 作为页面标题和面包屑
+            const h1 = document.querySelector('.md-content h1');
+            const entityName = h1 ? h1.textContent : entityFile.replace('.md', '');
+            document.title = `${entityName} - 赛博方舟`;
+            document.getElementById('breadcrumbEntity').textContent = entityName;
+            
+            // 渲染上下导航
+            renderEntityNav(catSlug, subSlug, entityFile);
+        } catch(error) {
+            console.error('加载 Markdown 失败:', error);
+            document.getElementById('entityDetail').innerHTML = `
+                <div style="text-align:center; padding:60px 0;">
+                    <p style="font-size:4rem; margin-bottom:20px;">📄</p>
+                    <h2 style="color:#e0e0f6; margin-bottom:15px;">${entityFile.replace('.md','')}</h2>
+                    <p style="color:#9090a0;">Markdown 内容加载失败</p>
+                    <p style="color:#606070; font-size:13px; margin-top:10px;">${error.message}</p>
                 </div>
-            </div>
-            <div class="entity-detail-body" style="
-                background: rgba(15,15,25,0.95);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(0,212,255,0.2);
-                border-radius: 20px;
-                padding: 40px;
-            ">
-                <h3 style="
-                    color: #e0e0f6;
-                    font-size: 1.8rem;
-                    margin-bottom: 20px;
-                    background: linear-gradient(135deg, #00d4ff, #c9a84c);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                ">📝 内容预览</h3>
-                <p style="color: #a0a0b5; font-size: 16px; line-height: 1.8; margin-bottom: 20px;">
-                    这是 <strong style="color: #00d4ff;">${entityName}</strong> 的实体详情页面。
-                </p>
-                <p style="color: #9090a0; font-size: 14px; line-height: 1.8; margin-bottom: 30px;">
-                    完整版本将包含：
-                </p>
-                <ul style="color: #a0a0b5; font-size: 14px; line-height: 1.8; margin-bottom: 30px; padding-left: 20px;">
-                    <li>📄 Markdown 文件解析与渲染</li>
-                    <li>📚 完整的背景介绍与详细内容</li>
-                    <li>🖼️ 图片、表格等多媒体展示</li>
-                    <li>🔗 相关实体推荐</li>
-                    <li>💬 用户评论与互动</li>
-                </ul>
-                <div style="
-                    background: rgba(201,168,76,0.1);
-                    border: 1px solid rgba(201,168,76,0.3);
-                    border-radius: 12px;
-                    padding: 20px;
-                    margin-top: 20px;
-                ">
-                    <p style="color: #c9a84c; font-size: 14px; margin: 0;">
-                        💡 <strong>提示:</strong> 该实体来源于 ${category.name} 分类下的 ${subcategory ? subcategory.name : '未知榜单'}。
-                    </p>
-                </div>
-            </div>
-        `;
-    }
+            `;
+            document.getElementById('breadcrumbEntity').textContent = entityFile.replace('.md', '');
+        }
+    });
     
-    // 页面加载完成后渲染
-    document.addEventListener('DOMContentLoaded', loadNavTree);
+    function renderEntityNav(catSlug, subSlug, currentFile) {
+        if (!entityData || currentEntityIndex < 0) return;
+        
+        const nav = document.getElementById('entityNav');
+        nav.style.display = 'flex';
+        
+        let prevHtml = '', nextHtml = '';
+        
+        if (currentEntityIndex > 0) {
+            const prev = entityData[currentEntityIndex - 1];
+            prevHtml = `<a href="entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(prev.file)}" class="prev">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <div><div class="nav-label">上一个</div><div class="nav-title">${prev.name}</div></div>
+            </a>`;
+        } else {
+            prevHtml = '<span></span>';
+        }
+        
+        if (currentEntityIndex < entityData.length - 1) {
+            const next = entityData[currentEntityIndex + 1];
+            nextHtml = `<a href="entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(next.file)}" class="next">
+                <div style="text-align:right;"><div class="nav-label">下一个</div><div class="nav-title">${next.name}</div></div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>`;
+        } else {
+            nextHtml = '<span></span>';
+        }
+        
+        nav.innerHTML = prevHtml + nextHtml;
+    }
     </script>
 </body>
 </html>
