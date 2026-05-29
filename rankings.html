@@ -136,19 +136,7 @@
     
     <script src="script.js"></script>
     <script>
-    // 榜单列表页面逻辑
-    let navTree = [];
-    
-    async function loadNavTree() {
-        try {
-            const response = await fetch('data/nav-tree.json');
-            navTree = await response.json();
-            renderRankingsPage();
-        } catch (error) {
-            console.error('加载数据失败:', error);
-            document.getElementById('rankingsGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败，请刷新页面重试</p>';
-        }
-    }
+    // 榜单列表页面逻辑 - 直接使用 script.js 全局 navTree
     
     function renderRankingsPage() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -244,7 +232,27 @@
     document.head.appendChild(style);
     
     // 页面加载完成后渲染
-    document.addEventListener('DOMContentLoaded', loadNavTree);
+    document.addEventListener('DOMContentLoaded', function() {
+        // 等待 script.js 的 loadNavTree 完成后再渲染
+        const checkData = setInterval(function() {
+            if (navTree && navTree.length > 0) {
+                clearInterval(checkData);
+                renderRankingsPage();
+            }
+        }, 100);
+        // 超时保护：3秒后如果还没数据就自己加载
+        setTimeout(function() {
+            clearInterval(checkData);
+            if (!navTree || navTree.length === 0) {
+                fetch('data/nav-tree.json')
+                    .then(r => r.json())
+                    .then(data => { navTree = data; renderRankingsPage(); })
+                    .catch(err => {
+                        document.getElementById('rankingsGrid').innerHTML = '<p style="color:#ff6b6b;text-align:center;">加载数据失败</p>';
+                    });
+            }
+        }, 3000);
+    });
     </script>
 </body>
 </html>
