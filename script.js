@@ -137,7 +137,7 @@ function renderFeatured() {
     grid.innerHTML = featuredEntities.map((entity, index) => {
         const stars = '★'.repeat(entity.rating) + '☆'.repeat(5 - entity.rating);
         const url = entity.subSlug && entity.file
-            ? `entity.html?cat=${entity.categorySlug}&sub=${entity.subSlug}&file=${encodeURIComponent(entity.file)}`
+            ? `entity.html?cat=${entity.categorySlug}&sub=${entity.subSlug}&entity=${encodeURIComponent(entity.file)}`
             : `entity-list.html?cat=${entity.categorySlug}`;
         return `
             <div class="entity-card" style="animation-delay: ${index * 0.05}s;" onclick="window.location.href='${url}'">
