@@ -176,6 +176,41 @@
             border-radius: 10px;
             filter: drop-shadow(0 10px 30px rgba(230, 57, 70, 0.5));
         }
+
+        .character-card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            border-radius: 17px;
+            opacity: 0.25;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+        .character-card:hover .character-card-bg { opacity: 0.4; }
+
+        .gear5-placeholder {
+            position: relative;
+            z-index: 1;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: radial-gradient(ellipse at center, rgba(255,215,0,0.15) 0%, transparent 70%);
+            border-radius: 10px;
+        }
+        .gear5-placeholder .sun-icon {
+            font-size: 7rem;
+            animation: sunPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px #ffd700);
+        }
+        @keyframes sunPulse {
+            0%,100% { transform: scale(1); filter: drop-shadow(0 0 20px #ffd700); }
+            50% { transform: scale(1.12); filter: drop-shadow(0 0 40px #ffd700) drop-shadow(0 0 60px #e63946); }
+        }
         
         .character-card h3 {
             position: relative;
@@ -590,23 +625,30 @@
 
         <!-- 主视觉大图区 -->
         <div class="hero-images">
+            <!-- 常态形态：luffy.png 作为卡片背景 -->
             <div class="character-card">
-                <img src="https://static.wikia.nocookie.net/onepiece/images/6/6d/Monkey_D._Luffy_Anime_Post_Timeskip_Infobox.png"
+                <div class="character-card-bg" style="background-image:url('resource/luffy.png');"></div>
+                <img src="resource/luffy.png"
                      alt="路飞常态"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div style="display:none;height:400px;align-items:center;justify-content:center;font-size:8rem;flex-direction:column;gap:20px;">
-                    <span>🏴‍☠️</span>
-                    <span style="font-size:1.5rem;color:#ffd700;">常态·草帽路飞</span>
-                </div>
+                     style="position:relative;z-index:1;width:100%;max-width:320px;height:auto;border-radius:10px;filter:drop-shadow(0 10px 30px rgba(230,57,70,0.6));">
                 <h3>⚡ 常态形态</h3>
             </div>
+            <!-- 五档尼卡：CSS 动态占位 -->
             <div class="character-card">
-                <img src="https://static.wikia.nocookie.net/onepiece/images/4/4e/Monkey_D._Luffy_Gear_5_Infobox.png"
-                     alt="路飞五档尼卡"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div style="display:none;height:400px;align-items:center;justify-content:center;font-size:8rem;flex-direction:column;gap:20px;">
-                    <span>☀️</span>
-                    <span style="font-size:1.5rem;color:#ffd700;">五档·太阳神尼卡</span>
+                <div class="character-card-bg" style="background:radial-gradient(ellipse at 50% 30%, rgba(255,215,0,0.2) 0%, rgba(230,57,70,0.1) 50%, transparent 80%);"></div>
+                <div class="gear5-placeholder">
+                    <span class="sun-icon">☀️</span>
+                    <span style="font-size:1.2rem;color:#ffd700;font-weight:900;letter-spacing:2px;">太阳神·尼卡</span>
+                    <span style="font-size:0.85rem;color:#c0c0d0;max-width:220px;text-align:center;line-height:1.6;">
+                        人人果实·幻兽种·尼卡形态<br>
+                        身体化为橡胶，随心所欲<br>
+                        <span style="color:#ffd700;">「自由就是我的力量！」</span>
+                    </span>
+                    <div style="display:flex;gap:12px;margin-top:8px;">
+                        <span style="background:rgba(255,215,0,0.15);border:1px solid #ffd700;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#ffd700;">五档</span>
+                        <span style="background:rgba(230,57,70,0.15);border:1px solid #e63946;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#e63946;">觉醒形态</span>
+                        <span style="background:rgba(0,119,182,0.15);border:1px solid #0077b6;border-radius:20px;padding:4px 14px;font-size:0.78rem;color:#7ec8e3;">霸王色</span>
+                    </div>
                 </div>
                 <h3>☀️ 五档·太阳神尼卡</h3>
             </div>
@@ -713,21 +755,45 @@
         <!-- 名场面视频窗口 -->
         <div class="video-section">
             <h2>🎬 经典战斗 &amp; 名场面合集</h2>
-            <p style="text-align:center;color:#c0c0d0;margin-bottom:20px;">路飞 vs 凯多 · 顶上战争 · 五档觉醒</p>
+            <p style="text-align:center;color:#c0c0d0;margin-bottom:24px;">路飞 vs 凯多 · 顶上战争 · 五档觉醒</p>
+
+            <!-- 视频选项卡 -->
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;">
+                <button onclick="switchVideo('bili1')" id="btn-bili1"
+                    style="padding:10px 22px;background:#e63946;color:#fff;border:none;border-radius:25px;font-weight:700;cursor:pointer;font-size:0.9rem;">
+                    🔥 路飞五档觉醒
+                </button>
+                <button onclick="switchVideo('bili2')" id="btn-bili2"
+                    style="padding:10px 22px;background:rgba(255,255,255,0.1);color:#ffd700;border:2px solid #ffd700;border-radius:25px;font-weight:700;cursor:pointer;font-size:0.9rem;">
+                    ⚔️ 顶上战争
+                </button>
+                <button onclick="switchVideo('bili3')" id="btn-bili3"
+                    style="padding:10px 22px;background:rgba(255,255,255,0.1);color:#7ec8e3;border:2px solid #0077b6;border-radius:25px;font-weight:700;cursor:pointer;font-size:0.9rem;">
+                    🌊 路飞名场面合集
+                </button>
+            </div>
+
             <div class="video-wrapper">
-                <iframe
-                    src="https://www.youtube.com/embed/dr2bBFVMBmg"
-                    title="路飞五档觉醒 vs 凯多 经典战斗"
+                <iframe id="videoFrame"
+                    src="https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7&page=1&high_quality=1&danmaku=0"
+                    title="路飞五档觉醒经典战斗"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
-                    style="background:#0a0f1e;">
+                    scrolling="no">
                 </iframe>
             </div>
-            <p style="text-align:center;margin-top:15px;color:#9090a0;font-size:0.85rem;">
-                ⚠️ 视频需要网络连接，如无法播放请
-                <a href="https://www.youtube.com/results?search_query=Luffy+vs+Kaido+Gear+5" target="_blank" style="color:#ffd700;">点击前往 YouTube 搜索</a>
-            </p>
+
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+                <a href="https://search.bilibili.com/all?keyword=路飞五档觉醒" target="_blank"
+                   style="padding:9px 20px;background:rgba(0,119,182,0.2);border:1px solid #0077b6;color:#7ec8e3;border-radius:20px;text-decoration:none;font-size:0.85rem;">
+                    📺 B站搜索更多
+                </a>
+                <a href="https://www.youtube.com/results?search_query=Luffy+Gear+5+vs+Kaido" target="_blank"
+                   style="padding:9px 20px;background:rgba(230,57,70,0.2);border:1px solid #e63946;color:#e63946;border-radius:20px;text-decoration:none;font-size:0.85rem;">
+                    ▶ YouTube 搜索
+                </a>
+            </div>
         </div>
 
         <!-- 原声音乐播放区 -->
@@ -908,6 +974,28 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+        // 视频切换
+        const videos = {
+            bili1: 'https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7&page=1&high_quality=1&danmaku=0',
+            bili2: 'https://player.bilibili.com/player.html?bvid=BV1Ux411j7sF&page=1&high_quality=1&danmaku=0',
+            bili3: 'https://player.bilibili.com/player.html?bvid=BV1Nb4y1e7YR&page=1&high_quality=1&danmaku=0',
+        };
+        function switchVideo(key) {
+            document.getElementById('videoFrame').src = videos[key];
+            ['bili1','bili2','bili3'].forEach(k => {
+                const btn = document.getElementById('btn-' + k);
+                if (k === key) {
+                    btn.style.background = '#e63946';
+                    btn.style.color = '#fff';
+                    btn.style.border = 'none';
+                } else {
+                    btn.style.background = 'rgba(255,255,255,0.1)';
+                    btn.style.color = '#ffd700';
+                    btn.style.border = '2px solid #ffd700';
+                }
+            });
+        }
     </script>
 </body>
 </html>
