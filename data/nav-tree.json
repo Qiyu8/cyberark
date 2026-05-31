@@ -1,51 +1,5 @@
 [
   {
-    "slug": "architecture",
-    "name": "建筑",
-    "icon": "🏗️",
-    "color": "#7F8C8D",
-    "subcategoryCount": 6,
-    "entityCount": 244,
-    "subcategories": [
-      {
-        "slug": "famous-ancient-city-wallsTop30",
-        "name": "世界著名古城墙 Top30",
-        "entityCount": 31,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "famous-bridgesTop50",
-        "name": "世界著名桥梁 Top50",
-        "entityCount": 51,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "famous-clock-towersTop30",
-        "name": "世界著名钟楼 Top30",
-        "entityCount": 31,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "famous-palacesTop30",
-        "name": "世界著名宫殿 Top30",
-        "entityCount": 31,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "most-fantastic-castlesTop50",
-        "name": "世界最美城堡 Top50",
-        "entityCount": 50,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "skyscrapers",
-        "name": "摩天大楼",
-        "entityCount": 50,
-        "hasSubDirs": false
-      }
-    ]
-  },
-  {
     "slug": "art",
     "name": "艺术",
     "icon": "🎨",
@@ -1083,7 +1037,7 @@
     "icon": "🔬",
     "color": "#27AE60",
     "subcategoryCount": 29,
-    "entityCount": 2339,
+    "entityCount": 2583,
     "subcategories": [
       {
         "slug": "World-Unsolved-Mysteries-Top100",
@@ -1106,8 +1060,40 @@
       {
         "slug": "architectural-engineering",
         "name": "建筑工程",
-        "entityCount": 52,
-        "hasSubDirs": true
+        "entityCount": 296,
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "famous-ancient-city-wallsTop30",
+            "name": "世界著名古城墙 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "famous-bridgesTop50",
+            "name": "世界著名桥梁 Top50",
+            "entityCount": 51
+          },
+          {
+            "slug": "famous-clock-towersTop30",
+            "name": "世界著名钟楼 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "famous-palacesTop30",
+            "name": "世界著名宫殿 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "most-fantastic-castlesTop50",
+            "name": "世界最美城堡 Top50",
+            "entityCount": 50
+          },
+          {
+            "slug": "skyscrapers",
+            "name": "摩天大楼",
+            "entityCount": 50
+          }
+        ]
       },
       {
         "slug": "astronomy",
