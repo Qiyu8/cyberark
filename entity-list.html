@@ -434,11 +434,6 @@
         return { title, artist, year, imageUrl, desc, extra };
     }
     
-    // 需要被 buildCard / enrichEntities 访问的变量，提升到全局作用域
-    let catSlug = '';
-    let subSlug = '';
-    let childDirSlug = '';
-
     // 生成卡片 HTML
     function buildCard(entity, index) {
         const rank = index + 1;
@@ -462,10 +457,10 @@
         if (entity.year) tags.push(`<span class="card-tag blue">${entity.year}</span>`);
         if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
         
-        const subParam = childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug;
+        const subParam = window._cyberArk.childDirSlug ? `${window._cyberArk.subSlug}/${window._cyberArk.childDirSlug}` : window._cyberArk.subSlug;
         return `
             <div class="gallery-card" style="animation-delay:${delay}s" 
-                 onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subParam}&entity=${encodeURIComponent(entity.file)}'">
+                 onclick="window.location.href='entity.html?cat=${window._cyberArk.catSlug}&sub=${subParam}&entity=${encodeURIComponent(entity.file)}'">
                 <div class="card-hover-overlay">
                     <button class="card-view-btn">✦ 查看详情</button>
                 </div>
@@ -602,6 +597,12 @@
         const isSubDirPath = subSlug.includes('/');
         const parentSubSlug = isSubDirPath ? subSlug.split('/')[0] : subSlug;
         childDirSlug = isSubDirPath ? subSlug.split('/').slice(1).join('/') : '';
+        
+        // 将关键变量挂到 window，供全局函数 buildCard / renderGrid 访问
+        window._cyberArk = window._cyberArk || {};
+        window._cyberArk.catSlug = catSlug;
+        window._cyberArk.subSlug = subSlug;
+        window._cyberArk.childDirSlug = childDirSlug;
         
         // 如果是子目录路径，subSlug 修正为父级（用于查找 nav-tree 中的 subcategory）
         if (isSubDirPath) subSlug = parentSubSlug;
