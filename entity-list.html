@@ -384,6 +384,7 @@
         </div>
     </footer>
     
+    <script src="pathUtils.js"></script>
     <script src="script.js"></script>
     <script>
     // ===== 实体列表页 - 画廊模式 =====
@@ -459,8 +460,8 @@
         
         const subParam = subSlug;
         return `
-            <div class="gallery-card" style="animation-delay:${delay}s" 
-                 onclick="window.location.href='entity.html?cat=${window._cyberArk.catSlug}&sub=${subParam}&entity=${encodeURIComponent(entity.file)}'">
+            <div class="gallery-card" style="animation-delay:${delay}s"
+                 onclick="window.location.href='${buildEntityPageUrl(catSlug, subParam, entity.file)}'">
                 <div class="card-hover-overlay">
                     <button class="card-view-btn">✦ 查看详情</button>
                 </div>
@@ -512,13 +513,7 @@
                 batch.map(async (e) => {
                     if (e.file === 'index.md' || e.file === 'INDEX.md') return { ...e, _enriched: null };
                     try {
-                        let mdPath;
-                        if (childDirSlug && !e.file.includes('/')) {
-                            // 子子分类模式：e.file 无子目录前缀，MD 路径 = cat/childDirSlug/file
-                            mdPath = `data/md/${catSlug}/${childDirSlug}/${e.file}`;
-                        } else {
-                            mdPath = `data/md/${catSlug}/${subSlug}/${e.file}`;
-                        }
+                        const mdPath = buildMdPath(catSlug, childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug, e.file);
                         const r = await fetch(mdPath);
                         if (!r.ok) return { ...e, _enriched: null };
                         const text = await r.text();
@@ -603,7 +598,7 @@
         window._cyberArk.catSlug = catSlug;
         window._cyberArk.subSlug = subSlug;
         window._cyberArk.childDirSlug = childDirSlug;
-        
+
         // 如果是子目录路径，subSlug 修正为父级（用于查找 nav-tree 中的 subcategory）
         if (isSubDirPath) subSlug = parentSubSlug;
         
@@ -626,12 +621,12 @@
             if (category) {
                 const catEl = document.getElementById('breadcrumbCat');
                 catEl.textContent = category.name;
-                catEl.href = `rankings.html?cat=${catSlug}`;
-                
+                catEl.href = buildRankingsUrl(catSlug);
+
                 const subEl = document.getElementById('breadcrumbSub');
                 if (childDirSlug) {
                     // 三级面包屑：首页 / 分类 / 父子榜单 / 当前子榜单
-                    subEl.innerHTML = `<a href="entity-list.html?cat=${catSlug}&sub=${parentSubSlug}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> <span style="margin:0 10px;">›</span> <span style="color:#9090a0;">${childDirSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>`;
+                    subEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> <span style="margin:0 10px;">›</span> <span style="color:#9090a0;">${childDirSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>`;
                 } else {
                     subEl.textContent = subcategory.name;
                 }
@@ -642,9 +637,9 @@
         let entities = [];
         if (childDirSlug) {
             // 子子分类模式：尝试加载 data/entities/{cat}/{parentSub}/{childDir}.json
-            // 以及 data/entities/{cat}/{childDir}.json（子子分类可能直接放在 cat 下）
             try {
-                let r = await fetch(`data/entities/${catSlug}/${parentSubSlug}/${childDirSlug}.json`);
+                const nestedSubSlug = `${parentSubSlug}/${childDirSlug}`;
+                let r = await fetch(buildEntitiesJsonPath(catSlug, nestedSubSlug));
                 if (r.ok) { entities = await r.json(); }
                 else {
                     r = await fetch(`data/entities/${catSlug}/${childDirSlug}.json`);
@@ -654,7 +649,7 @@
             // 如果还是空，尝试从父级 JSON 中按前缀过滤
             if (entities.length === 0) {
                 try {
-                    const r = await fetch(`data/entities/${catSlug}/${parentSubSlug}.json`);
+                    const r = await fetch(buildEntitiesJsonPath(catSlug, parentSubSlug));
                     if (r.ok) {
                         const parent = await r.json();
                         const prefix = childDirSlug + '/';
@@ -664,7 +659,7 @@
             }
         } else {
             try {
-                const r = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+                const r = await fetch(buildEntitiesJsonPath(catSlug, subSlug));
                 if (r.ok) entities = await r.json();
             } catch(e) { /* 忽略 */ }
         }
@@ -724,7 +719,7 @@
                 const icon = sr.source === 'nav' ? '📋' : '📂';
                 return `
                     <div class="gallery-card" style="animation-delay:${delay}s; cursor:pointer;"
-                         onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${encodeURIComponent(subSlug)}%2F${encodeURIComponent(sr.slug)}'">
+                         onclick="window.location.href='${buildEntityListUrl(catSlug, subSlug + '/' + sr.slug)}'">
                         <div class="card-cover" style="aspect-ratio:2/1;background:linear-gradient(135deg,#1a1a2e ${catColor}15,#0d0d1a);">
                             <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
                                 <span style="font-size:3rem;">${icon}</span>

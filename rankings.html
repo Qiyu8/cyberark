@@ -134,6 +134,7 @@
         </div>
     </footer>
     
+    <script src="pathUtils.js"></script>
     <script src="script.js"></script>
     <script>
     // 榜单列表页面逻辑 - 直接使用 script.js 全局 navTree
@@ -190,7 +191,7 @@
                 animation: fadeInUp 0.5s ease forwards;
                 animation-delay: ${index * 0.05}s;
                 opacity: 0;
-            " onmouseover="this.style.borderColor='${category.color}'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 40px ${category.color}30';" onmouseout="this.style.borderColor='rgba(0,212,255,0.2)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${sub.slug}'">
+            " onmouseover="this.style.borderColor='${category.color}'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 40px ${category.color}30';" onmouseout="this.style.borderColor='rgba(0,212,255,0.2)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';" onclick="window.location.href='${buildEntityListUrl(catSlug, sub.slug)}'">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
                     <h3 style="color: #e0e0f6; font-size: 1.3rem; font-weight: 600;">${sub.name}</h3>
                     <span style="

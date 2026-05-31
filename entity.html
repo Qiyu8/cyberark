@@ -135,6 +135,7 @@
         </div>
     </footer>
     
+    <script src="pathUtils.js"></script>
     <script src="script.js"></script>
     <script>
     // 实体详情页 - 加载并渲染 Markdown 内容
@@ -180,42 +181,24 @@
         // 更新面包屑
         if (category) {
             document.getElementById('breadcrumbCategory').textContent = category.name;
-            document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
+            document.getElementById('breadcrumbCategory').href = buildRankingsUrl(catSlug);
         }
         if (subcategory) {
             const rankingEl = document.getElementById('breadcrumbRanking');
             if (isSubSub) {
                 // 三级面包屑
-                rankingEl.innerHTML = `<a href="entity-list.html?cat=${catSlug}&sub=${parentSubSlug}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> › <span style="color:#9090a0;">${childSlug.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span>`;
+                rankingEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> › <span style="color:#9090a0;">${childSlug.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span>`;
             } else {
                 rankingEl.textContent = subcategory.name;
-                rankingEl.href = `entity-list.html?cat=${catSlug}&sub=${subSlug}`;
+                rankingEl.href = buildEntityListUrl(catSlug, subSlug);
             }
         }
         
         // 加载实体列表（用于上下导航）
         try {
-            let idxUrl;
-            // entityFile 可能含子目录前缀，此时直接用 catSlug + entityFile 所在的目录
-            const fileHasPath = entityFile.includes('/');
-            if (fileHasPath) {
-                // entityFile = "most-expensive-sports-carsTop20/001_Pagani-Huayra.md"
-                // parentSubSlug = "automobiles"
-                // idxUrl = "data/entities/consumption/automobiles/most-expensive-sports-carsTop20.json"
-                const fileDir = entityFile.split('/').slice(0, -1).join('/');
-                if (parentSubSlug) {
-                    idxUrl = `data/entities/${catSlug}/${parentSubSlug}/${fileDir}.json`;
-                } else {
-                    idxUrl = `data/entities/${catSlug}/${fileDir}.json`;
-                }
-            } else if (isSubSub) {
-                idxUrl = `data/entities/${catSlug}/${parentSubSlug}/${childSlug}.json`;
-            } else {
-                idxUrl = `data/entities/${catSlug}/${subSlug}.json`;
-            }
-            let idxResp = await fetch(idxUrl);
+            let idxResp = await fetch(buildEntitiesJsonPath(catSlug, subSlug, entityFile));
             if (!idxResp.ok && isSubSub) {
-                idxResp = await fetch(`data/entities/${catSlug}/${parentSubSlug}.json`);
+                idxResp = await fetch(buildEntitiesJsonPath(catSlug, parentSubSlug));
             }
             if (idxResp.ok) {
                 entityData = await idxResp.json();
@@ -223,22 +206,8 @@
             }
         } catch(e) { /* 忽略，导航功能可选 */ }
         
-        // entityFile 可能包含子目录前缀（如 "top-supercar-collectionTop50/001_Bugatti-Veyron.md"）
-        // 此时 mdUrl 直接用 entityFile，不再叠加 childSlug
-        let mdUrl;
-        const fileHasPath = entityFile.includes('/');
-        if (fileHasPath) {
-            // entityFile 含路径：data/md/{catSlug}/{parentSubSlug}/{entityFile}
-            if (parentSubSlug) {
-                mdUrl = `data/md/${catSlug}/${parentSubSlug}/${entityFile}`;
-            } else {
-                mdUrl = `data/md/${catSlug}/${entityFile}`;
-            }
-        } else if (isSubSub) {
-            mdUrl = `data/md/${catSlug}/${parentSubSlug}/${childSlug}/${entityFile}`;
-        } else {
-            mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
-        }
+        // entityFile 可能包含子目录前缀，buildMdPath 统一处理
+        const mdUrl = buildMdPath(catSlug, subSlug, entityFile);
         try {
             const mdResp = await fetch(mdUrl);
             if (!mdResp.ok) throw new Error(`HTTP ${mdResp.status}`);
@@ -280,7 +249,7 @@
         
         if (currentEntityIndex > 0) {
             const prev = entityData[currentEntityIndex - 1];
-            prevHtml = `<a href="entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(prev.file)}" class="prev">
+            prevHtml = `<a href="${buildEntityPageUrl(catSlug, subSlug, prev.file)}" class="prev">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 <div><div class="nav-label">上一个</div><div class="nav-title">${prev.name}</div></div>
             </a>`;
@@ -290,7 +259,7 @@
         
         if (currentEntityIndex < entityData.length - 1) {
             const next = entityData[currentEntityIndex + 1];
-            nextHtml = `<a href="entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(next.file)}" class="next">
+            nextHtml = `<a href="${buildEntityPageUrl(catSlug, subSlug, next.file)}" class="next">
                 <div style="text-align:right;"><div class="nav-label">下一个</div><div class="nav-title">${next.name}</div></div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>`;

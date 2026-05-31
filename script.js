@@ -3,6 +3,7 @@
 
 // ========== 全局数据 ==========
 let navTree = [];  // 导航树数据
+let searchIndex = [];  // 搜索索引
 
 const featuredEntities = [
     {
@@ -83,11 +84,12 @@ const featuredEntities = [
 document.addEventListener('DOMContentLoaded', async function() {
     // 加载导航树数据
     await loadNavTree();
-    
+
     // 初始化各个功能模块
     initParticles();
     initScrollEffect();
-    
+    initSearch();
+
     // 根据当前页面渲染内容
     const path = window.location.pathname;
     if (path.includes('index.html') || path.endsWith('/') || path.endsWith('cyber-ark')) {
@@ -107,24 +109,35 @@ async function loadNavTree() {
     }
 }
 
+// ========== 加载搜索索引（后台异步，不阻塞页面） ==========
+async function loadSearchIndex() {
+    try {
+        const r = await fetch('data/search-index.json');
+        if (r.ok) searchIndex = await r.json();
+    } catch (e) { /* 静默，搜索降级为分类搜索 */ }
+}
+
 // ========== 渲染首页分类卡片 ==========
 function renderCategories() {
     const grid = document.getElementById('categoriesGrid');
     if (!grid || navTree.length === 0) return;
-    
+
     grid.innerHTML = navTree.map((cat, index) => `
-        <div class="category-card" style="animation-delay: ${index * 0.05}s;" onclick="window.location.href='rankings.html?cat=${cat.slug}'">
-            <div class="category-icon" style="font-size: 3rem; margin-bottom: 15px;">${cat.icon}</div>
+        <div class="category-card" style="animation-delay: ${index * 0.05}s; --cat-color: ${cat.color};" onclick="window.location.href='${buildRankingsUrl(cat.slug)}'">
+            <div class="category-card-bg" style="background: radial-gradient(ellipse at top left, ${cat.color}22 0%, transparent 65%);"></div>
+            <div class="category-card-top">
+                <span class="category-icon">${cat.icon}</span>
+                <span class="category-count-badge" style="background: ${cat.color}22; color: ${cat.color}; border-color: ${cat.color}44;">${cat.entityCount.toLocaleString()}</span>
+            </div>
             <h3 class="category-name">${cat.name}</h3>
-            <p class="category-desc">${cat.subcategoryCount} 个榜单 · ${cat.entityCount.toLocaleString()} 个实体</p>
-            <div class="category-color-bar" style="background: ${cat.color};"></div>
-            <button class="category-btn" style="background: ${cat.color}20; color: ${cat.color}; border-color: ${cat.color}40;">
-                探索该分类
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <p class="category-desc">${cat.subcategoryCount} 个榜单</p>
+            <div class="category-color-bar" style="background: linear-gradient(90deg, ${cat.color}, ${cat.color}44);"></div>
+            <div class="category-arrow" style="color: ${cat.color};">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
-            </button>
+            </div>
         </div>
     `).join('');
 }
@@ -133,22 +146,24 @@ function renderCategories() {
 function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
-    
+
     grid.innerHTML = featuredEntities.map((entity, index) => {
-        const stars = '★'.repeat(entity.rating) + '☆'.repeat(5 - entity.rating);
         const url = entity.subSlug && entity.file
-            ? `entity.html?cat=${entity.categorySlug}&sub=${entity.subSlug}&entity=${encodeURIComponent(entity.file)}`
+            ? buildEntityPageUrl(entity.categorySlug, entity.subSlug, entity.file)
             : `entity-list.html?cat=${entity.categorySlug}`;
         return `
             <div class="entity-card" style="animation-delay: ${index * 0.05}s;" onclick="window.location.href='${url}'">
-                <div class="entity-thumbnail">${entity.thumbnail}</div>
-                <h3 class="entity-name">${entity.name}</h3>
-                <p class="entity-category">${entity.category}</p>
-                <p class="entity-desc">${entity.desc}</p>
-                <div class="entity-tags">
-                    ${entity.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="entity-thumbnail">
+                    <span class="entity-thumb-icon">${entity.thumbnail}</span>
                 </div>
-                <div class="entity-rating">${stars}</div>
+                <div class="entity-card-body">
+                    <span class="entity-category-badge">${entity.category}</span>
+                    <h3 class="entity-name">${entity.name}</h3>
+                    <p class="entity-desc">${entity.desc}</p>
+                    <div class="entity-tags">
+                        ${entity.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
             </div>
         `;
     }).join('');
@@ -270,30 +285,137 @@ function closeModal(modalId) {
 
 // ========== 搜索功能 ==========
 function performSearch() {
-    const query = document.getElementById('globalSearch').value.trim();
-    if (!query) {
-        alert('请输入搜索关键词');
-        return;
+    const input = document.getElementById('globalSearch');
+    if (input) input.focus();
+}
+
+function initSearch() {
+    const input = document.getElementById('globalSearch');
+    if (!input) return;
+
+    loadSearchIndex();
+
+    // 挂到 body，用 fixed 定位避免被 flex/overflow 影响
+    const dropdown = document.createElement('div');
+    dropdown.className = 'search-dropdown';
+    dropdown.style.display = 'none';
+    document.body.appendChild(dropdown);
+
+    function positionDropdown() {
+        const rect = input.closest('.search-box').getBoundingClientRect();
+        dropdown.style.cssText = `
+            position: fixed !important;
+            top: ${rect.bottom + 6}px !important;
+            left: ${rect.left}px !important;
+            width: ${rect.width}px !important;
+            z-index: 2147483647 !important;
+            display: block;
+            background: #0d0d1e !important;
+            border: 1px solid rgba(0, 212, 255, 0.25) !important;
+            border-radius: 12px !important;
+            max-height: 360px !important;
+            overflow-y: auto !important;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95) !important;
+        `;
     }
-    
-    // 在导航树中搜索
-    const results = [];
-    navTree.forEach(cat => {
-        if (cat.name.includes(query) || cat.slug.includes(query)) {
-            results.push({ type: 'category', ...cat });
+
+    let activeIndex = -1;
+    let currentResults = [];
+
+    function fuzzySearch(query) {
+        if (!query || !searchIndex.length) return [];
+        const q = query.toLowerCase();
+        const scored = [];
+        for (const item of searchIndex) {
+            const name = item.name.toLowerCase();
+            const en = (item.en || '').toLowerCase();
+            // 精确前缀 > 包含匹配（name 含中英文，en 纯英文）
+            let score = 0;
+            if (name.startsWith(q) || en.startsWith(q)) score = 3;
+            else if (name.includes(q) || en.includes(q)) score = 2;
+            else if (item.catName.includes(query) || item.subName.includes(query)) score = 1;
+            if (score > 0) scored.push({ item, score });
         }
-        cat.subcategories.forEach(sub => {
-            if (sub.name.includes(query) || sub.slug.includes(query)) {
-                results.push({ type: 'ranking', category: cat.slug, ...sub });
-            }
-        });
-    });
-    
-    if (results.length === 0) {
-        alert(`未找到与"${query}"相关的结果。`);
-    } else {
-        alert(`找到 ${results.length} 条与"${query}"相关的结果。\n\n完整版将展示搜索结果列表。`);
+        scored.sort((a, b) => b.score - a.score);
+        return scored.slice(0, 10).map(s => s.item);
     }
+
+    function highlight(text, query) {
+        if (!query || !text) return text;
+        const idx = text.toLowerCase().indexOf(query.toLowerCase());
+        if (idx < 0) return text;
+        return text.slice(0, idx) +
+            `<span class="search-highlight">${text.slice(idx, idx + query.length)}</span>` +
+            text.slice(idx + query.length);
+    }
+
+    function renderDropdown(results, query) {
+        activeIndex = -1;
+        currentResults = results;
+        if (!results.length) {
+            closeDropdown();
+            return;
+        }
+        const items = results.map((item, i) => {
+            const url = buildEntityPageUrl(item.cat, item.sub, item.file);
+            const displayName = highlight(item.name, query);
+            const parentLabel = [item.catName, item.subName].filter(Boolean).join(' / ');
+            return `<div class="search-dropdown-row"><a class="search-dropdown-item" href="${url}" data-idx="${i}"><span class="item-name">${displayName}</span>&nbsp;&nbsp;&nbsp;<em class="item-parent">${parentLabel}</em></a></div>`;
+        });
+        const total = searchIndex.length ? `共 ${searchIndex.length.toLocaleString()} 个典藏` : '';
+        items.push(`<div class="search-dropdown-footer">显示前 ${results.length} 条 · ${total}</div>`);
+        dropdown.innerHTML = items.join('');
+        positionDropdown();
+        dropdown.style.display = 'block';
+    }
+
+    function closeDropdown() {
+        dropdown.style.cssText = 'display: none !important;';
+        activeIndex = -1;
+    }
+
+    input.addEventListener('input', function() {
+        const q = this.value.trim();
+        if (!q) { closeDropdown(); return; }
+        renderDropdown(fuzzySearch(q), q);
+    });
+
+    // 键盘导航
+    input.addEventListener('keydown', function(e) {
+        const items = dropdown.querySelectorAll('.search-dropdown-item');
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (!items.length) return;
+            activeIndex = Math.min(activeIndex + 1, items.length - 1);
+            items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!items.length) return;
+            activeIndex = Math.max(activeIndex - 1, 0);
+            items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeIndex >= 0 && items[activeIndex]) {
+                window.location.href = items[activeIndex].href;
+            } else if (items.length > 0) {
+                window.location.href = items[0].href;
+            }
+        } else if (e.key === 'Escape') {
+            closeDropdown();
+            input.blur();
+        }
+    });
+
+    // 窗口 resize 时重新定位
+    window.addEventListener('resize', function() {
+        if (dropdown.style.display !== 'none') positionDropdown();
+    });
+
+    // 点击外部关闭
+    const searchBox = input.closest('.search-box');
+    document.addEventListener('click', function(e) {
+        if (!searchBox.contains(e.target) && !dropdown.contains(e.target)) closeDropdown();
+    });
 }
 
 // ========== 滚动效果 ==========
