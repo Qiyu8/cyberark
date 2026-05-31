@@ -1,0 +1,1367 @@
+[
+  {
+    "slug": "art",
+    "name": "艺术",
+    "icon": "🎨",
+    "color": "#E74C3C",
+    "subcategoryCount": 17,
+    "entityCount": 691,
+    "subcategories": [
+      {
+        "slug": "architectural-art",
+        "name": "建筑艺术",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "auction-masterpieces",
+        "name": "拍卖名作",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "classical-art",
+        "name": "古典艺术",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "contemporary-art",
+        "name": "当代艺术",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "dance",
+        "name": "舞蹈",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "design",
+        "name": "设计",
+        "entityCount": 73,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-museumsTop30",
+        "name": "世界著名博物馆 Top30",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "most-expensive-artTop20",
+        "name": "最昂贵艺术品 Top20",
+        "entityCount": 20,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "most-famous-buildingsTop50",
+        "name": "世界最著名建筑 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "music",
+        "name": "音乐",
+        "entityCount": 93,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "opera",
+        "name": "歌剧",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "painting",
+        "name": "绘画",
+        "entityCount": 104,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "painting-calligraphy",
+        "name": "书画",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "photography",
+        "name": "摄影",
+        "entityCount": 51,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sculpture",
+        "name": "雕塑",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-artistsTop100",
+        "name": "世界顶级艺术家 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-design-awardsTop20",
+        "name": "世界顶级设计奖 Top20",
+        "entityCount": 20,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "consumption",
+    "name": "消费",
+    "icon": "🛒",
+    "color": "#D35400",
+    "subcategoryCount": 15,
+    "entityCount": 726,
+    "subcategories": [
+      {
+        "slug": "automobiles",
+        "name": "汽车",
+        "entityCount": 71,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "collectibles",
+        "name": "收藏品",
+        "entityCount": 134,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "e-commerce",
+        "name": "电商",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-tea-coffeeTop30",
+        "name": "世界名茶名咖 Top30",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "fmcg",
+        "name": "快消品",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "jewelry",
+        "name": "珠宝",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "luxury-goods",
+        "name": "奢侈品",
+        "entityCount": 147,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "luxury-homes",
+        "name": "豪宅",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nev",
+        "name": "新能源车",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "pets",
+        "name": "宠物",
+        "entityCount": 22,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "retail",
+        "name": "零售",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-hotelsTop50",
+        "name": "世界顶级酒店 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-michelin-restaurantsTop50",
+        "name": "世界米其林餐厅 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "ultra-luxury",
+        "name": "超奢品",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "yachts",
+        "name": "游艇",
+        "entityCount": 21,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Restaurants-Top50",
+        "name": "世界顶级餐厅 Top50",
+        "entityCount": 49,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "wine",
+        "name": "葡萄酒",
+        "entityCount": 50,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "culture",
+    "name": "文化",
+    "icon": "🎭",
+    "color": "#16A085",
+    "subcategoryCount": 13,
+    "entityCount": 587,
+    "subcategories": [
+      {
+        "slug": "academics",
+        "name": "学术",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "art",
+        "name": "艺术",
+        "entityCount": 256,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-philosophy",
+        "name": "古典哲学",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cultural-heritageTop50",
+        "name": "世界文化遗产 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "education",
+        "name": "教育",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "law",
+        "name": "法律",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "literary-award-winners",
+        "name": "文学奖得主",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "media",
+        "name": "媒体",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-philosophy",
+        "name": "现代哲学",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "philosophy",
+        "name": "哲学",
+        "entityCount": 102,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "thought",
+        "name": "思想",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-museumsTop50",
+        "name": "世界顶级博物馆 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "traditional-culture",
+        "name": "传统文化",
+        "entityCount": 2,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "economy",
+    "name": "经济",
+    "icon": "💰",
+    "color": "#F39C12",
+    "subcategoryCount": 15,
+    "entityCount": 564,
+    "subcategories": [
+      {
+        "slug": "construction",
+        "name": "建筑",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "economists",
+        "name": "经济学家",
+        "entityCount": 53,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "emerging-markets",
+        "name": "新兴市场",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "energy-economy",
+        "name": "能源经济",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "entrepreneurs",
+        "name": "企业家",
+        "entityCount": 101
+      },
+      {
+        "slug": "global-financial",
+        "name": "全球金融",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "industry",
+        "name": "工业",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "infrastructure",
+        "name": "基础设施",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "investment-banksTop50",
+        "name": "世界投资银行 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "major-economies",
+        "name": "主要经济体",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "trade-logistics",
+        "name": "贸易物流",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "GHVR",
+        "name": "全球高价值资源",
+        "entityCount": 51
+      },
+      {
+        "slug": "billionaires",
+        "name": "富豪",
+        "entityCount": 200
+      },
+      {
+        "slug": "top-business-schools",
+        "name": "世界顶级商学院",
+        "entityCount": 51
+      },
+      {
+        "slug": "top-investors",
+        "name": "顶级投资人",
+        "entityCount": 51
+      }
+    ]
+  },
+  {
+    "slug": "education",
+    "name": "教育",
+    "icon": "📚",
+    "color": "#9B59B6",
+    "subcategoryCount": 11,
+    "entityCount": 652,
+    "subcategories": [
+      {
+        "slug": "education-policy",
+        "name": "教育政策",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "online-education",
+        "name": "在线教育",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "primary-education",
+        "name": "基础教育",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-business-schoolsTop50",
+        "name": "世界顶级商学院 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-high-schools",
+        "name": "世界顶级高中",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-law-schoolsTop50",
+        "name": "世界顶级法学院 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-music-schoolsTop30",
+        "name": "世界顶级音乐学院 Top30",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-polytechnicsTop30",
+        "name": "世界顶级理工学院 Top30",
+        "entityCount": 30,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-primary-schools",
+        "name": "世界顶级小学",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-universities",
+        "name": "世界顶级大学",
+        "entityCount": 290,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "vocational-education",
+        "name": "职业教育",
+        "entityCount": 0,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "entertainment",
+    "name": "娱乐",
+    "icon": "🎮",
+    "color": "#1ABC9C",
+    "subcategoryCount": 22,
+    "entityCount": 4003,
+    "subcategories": [
+      {
+        "slug": "Anime-Characters-Top100",
+        "name": "动漫角色 Top100",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "Chinese-Anime-Top100",
+        "name": "中国动漫 Top100",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "Japanese-Anime-Top100",
+        "name": "日本动漫 Top100",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "World-Animation-Movies-Top100",
+        "name": "世界动画电影 Top100",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "World-National-Parks-Top50",
+        "name": "世界国家公园 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top100-Actresses",
+        "name": "世界顶级女演员 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top100-Best-selling-Childrens-Books",
+        "name": "世界最畅销童书 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "accommodation",
+        "name": "住宿",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "circuses",
+        "name": "马戏团",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "film-tv",
+        "name": "影视",
+        "entityCount": 209,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "games",
+        "name": "游戏",
+        "entityCount": 320,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "martial-arts",
+        "name": "武术",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "movies",
+        "name": "电影",
+        "entityCount": 832,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "music",
+        "name": "音乐",
+        "entityCount": 1073,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "social-media",
+        "name": "社交媒体",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sports",
+        "name": "体育",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-100-male-actors",
+        "name": "世界顶级男演员 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "tourism",
+        "name": "旅游",
+        "entityCount": 332,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "traditional-opera",
+        "name": "传统戏曲",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "travel",
+        "name": "旅行",
+        "entityCount": 252,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "variety-shows",
+        "name": "综艺节目",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "world-top-zoosTop50",
+        "name": "世界顶级动物园 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "educational-toys",
+        "name": "益智玩具",
+        "entityCount": 51,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "history",
+    "name": "历史",
+    "icon": "📜",
+    "color": "#E67E22",
+    "subcategoryCount": 15,
+    "entityCount": 391,
+    "subcategories": [
+      {
+        "slug": "World-Famous-Royal-Dynasties-Top50",
+        "name": "世界著名王朝 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Landmark-Court-Cases-Top50",
+        "name": "世界里程碑案件 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "age-of-exploration",
+        "name": "大航海时代",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ancient-civilizations",
+        "name": "古代文明",
+        "entityCount": 19,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ancient-history",
+        "name": "古代史",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cultural-history",
+        "name": "文化史",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "disasters",
+        "name": "灾难",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "explorers",
+        "name": "探险家",
+        "entityCount": 53,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-archaeological-sitesTop50",
+        "name": "世界著名考古遗址 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "history-of-science",
+        "name": "科学史",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "medieval-history",
+        "name": "中世纪史",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-history",
+        "name": "近代史",
+        "entityCount": 34,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "napoleonic-era",
+        "name": "拿破仑时代",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "war-history",
+        "name": "战争史",
+        "entityCount": 72,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "wwii-history",
+        "name": "二战史",
+        "entityCount": 2,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "literature",
+    "name": "文学",
+    "icon": "📖",
+    "color": "#C0392B",
+    "subcategoryCount": 14,
+    "entityCount": 668,
+    "subcategories": [
+      {
+        "slug": "children-literature",
+        "name": "儿童文学",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-literature",
+        "name": "古典文学",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "classical-poetry",
+        "name": "古典诗歌",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "drama-theater",
+        "name": "戏剧",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "modern-literature",
+        "name": "现代文学",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nobel-literature",
+        "name": "诺贝尔文学奖",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nobel-literature-worksTop100",
+        "name": "诺贝尔文学奖作品 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "novels",
+        "name": "小说",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "poetry",
+        "name": "诗歌",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "prose",
+        "name": "散文",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "sci-fi",
+        "name": "科幻",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-100-literati",
+        "name": "世界顶级文人 Top100",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-50-brain-booster-books",
+        "name": "最启智书籍 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-50-brain-teaser-books",
+        "name": "最烧脑书籍 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "military",
+    "name": "军事",
+    "icon": "⚔️",
+    "color": "#C0392B",
+    "subcategoryCount": 10,
+    "entityCount": 277,
+    "subcategories": [
+      {
+        "slug": "World-Top100-Military-Leaders",
+        "name": "世界顶级军事领袖 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "air-forces",
+        "name": "空军",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "aircraft-carriers",
+        "name": "航空母舰",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "army-forces",
+        "name": "陆军",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cyber-warfare",
+        "name": "网络战",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "fighter-jets",
+        "name": "战斗机",
+        "entityCount": 52,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "naval-forces",
+        "name": "海军",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "nuclear-strategy",
+        "name": "核战略",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "submarines",
+        "name": "潜艇",
+        "entityCount": 57,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "tanks",
+        "name": "坦克",
+        "entityCount": 31,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "politics",
+    "name": "政治",
+    "icon": "🏛️",
+    "color": "#4A90D9",
+    "subcategoryCount": 10,
+    "entityCount": 47,
+    "subcategories": [
+      {
+        "slug": "cross-strait",
+        "name": "两岸关系",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "diplomatic-relations",
+        "name": "外交关系",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "europe",
+        "name": "欧洲政治",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "geopolitics",
+        "name": "地缘政治",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "global-governance",
+        "name": "全球治理",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "international-organizations",
+        "name": "国际组织",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "international-relations",
+        "name": "国际关系",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "labor-movements",
+        "name": "劳工运动",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "national-governance",
+        "name": "国家治理",
+        "entityCount": 34,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "social-movements",
+        "name": "社会运动",
+        "entityCount": 1,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "religion",
+    "name": "宗教",
+    "icon": "🙏",
+    "color": "#8E44AD",
+    "subcategoryCount": 5,
+    "entityCount": 36,
+    "subcategories": [
+      {
+        "slug": "major-religions",
+        "name": "主要宗教",
+        "entityCount": 28,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "new-religious-movements",
+        "name": "新兴宗教运动",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religion-culture",
+        "name": "宗教文化",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religion-politics",
+        "name": "宗教政治",
+        "entityCount": 4,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "religious-organizations",
+        "name": "宗教组织",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "buddhism",
+        "name": "佛教",
+        "entityCount": 215,
+        "hasSubDirs": true
+      }
+    ]
+  },
+  {
+    "slug": "science",
+    "name": "科学",
+    "icon": "🔬",
+    "color": "#27AE60",
+    "subcategoryCount": 29,
+    "entityCount": 2583,
+    "subcategories": [
+      {
+        "slug": "World-Unsolved-Mysteries-Top100",
+        "name": "世界未解之谜 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "aerospace",
+        "name": "航空航天",
+        "entityCount": 53,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "ai",
+        "name": "人工智能",
+        "entityCount": 50,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "architectural-engineering",
+        "name": "建筑工程",
+        "entityCount": 296,
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "famous-ancient-city-wallsTop30",
+            "name": "世界著名古城墙 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "famous-bridgesTop50",
+            "name": "世界著名桥梁 Top50",
+            "entityCount": 51
+          },
+          {
+            "slug": "famous-clock-towersTop30",
+            "name": "世界著名钟楼 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "famous-palacesTop30",
+            "name": "世界著名宫殿 Top30",
+            "entityCount": 31
+          },
+          {
+            "slug": "most-fantastic-castlesTop50",
+            "name": "世界最美城堡 Top50",
+            "entityCount": 50
+          },
+          {
+            "slug": "skyscrapers",
+            "name": "摩天大楼",
+            "entityCount": 50
+          }
+        ]
+      },
+      {
+        "slug": "astronomy",
+        "name": "天文学",
+        "entityCount": 45,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "basic-medicine",
+        "name": "基础医学",
+        "entityCount": 1,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "basic-science",
+        "name": "基础科学",
+        "entityCount": 14,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "biology",
+        "name": "生物学",
+        "entityCount": 213,
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "endangered-animalsTop50",
+            "name": "濒危动物 Top50",
+            "entityCount": 48,
+            "hasSubDirs": false
+          }
+        ]
+      },
+      {
+        "slug": "chemistry",
+        "name": "化学",
+        "entityCount": 101,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "cutting-edge-tech",
+        "name": "前沿科技",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-astronautsTop50",
+        "name": "世界著名宇航员 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "famous-waterfallsTop50",
+        "name": "世界著名瀑布 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "geography",
+        "name": "地理",
+        "entityCount": 645,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "geology",
+        "name": "地质学",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "life-sciences",
+        "name": "生命科学",
+        "entityCount": 2,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "materials-energy",
+        "name": "材料与能源",
+        "entityCount": 0,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "mathematics",
+        "name": "数学",
+        "entityCount": 176,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "medicine",
+        "name": "医学",
+        "entityCount": 53,
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "Century-Pharmaceutical-Companies-Top50",
+            "name": "世纪制药公司 Top50",
+            "entityCount": 50,
+            "hasSubDirs": false
+          },
+          {
+            "slug": "World-Top-Hospitals-Top100",
+            "name": "世界顶级医院 Top100",
+            "entityCount": 100,
+            "hasSubDirs": false
+          },
+          {
+            "slug": "World-Top-Hospitals-Top50",
+            "name": "世界顶级医院 Top50",
+            "entityCount": 51,
+            "hasSubDirs": false
+          }
+        ]
+      },
+      {
+        "slug": "natural-wondersTop50",
+        "name": "世界自然奇观 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-chemistryTop50",
+        "name": "诺贝尔化学奖 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-economicsTop50",
+        "name": "诺贝尔经济学奖 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-medicineTop50",
+        "name": "诺贝尔医学奖 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-physicsTop50",
+        "name": "诺贝尔物理学奖 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "nobel-physiology-medicineTop50",
+        "name": "诺贝尔生理学或医学奖 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "physics",
+        "name": "物理学",
+        "entityCount": 152,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "psychology",
+        "name": "心理学",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "space-exploration",
+        "name": "太空探索",
+        "entityCount": 3,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-scientistsTop100",
+        "name": "世界顶级科学家 Top100",
+        "entityCount": 101,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-spacecraftTop20",
+        "name": "世界顶级航天器 Top20",
+        "entityCount": 21,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "sports",
+    "name": "体育",
+    "icon": "⚽",
+    "color": "#2980B9",
+    "subcategoryCount": 10,
+    "entityCount": 414,
+    "subcategories": [
+      {
+        "slug": "World-Famous-Athletes-Top100",
+        "name": "世界著名运动员 Top100",
+        "entityCount": 100,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Football-Clubs-Top50",
+        "name": "世界顶级足球俱乐部 Top50",
+        "entityCount": 50,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "basketball",
+        "name": "篮球",
+        "entityCount": 52,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "chinese-chess",
+        "name": "中国象棋",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "famous-ski-runsTop30",
+        "name": "世界著名滑雪道 Top30",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "football-soccer",
+        "name": "足球",
+        "entityCount": 36,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "go-chess",
+        "name": "围棋",
+        "entityCount": 31,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-f1-circuitsTop20",
+        "name": "世界顶级F1赛道 Top20",
+        "entityCount": 21,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-golf-coursesTop30",
+        "name": "世界顶级高尔夫球场 Top30",
+        "entityCount": 31,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "top-stadiumsTop30",
+        "name": "世界顶级体育场 Top30",
+        "entityCount": 31,
+        "hasSubDirs": false
+      }
+    ]
+  },
+  {
+    "slug": "technology",
+    "name": "科技",
+    "icon": "💻",
+    "color": "#3498DB",
+    "subcategoryCount": 5,
+    "entityCount": 277,
+    "subcategories": [
+      {
+        "slug": "internet-resources",
+        "name": "互联网资源",
+        "entityCount": 94,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "inventions",
+        "name": "发明",
+        "entityCount": 100,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "laboratories",
+        "name": "实验室",
+        "entityCount": 21,
+        "hasSubDirs": true
+      },
+      {
+        "slug": "top-tech-companiesTop50",
+        "name": "世界顶级科技公司 Top50",
+        "entityCount": 51,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "video-editing-software",
+        "name": "视频编辑软件",
+        "entityCount": 11,
+        "hasSubDirs": true
+      }
+    ]
+  }
+]
