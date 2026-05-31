@@ -486,6 +486,20 @@
         `;
     }
     
+    function mergeEnriched(entity) {
+        const cached = enrichCache.get(entity.file);
+        if (!cached) return entity;
+        return {
+            ...entity,
+            title: cached.title || entity.name,
+            imageUrl: cached.imageUrl,
+            artist: cached.artist,
+            year: cached.year,
+            desc: cached.desc,
+            extra: cached.extra
+        };
+    }
+
     // 渲染当前页网格
     function renderGrid(entities) {
         const grid = document.getElementById('entityGrid');
