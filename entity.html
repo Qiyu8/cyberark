@@ -187,7 +187,7 @@
             const rankingEl = document.getElementById('breadcrumbRanking');
             if (isSubSub) {
                 // 三级面包屑
-                rankingEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> › <span style="color:#9090a0;">${childSlug.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span>`;
+                rankingEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> › <a href="${buildEntityListUrl(catSlug, subSlug)}" style="color:#00d4ff;text-decoration:none;">${childSlug.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</a>`;
             } else {
                 rankingEl.textContent = subcategory.name;
                 rankingEl.href = buildEntityListUrl(catSlug, subSlug);

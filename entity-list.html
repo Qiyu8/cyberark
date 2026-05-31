@@ -678,7 +678,7 @@
                 const subEl = document.getElementById('breadcrumbSub');
                 if (childDirSlug) {
                     // 三级面包屑：首页 / 分类 / 父子榜单 / 当前子榜单
-                    subEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> <span style="margin:0 10px;">›</span> <span style="color:#9090a0;">${childDirSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>`;
+                    subEl.innerHTML = `<a href="${buildEntityListUrl(catSlug, parentSubSlug)}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> <span style="margin:0 10px;">›</span> <a href="${buildEntityListUrl(catSlug, fullSubSlug)}" style="color:#00d4ff;text-decoration:none;">${childDirSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</a>`;
                 } else {
                     subEl.textContent = subcategory.name;
                 }
