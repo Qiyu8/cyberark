@@ -294,6 +294,18 @@
         "name": "游艇",
         "entityCount": 21,
         "hasSubDirs": false
+      },
+      {
+        "slug": "World-Top-Restaurants-Top50",
+        "name": "世界顶级餐厅 Top50",
+        "entityCount": 49,
+        "hasSubDirs": false
+      },
+      {
+        "slug": "wine",
+        "name": "葡萄酒",
+        "entityCount": 50,
+        "hasSubDirs": false
       }
     ]
   },
@@ -382,22 +394,6 @@
         "name": "传统文化",
         "entityCount": 2,
         "hasSubDirs": true
-      }
-    ]
-  },
-  {
-    "slug": "ecology",
-    "name": "生态",
-    "icon": "🌿",
-    "color": "#229954",
-    "subcategoryCount": 1,
-    "entityCount": 48,
-    "subcategories": [
-      {
-        "slug": "endangered-animalsTop50",
-        "name": "濒危动物 Top50",
-        "entityCount": 48,
-        "hasSubDirs": false
       }
     ]
   },
@@ -692,56 +688,12 @@
         "name": "世界顶级动物园 Top50",
         "entityCount": 51,
         "hasSubDirs": false
-      }
-    ]
-  },
-  {
-    "slug": "food",
-    "name": "美食",
-    "icon": "🍜",
-    "color": "#E74C3C",
-    "subcategoryCount": 2,
-    "entityCount": 99,
-    "subcategories": [
-      {
-        "slug": "World-Top-Restaurants-Top50",
-        "name": "世界顶级餐厅 Top50",
-        "entityCount": 49,
-        "hasSubDirs": false
       },
       {
-        "slug": "wine",
-        "name": "葡萄酒",
-        "entityCount": 50,
-        "hasSubDirs": false
-      }
-    ]
-  },
-  {
-    "slug": "healthcare",
-    "name": "医疗",
-    "icon": "🏥",
-    "color": "#27AE60",
-    "subcategoryCount": 3,
-    "entityCount": 201,
-    "subcategories": [
-      {
-        "slug": "Century-Pharmaceutical-Companies-Top50",
-        "name": "世纪制药公司 Top50",
-        "entityCount": 50,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "World-Top-Hospitals-Top100",
-        "name": "世界顶级医院 Top100",
-        "entityCount": 100,
-        "hasSubDirs": false
-      },
-      {
-        "slug": "World-Top-Hospitals-Top50",
-        "name": "世界顶级医院 Top50",
+        "slug": "educational-toys",
+        "name": "益智玩具",
         "entityCount": 51,
-        "hasSubDirs": false
+        "hasSubDirs": true
       }
     ]
   },
@@ -1080,22 +1032,6 @@
     ]
   },
   {
-    "slug": "puzzle",
-    "name": "益智",
-    "icon": "🧩",
-    "color": "#8E44AD",
-    "subcategoryCount": 1,
-    "entityCount": 51,
-    "subcategories": [
-      {
-        "slug": "educational-toys",
-        "name": "益智玩具",
-        "entityCount": 51,
-        "hasSubDirs": true
-      }
-    ]
-  },
-  {
     "slug": "religion",
     "name": "宗教",
     "icon": "🙏",
@@ -1132,17 +1068,7 @@
         "name": "宗教组织",
         "entityCount": 1,
         "hasSubDirs": true
-      }
-    ]
-  },
-  {
-    "slug": "religion-culture",
-    "name": "宗教文化",
-    "icon": "🕉️",
-    "color": "#6C3483",
-    "subcategoryCount": 1,
-    "entityCount": 215,
-    "subcategories": [
+      },
       {
         "slug": "buddhism",
         "name": "佛教",
@@ -1205,7 +1131,15 @@
         "slug": "biology",
         "name": "生物学",
         "entityCount": 213,
-        "hasSubDirs": true
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "endangered-animalsTop50",
+            "name": "濒危动物 Top50",
+            "entityCount": 48,
+            "hasSubDirs": false
+          }
+        ]
       },
       {
         "slug": "chemistry",
@@ -1265,7 +1199,27 @@
         "slug": "medicine",
         "name": "医学",
         "entityCount": 53,
-        "hasSubDirs": true
+        "hasSubDirs": true,
+        "subcategories": [
+          {
+            "slug": "Century-Pharmaceutical-Companies-Top50",
+            "name": "世纪制药公司 Top50",
+            "entityCount": 50,
+            "hasSubDirs": false
+          },
+          {
+            "slug": "World-Top-Hospitals-Top100",
+            "name": "世界顶级医院 Top100",
+            "entityCount": 100,
+            "hasSubDirs": false
+          },
+          {
+            "slug": "World-Top-Hospitals-Top50",
+            "name": "世界顶级医院 Top50",
+            "entityCount": 51,
+            "hasSubDirs": false
+          }
+        ]
       },
       {
         "slug": "natural-wondersTop50",

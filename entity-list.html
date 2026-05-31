@@ -455,9 +455,10 @@
         if (entity.year) tags.push(`<span class="card-tag blue">${entity.year}</span>`);
         if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
         
+        const subParam = childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug;
         return `
             <div class="gallery-card" style="animation-delay:${delay}s" 
-                 onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subSlug}&entity=${encodeURIComponent(entity.file)}'">
+                 onclick="window.location.href='entity.html?cat=${catSlug}&sub=${subParam}&entity=${encodeURIComponent(entity.file)}'">
                 <div class="card-hover-overlay">
                     <button class="card-view-btn">✦ 查看详情</button>
                 </div>
@@ -509,7 +510,14 @@
                 batch.map(async (e) => {
                     if (e.file === 'index.md' || e.file === 'INDEX.md') return { ...e, _enriched: null };
                     try {
-                        const r = await fetch(`data/md/${catSlug}/${subSlug}/${e.file}`);
+                        let mdPath;
+                        if (childDirSlug && !e.file.includes('/')) {
+                            // 子子分类模式：e.file 无子目录前缀，MD 路径 = cat/childDirSlug/file
+                            mdPath = `data/md/${catSlug}/${childDirSlug}/${e.file}`;
+                        } else {
+                            mdPath = `data/md/${catSlug}/${subSlug}/${e.file}`;
+                        }
+                        const r = await fetch(mdPath);
                         if (!r.ok) return { ...e, _enriched: null };
                         const text = await r.text();
                         return { ...e, _enriched: extractFromMd(text, e.file) };
@@ -624,15 +632,33 @@
         
         // 加载实体列表
         let entities = [];
-        try {
-            const r = await fetch(`data/entities/${catSlug}/${parentSubSlug}.json`);
-            if (r.ok) entities = await r.json();
-        } catch(e) { /* 忽略 */ }
-        
-        // 如果是子目录，只保留该子目录下的实体
         if (childDirSlug) {
-            const prefix = childDirSlug + '/';
-            entities = entities.filter(e => e.file && e.file.startsWith(prefix));
+            // 子子分类模式：尝试加载 data/entities/{cat}/{parentSub}/{childDir}.json
+            // 以及 data/entities/{cat}/{childDir}.json（子子分类可能直接放在 cat 下）
+            try {
+                let r = await fetch(`data/entities/${catSlug}/${parentSubSlug}/${childDirSlug}.json`);
+                if (r.ok) { entities = await r.json(); }
+                else {
+                    r = await fetch(`data/entities/${catSlug}/${childDirSlug}.json`);
+                    if (r.ok) entities = await r.json();
+                }
+            } catch(e) { /* 忽略 */ }
+            // 如果还是空，尝试从父级 JSON 中按前缀过滤
+            if (entities.length === 0) {
+                try {
+                    const r = await fetch(`data/entities/${catSlug}/${parentSubSlug}.json`);
+                    if (r.ok) {
+                        const parent = await r.json();
+                        const prefix = childDirSlug + '/';
+                        entities = parent.filter(e => e.file && e.file.startsWith(prefix));
+                    }
+                } catch(e) { /* 忽略 */ }
+            }
+        } else {
+            try {
+                const r = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+                if (r.ok) entities = await r.json();
+            } catch(e) { /* 忽略 */ }
         }
         
         filteredEntities = entities.filter(e => e.file && !e.file.endsWith('index.md') && !e.file.endsWith('INDEX.md'));
@@ -641,66 +667,74 @@
         document.getElementById('filteredCount').textContent = filteredEntities.length;
         
         // ===== 检测子目录（子榜单）=====
-        // 当 hasSubDirs=true 时，从实体 file 路径中提取子目录，展示为子榜单卡片
+        // 两种来源：(1) nav-tree 中的 subcategories（子子分类，如 medicine > pharmaceutical-companies）
+        //         (2) 实体 file 路径中的子目录（hasSubDirs，如 games > RPGgamesTop20）
+        const navSubSubs = (subcategory && subcategory.subcategories) ? subcategory.subcategories : [];
+        const fileSubDirMap = new Map();
         if (subcategory && subcategory.hasSubDirs) {
-            const subDirMap = new Map();
             filteredEntities.forEach(e => {
                 const parts = e.file.split('/');
                 if (parts.length > 1) {
                     const dirName = parts[0];
-                    if (!subDirMap.has(dirName)) {
-                        subDirMap.set(dirName, { slug: dirName, entities: [] });
-                    }
-                    subDirMap.get(dirName).entities.push(e);
+                    if (!fileSubDirMap.has(dirName)) fileSubDirMap.set(dirName, []);
+                    fileSubDirMap.get(dirName).push(e);
                 }
             });
+        }
+        
+        // 合并所有子榜单来源
+        const allSubRankings = [];
+        // 来源1: nav-tree 子子分类
+        navSubSubs.forEach(ss => {
+            allSubRankings.push({ slug: ss.slug, name: ss.name, count: ss.entityCount || 0, source: 'nav' });
+        });
+        // 来源2: 文件子目录
+        fileSubDirMap.forEach((ents, slug) => {
+            if (!allSubRankings.find(r => r.slug === slug)) {
+                const dirTitle = slug
+                    .replace(/Top\d+/i, m => ' Top' + m.replace(/[^0-9]/g, ''))
+                    .replace(/-/g, ' ')
+                    .replace(/\b\w/g, c => c.toUpperCase());
+                allSubRankings.push({ slug, name: dirTitle, count: ents.length, source: 'file' });
+            }
+        });
+        
+        if (allSubRankings.length > 1) {
+            // 有多个子榜单 → 显示子榜单卡片列表
+            document.getElementById('skeletonGrid').style.display = 'none';
+            const grid = document.getElementById('entityGrid');
+            grid.style.display = 'grid';
+            grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
             
-            if (subDirMap.size > 1) {
-                // 有多个子目录 → 显示子榜单列表
-                document.getElementById('skeletonGrid').style.display = 'none';
-                const grid = document.getElementById('entityGrid');
-                grid.style.display = 'grid';
-                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
-                
-                const catColor = category ? category.color : '#00d4ff';
-                const subDirs = Array.from(subDirMap.values()).sort((a, b) => b.entities.length - a.entities.length);
-                
-                grid.innerHTML = subDirs.map((sd, idx) => {
-                    const dirSlug = sd.slug;
-                    // 从目录名生成可读标题
-                    const dirTitle = dirSlug
-                        .replace(/Top\d+/i, match => ' Top' + match.replace(/[^0-9]/g, ''))
-                        .replace(/-/g, ' ')
-                        .replace(/\b\w/g, c => c.toUpperCase());
-                    const delay = idx * 0.05;
-                    
-                    return `
-                        <div class="gallery-card" style="animation-delay:${delay}s; cursor:pointer;"
-                             onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${subSlug}%2F${dirSlug}'">
-                            <div class="card-cover" style="aspect-ratio:2/1;background:linear-gradient(135deg,#1a1a2e ${catColor}15,#0d0d1a);">
-                                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
-                                    <span style="font-size:3rem;">📂</span>
-                                    <span style="font-size:0.9rem;color:#808090;">子榜单</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title" style="font-size:1.15rem;">${dirTitle}</h3>
-                                <div class="card-meta">
-                                    <span style="color:#c9a84c;font-weight:600;">${sd.entities.length} 个实体</span>
-                                </div>
+            const catColor = category ? category.color : '#00d4ff';
+            allSubRankings.sort((a, b) => b.count - a.count);
+            
+            grid.innerHTML = allSubRankings.map((sr, idx) => {
+                const delay = idx * 0.05;
+                const title = sr.name || sr.slug;
+                const icon = sr.source === 'nav' ? '📋' : '📂';
+                return `
+                    <div class="gallery-card" style="animation-delay:${delay}s; cursor:pointer;"
+                         onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${subSlug}%2F${sr.slug}'">
+                        <div class="card-cover" style="aspect-ratio:2/1;background:linear-gradient(135deg,#1a1a2e ${catColor}15,#0d0d1a);">
+                            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+                                <span style="font-size:3rem;">${icon}</span>
+                                <span style="font-size:0.9rem;color:#808080;">子榜单</span>
                             </div>
                         </div>
-                    `;
-                }).join('');
-                
-                // 隐藏搜索栏（子榜单列表不需要搜索）
-                document.querySelector('.search-area').style.display = 'none';
-                
-                // 更新标题提示
-                descEl.textContent = `包含 ${subDirs.length} 个子榜单，共 ${filteredEntities.length} 个实体`;
-                
-                return; // 不继续渲染实体列表
-            }
+                        <div class="card-body">
+                            <h3 class="card-title" style="font-size:1.15rem;">${title}</h3>
+                            <div class="card-meta">
+                                <span style="color:#c9a84c;font-weight:600;">${sr.count} 个实体</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.querySelector('.search-area').style.display = 'none';
+            descEl.textContent = `包含 ${allSubRankings.length} 个子榜单，共 ${filteredEntities.length} 个实体`;
+            return;
         }
         
         // ===== 无子目录或只有一个子目录：正常渲染实体列表 =====

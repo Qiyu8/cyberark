@@ -168,9 +168,14 @@
             return;
         }
         
+        // 解析子子分类路径（如 medicine/Century-Pharmaceutical-Companies-Top50）
+        const isSubSub = subSlug.includes('/');
+        const parentSubSlug = isSubSub ? subSlug.split('/')[0] : subSlug;
+        const childSlug = isSubSub ? subSlug.split('/').slice(1).join('/') : '';
+        
         // 查找分类和榜单
         const category = navTree.find(c => c.slug === catSlug);
-        const subcategory = category ? category.subcategories.find(s => s.slug === subSlug) : null;
+        const subcategory = category ? category.subcategories.find(s => s.slug === parentSubSlug) : null;
         
         // 更新面包屑
         if (category) {
@@ -178,13 +183,29 @@
             document.getElementById('breadcrumbCategory').href = `rankings.html?cat=${catSlug}`;
         }
         if (subcategory) {
-            document.getElementById('breadcrumbRanking').textContent = subcategory.name;
-            document.getElementById('breadcrumbRanking').href = `entity-list.html?cat=${catSlug}&sub=${subSlug}`;
+            const rankingEl = document.getElementById('breadcrumbRanking');
+            if (isSubSub) {
+                // 三级面包屑
+                rankingEl.innerHTML = `<a href="entity-list.html?cat=${catSlug}&sub=${parentSubSlug}" style="color:#00d4ff;text-decoration:none;">${subcategory.name}</a> › <span style="color:#9090a0;">${childSlug.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</span>`;
+            } else {
+                rankingEl.textContent = subcategory.name;
+                rankingEl.href = `entity-list.html?cat=${catSlug}&sub=${subSlug}`;
+            }
         }
         
         // 加载实体列表（用于上下导航）
         try {
-            const idxResp = await fetch(`data/entities/${catSlug}/${subSlug}.json`);
+            let idxUrl;
+            if (isSubSub) {
+                // 子子分类：优先尝试子子分类 JSON，然后 cat/childSlug.json
+                idxUrl = `data/entities/${catSlug}/${childSlug}.json`;
+            } else {
+                idxUrl = `data/entities/${catSlug}/${subSlug}.json`;
+            }
+            let idxResp = await fetch(idxUrl);
+            if (!idxResp.ok && isSubSub) {
+                idxResp = await fetch(`data/entities/${catSlug}/${parentSubSlug}.json`);
+            }
             if (idxResp.ok) {
                 entityData = await idxResp.json();
                 currentEntityIndex = entityData.findIndex(e => e.file === entityFile);
@@ -192,7 +213,12 @@
         } catch(e) { /* 忽略，导航功能可选 */ }
         
         // 加载 Markdown 文件
-        const mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
+        let mdUrl;
+        if (isSubSub) {
+            mdUrl = `data/md/${catSlug}/${childSlug}/${entityFile}`;
+        } else {
+            mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
+        }
         try {
             const mdResp = await fetch(mdUrl);
             if (!mdResp.ok) throw new Error(`HTTP ${mdResp.status}`);
