@@ -446,8 +446,10 @@
             coverContent = `<img src="${entity.imageUrl}" alt="${entity.title}" loading="lazy" 
                 onerror="this.parentElement.innerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);font-size:3rem;>🎨</div>'">`;
         } else {
+            const displayName = entity.title || entity.name || '??';
+            const initials = displayName.replace(/^\d+_/, '').substring(0, 2);
             coverContent = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e,#1a1520);">
-                <span style="font-size:3.5rem;">"${entity.title.substring(0,2)}"</span>
+                <span style="font-size:3.5rem;">${initials}</span>
             </div>`;
         }
         
@@ -467,7 +469,7 @@
                     ${coverContent}
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">${entity.title}</h3>
+                    <h3 class="card-title">${entity.title || entity.name || '??'}</h3>
                     <div class="card-meta">
                         ${entity.artist ? `<span>👤 ${entity.artist}</span>` : ''}
                     </div>
