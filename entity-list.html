@@ -457,7 +457,7 @@
         if (entity.year) tags.push(`<span class="card-tag blue">${entity.year}</span>`);
         if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
         
-        const subParam = window._cyberArk.childDirSlug ? `${window._cyberArk.subSlug}/${window._cyberArk.childDirSlug}` : window._cyberArk.subSlug;
+        const subParam = subSlug;
         return `
             <div class="gallery-card" style="animation-delay:${delay}s" 
                  onclick="window.location.href='entity.html?cat=${window._cyberArk.catSlug}&sub=${subParam}&entity=${encodeURIComponent(entity.file)}'">

@@ -196,8 +196,14 @@
         // 加载实体列表（用于上下导航）
         try {
             let idxUrl;
-            if (isSubSub) {
-                // 子子分类：优先尝试子子分类 JSON，然后 cat/childSlug.json
+            // entityFile 可能含子目录前缀，此时直接用 catSlug + entityFile 所在的目录
+            const fileHasPath = entityFile.includes('/');
+            if (fileHasPath) {
+                // entityFile = "top-supercar-collectionTop50/001_Bugatti-Veyron.md"
+                // idxUrl = "data/entities/consumption/top-supercar-collectionTop50.json"
+                const fileDir = entityFile.split('/').slice(0, -1).join('/');
+                idxUrl = `data/entities/${catSlug}/${fileDir}.json`;
+            } else if (isSubSub) {
                 idxUrl = `data/entities/${catSlug}/${childSlug}.json`;
             } else {
                 idxUrl = `data/entities/${catSlug}/${subSlug}.json`;
@@ -212,9 +218,14 @@
             }
         } catch(e) { /* 忽略，导航功能可选 */ }
         
-        // 加载 Markdown 文件
+        // entityFile 可能包含子目录前缀（如 "top-supercar-collectionTop50/001_Bugatti-Veyron.md"）
+        // 此时 mdUrl 直接用 entityFile，不再叠加 childSlug
         let mdUrl;
-        if (isSubSub) {
+        const fileHasPath = entityFile.includes('/');
+        if (fileHasPath) {
+            // entityFile 含路径：data/md/{catSlug}/{entityFile}
+            mdUrl = `data/md/${catSlug}/${entityFile}`;
+        } else if (isSubSub) {
             mdUrl = `data/md/${catSlug}/${childSlug}/${entityFile}`;
         } else {
             mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
