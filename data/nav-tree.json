@@ -112,46 +112,6 @@
     ]
   },
   {
-    "slug": "business",
-    "name": "商业",
-    "icon": "💼",
-    "color": "#2C3E50",
-    "subcategoryCount": 5,
-    "entityCount": 454,
-    "subcategories": [
-      {
-        "slug": "GHVR",
-        "name": "全球高价值资源",
-        "entityCount": 51,
-        "hasSubDirs": true
-      },
-      {
-        "slug": "billionaires",
-        "name": "富豪",
-        "entityCount": 200,
-        "hasSubDirs": true
-      },
-      {
-        "slug": "entrepreneurs",
-        "name": "企业家",
-        "entityCount": 101,
-        "hasSubDirs": true
-      },
-      {
-        "slug": "top-business-schools",
-        "name": "世界顶级商学院",
-        "entityCount": 51,
-        "hasSubDirs": true
-      },
-      {
-        "slug": "top-investors",
-        "name": "顶级投资人",
-        "entityCount": 51,
-        "hasSubDirs": false
-      }
-    ]
-  },
-  {
     "slug": "consumption",
     "name": "消费",
     "icon": "🛒",
@@ -356,8 +316,8 @@
     "name": "经济",
     "icon": "💰",
     "color": "#F39C12",
-    "subcategoryCount": 11,
-    "entityCount": 111,
+    "subcategoryCount": 15,
+    "entityCount": 564,
     "subcategories": [
       {
         "slug": "construction",
@@ -386,8 +346,7 @@
       {
         "slug": "entrepreneurs",
         "name": "企业家",
-        "entityCount": 1,
-        "hasSubDirs": true
+        "entityCount": 101
       },
       {
         "slug": "global-financial",
@@ -424,6 +383,26 @@
         "name": "贸易物流",
         "entityCount": 0,
         "hasSubDirs": true
+      },
+      {
+        "slug": "GHVR",
+        "name": "全球高价值资源",
+        "entityCount": 51
+      },
+      {
+        "slug": "billionaires",
+        "name": "富豪",
+        "entityCount": 200
+      },
+      {
+        "slug": "top-business-schools",
+        "name": "世界顶级商学院",
+        "entityCount": 51
+      },
+      {
+        "slug": "top-investors",
+        "name": "顶级投资人",
+        "entityCount": 51
       }
     ]
   },

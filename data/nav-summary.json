@@ -1,14 +1,13 @@
 {
-  "totalCategories": 15,
-  "totalSubcategories": 196,
-  "totalEntities": 12219,
+  "totalCategories": 14,
+  "totalSubcategories": 195,
+  "totalEntities": 12218,
   "generatedAt": "2026-05-31",
   "categories": [
     "🎨 艺术: 17 subs, 691 ents",
-    "💼 商业: 5 subs, 454 ents",
     "🛒 消费: 17 subs, 825 ents",
     "🎭 文化: 13 subs, 526 ents",
-    "💰 经济: 11 subs, 111 ents",
+    "💰 经济: 15 subs, 564 ents",
     "📚 教育: 11 subs, 652 ents",
     "🎮 娱乐: 23 subs, 4053 ents",
     "📜 历史: 15 subs, 391 ents",
