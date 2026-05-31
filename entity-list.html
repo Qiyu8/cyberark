@@ -434,6 +434,11 @@
         return { title, artist, year, imageUrl, desc, extra };
     }
     
+    // 需要被 buildCard / enrichEntities 访问的变量，提升到全局作用域
+    let catSlug = '';
+    let subSlug = '';
+    let childDirSlug = '';
+
     // 生成卡片 HTML
     function buildCard(entity, index) {
         const rank = index + 1;
@@ -596,7 +601,7 @@
         // 判断是否为子目录路径（如 games/RPGgamesTop20）
         const isSubDirPath = subSlug.includes('/');
         const parentSubSlug = isSubDirPath ? subSlug.split('/')[0] : subSlug;
-        const childDirSlug = isSubDirPath ? subSlug.split('/').slice(1).join('/') : '';
+        childDirSlug = isSubDirPath ? subSlug.split('/').slice(1).join('/') : '';
         
         // 如果是子目录路径，subSlug 修正为父级（用于查找 nav-tree 中的 subcategory）
         if (isSubDirPath) subSlug = parentSubSlug;
