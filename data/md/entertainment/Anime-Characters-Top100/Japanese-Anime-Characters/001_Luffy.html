@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蒙奇·D·路飞 | 草帽一伙船长 - 海贼王</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(180deg, #0a0f1e 0%, #1a0a0a 100%);
+            color: #e0e0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* 海浪动画背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 119, 182, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 50%);
+            animation: waveMove 20s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes waveMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25%) translateY(-10px); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 返回导航 */
+        .back-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(230, 57, 70, 0.2);
+            border: 2px solid #e63946;
+            border-radius: 30px;
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .back-nav:hover {
+            background: rgba(230, 57, 70, 0.4);
+            transform: translateX(-5px);
+        }
+        
+        /* 顶部标题区 */
+        .hero-header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title {
+            font-family: 'Bangers', 'Noto Sans SC', cursive;
+            font-size: 4rem;
+            background: linear-gradient(45deg, #e63946, #ffd700, #e63946);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShine 3s linear infinite;
+            text-shadow: 0 0 30px rgba(230, 57, 70, 0.5);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        @keyframes titleShine {
+            to { background-position: 200% center; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .floating-hats {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .hat {
+            position: absolute;
+            font-size: 3rem;
+            animation: floatHat 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+        
+        .hat:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .hat:nth-child(2) { right: 15%; top: 40%; animation-delay: 2s; }
+        .hat:nth-child(3) { left: 20%; bottom: 30%; animation-delay: 4s; }
+        
+        @keyframes floatHat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+        }
+        
+        /* 主视觉大图区 */
+        .hero-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        
+        .character-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(0, 119, 182, 0.2));
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        
+        .character-card::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, transparent, #ffd700, transparent 30%);
+            animation: cardGlow 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .character-card:hover::before {
+            opacity: 0.5;
+        }
+        
+        @keyframes cardGlow {
+            to { transform: rotate(360deg); }
+        }
+        
+        .character-card img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 10px;
+            filter: drop-shadow(0 10px 30px rgba(230, 57, 70, 0.5));
+        }
+        
+        .character-card h3 {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: 900;
+        }
+        
+        /* 基础信息栏 */
+        .info-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid rgba(230, 57, 70, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-table {
+            width: 100%;
+        }
+        
+        .info-table h2 {
+            font-size: 2rem;
+            color: #e63946;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+        
+        .info-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .info-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .info-table td:first-child {
+            font-weight: 700;
+            color: #ffd700;
+            width: 30%;
+        }
+        
+        .info-decoration {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .deco-icon {
+            font-size: 5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* 人物履历时间线 */
+        .timeline-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid rgba(0, 119, 182, 0.5);
+            border-radius: 20px;
+        }
+        
+        .timeline-section h2 {
+            font-size: 2rem;
+            color: #0077b6;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #e63946, #ffd700, #0077b6);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(230, 57, 70, 0.1);
+            border-left: 4px solid #e63946;
+            border-radius: 10px;
+        }
+        
+        .timeline-item::before {
+            content: attr(data-icon);
+            position: absolute;
+            left: -60px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            background: #e63946;
+            border: 3px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .timeline-item h3 {
+            color: #ffd700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item p {
+            color: #c0c0d0;
+            line-height: 1.6;
+        }
+        
+        /* 能力体系板块 */
+        .abilities-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+        }
+        
+        .abilities-section h2 {
+            font-size: 2rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+        
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .ability-card {
+            background: rgba(10, 15, 30, 0.9);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .ability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+        
+        .ability-card h3 {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .ability-card ul {
+            list-style: none;
+        }
+        
+        .ability-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            color: #c0c0d0;
+        }
+        
+        .ability-card li:last-child {
+            border-bottom: none;
+        }
+        
+        /* 视频窗口 */
+        .video-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid rgba(230, 57, 70, 0.5);
+            border-radius: 20px;
+        }
+        
+        .video-section h2 {
+            font-size: 2rem;
+            color: #e63946;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 3px solid #ffd700;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* 音乐播放器 */
+        .music-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid rgba(0, 119, 182, 0.5);
+            border-radius: 20px;
+        }
+        
+        .music-section h2 {
+            font-size: 2rem;
+            color: #0077b6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .audio-player {
+            background: rgba(230, 57, 70, 0.2);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            filter: sepia(20%) saturate(70%) hue-rotate(330deg);
+        }
+        
+        .audio-player p {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 经典语录专区 */
+        .quotes-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+        }
+        
+        .quotes-section h2 {
+            font-size: 2rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+        
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .quote-card {
+            background: rgba(230, 57, 70, 0.15);
+            border: 2px solid #e63946;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .quote-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(230, 57, 70, 0.4);
+        }
+        
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 5rem;
+            color: #e63946;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-card p {
+            color: #ffd700;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-emoji {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 15px;
+        }
+        
+        /* 伙伴与船队板块 */
+        .crew-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 2px solid rgba(0, 119, 182, 0.5);
+            border-radius: 20px;
+        }
+        
+        .crew-section h2 {
+            font-size: 2rem;
+            color: #0077b6;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+        
+        .crew-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        
+        .crew-card {
+            background: rgba(230, 57, 70, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .crew-card:hover {
+            transform: translateY(-10px);
+            border-color: #e63946;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .crew-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .crew-card h3 {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .crew-card p {
+            color: #c0c0d0;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-images { grid-template-columns: 1fr; }
+            .info-section { grid-template-columns: 1fr; }
+            .abilities-grid { grid-template-columns: 1fr; }
+            .crew-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../../../../entity-list.html?cat=entertainment&sub=Anime-Characters-Top100%2FJapanese-Anime-Characters" class="back-nav">
+            ← 返回榜单
+        </a>
+        
+        <!-- 顶部标题区 -->
+        <div class="hero-header">
+            <div class="floating-hats">
+                <div class="hat">👒</div>
+                <div class="hat">👒</div>
+                <div class="hat">👒</div>
+            </div>
+            <h1 class="hero-title">蒙奇·D·路飞</h1>
+            <p class="hero-subtitle">草帽一伙船长 | ONE PIECE</p>
+        </div>
+
+        <!-- 主视觉大图区 -->
+        <div class="hero-images">
+            <div class="character-card">
+                <img src="https://static.wikia.nocookie.net/onepiece/images/6/6d/Monkey_D._Luffy_Anime_Post_Timeskip_Infobox.png"
+                     alt="路飞常态"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div style="display:none;height:400px;align-items:center;justify-content:center;font-size:8rem;flex-direction:column;gap:20px;">
+                    <span>🏴‍☠️</span>
+                    <span style="font-size:1.5rem;color:#ffd700;">常态·草帽路飞</span>
+                </div>
+                <h3>⚡ 常态形态</h3>
+            </div>
+            <div class="character-card">
+                <img src="https://static.wikia.nocookie.net/onepiece/images/4/4e/Monkey_D._Luffy_Gear_5_Infobox.png"
+                     alt="路飞五档尼卡"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div style="display:none;height:400px;align-items:center;justify-content:center;font-size:8rem;flex-direction:column;gap:20px;">
+                    <span>☀️</span>
+                    <span style="font-size:1.5rem;color:#ffd700;">五档·太阳神尼卡</span>
+                </div>
+                <h3>☀️ 五档·太阳神尼卡</h3>
+            </div>
+        </div>
+
+        <!-- 基础信息栏 -->
+        <div class="info-section">
+            <div class="info-table">
+                <h2>⚓ 基础档案</h2>
+                <table>
+                    <tr><td>全名</td><td>蒙奇·D·路飞</td></tr>
+                    <tr><td>英文名</td><td>Monkey D. Luffy</td></tr>
+                    <tr><td>身份</td><td>草帽海贼团船长 · 五皇之一</td></tr>
+                    <tr><td>年龄</td><td>19岁（时代篇后）</td></tr>
+                    <tr><td>生日</td><td>5月5日</td></tr>
+                    <tr><td>出生地</td><td>东海 · 风车村</td></tr>
+                    <tr><td>身高</td><td>174 cm</td></tr>
+                    <tr><td>血型</td><td>F型</td></tr>
+                    <tr><td>口头禅</td><td>我要成为海贼王！</td></tr>
+                    <tr><td>标志物</td><td>草帽（来自红发香克斯）</td></tr>
+                    <tr><td>悬赏金</td><td>30亿贝里（五皇级）</td></tr>
+                    <tr><td>声优</td><td>田中真弓（日）/ 山新（中）</td></tr>
+                </table>
+            </div>
+            <div class="info-decoration">
+                <div class="deco-icon">👒</div>
+                <div class="deco-icon" style="animation-delay:1s;">🏴‍☠️</div>
+                <div class="deco-icon" style="animation-delay:2s;">🌊</div>
+                <div class="deco-icon" style="animation-delay:0.5s;">⚓</div>
+            </div>
+        </div>
+
+        <!-- 人物履历时间线 -->
+        <div class="timeline-section">
+            <h2>📜 人物履历</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-icon="👶">
+                    <h3>童年 · 风车村</h3>
+                    <p>7岁结识红发香克斯，误食橡胶果实获得橡胶人能力。香克斯以左臂为代价救下路飞，将草帽托付于他，立下"成为海贼王"的誓言。</p>
+                </div>
+                <div class="timeline-item" data-icon="⚔️">
+                    <h3>出海 · 东海篇</h3>
+                    <p>17岁正式出海，招募索隆、娜美、乌索普、山治，组建草帽海贼团。击败海军上校摩根、鱼人阿龙，解放可可亚西村，踏入伟大航路。</p>
+                </div>
+                <div class="timeline-item" data-icon="🏜️">
+                    <h3>阿拉巴斯坦篇</h3>
+                    <p>击败七武海克洛克达尔，拯救沙漠王国阿拉巴斯坦，招募妮可·罗宾加入草帽团。</p>
+                </div>
+                <div class="timeline-item" data-icon="🌊">
+                    <h3>水之都 · 空岛篇</h3>
+                    <p>征服神之岛，击败神恩利尔；水之都击败CP9，救出罗宾，招募弗兰奇与布鲁克。</p>
+                </div>
+                <div class="timeline-item" data-icon="🔥">
+                    <h3>顶上战争</h3>
+                    <p>只身闯入海军本部救兄长艾斯，目睹艾斯牺牲后精神崩溃。在雷利指导下修炼霸气两年，完成质的蜕变。</p>
+                </div>
+                <div class="timeline-item" data-icon="🐉">
+                    <h3>鬼岛篇 · 觉醒</h3>
+                    <p>觉醒人人果实·幻兽种·尼卡形态，化身太阳神，击败四皇凯多，解放鬼岛，晋升五皇，悬赏金达30亿贝里。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 能力体系板块 -->
+        <div class="abilities-section">
+            <h2>⚡ 能力体系</h2>
+            <div class="abilities-grid">
+                <div class="ability-card" style="border-color:#e63946;">
+                    <h3>🍎 恶魔果实</h3>
+                    <ul>
+                        <li>🔴 <strong>橡胶果实</strong>（原始形态）</li>
+                        <li>☀️ <strong>人人果实·幻兽种·尼卡</strong></li>
+                        <li>🌀 身体具备橡胶特性，免疫雷击</li>
+                        <li>💫 觉醒后化身太阳神尼卡</li>
+                        <li>♾️ 能力上限取决于想象力</li>
+                        <li>🌍 可改变周围环境物理规则</li>
+                    </ul>
+                </div>
+                <div class="ability-card" style="border-color:#0077b6;">
+                    <h3>👁️ 霸气系统</h3>
+                    <ul>
+                        <li>👁️ <strong>见闻色霸气</strong>（顶级）</li>
+                        <li>　　预知未来数秒，感知意志</li>
+                        <li>🖤 <strong>武装色霸气</strong>（顶级）</li>
+                        <li>　　流刃远程霸气攻击</li>
+                        <li>👑 <strong>霸王色霸气</strong>（天赋级）</li>
+                        <li>　　覆盖型，可缠绕武器</li>
+                    </ul>
+                </div>
+                <div class="ability-card" style="border-color:#ffd700;">
+                    <h3>💥 招式大全</h3>
+                    <ul>
+                        <li>👊 橡皮橡皮·手枪</li>
+                        <li>🚀 橡皮橡皮·火箭炮</li>
+                        <li>🐘 橡皮橡皮·象炮（二档）</li>
+                        <li>🦴 橡皮橡皮·象枪（三档）</li>
+                        <li>🦁 橡皮橡皮·王者象枪（四档）</li>
+                        <li>☀️ 太阳神尼卡·自由战士（五档）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 名场面视频窗口 -->
+        <div class="video-section">
+            <h2>🎬 经典战斗 &amp; 名场面合集</h2>
+            <p style="text-align:center;color:#c0c0d0;margin-bottom:20px;">路飞 vs 凯多 · 顶上战争 · 五档觉醒</p>
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/videoseries?list=PLuzFe9_QLKQ3Ld0Gy7Gy7Gy7Gy7Gy7Gy"
+                    title="路飞经典战斗合集"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="background:#0a0f1e;">
+                </iframe>
+            </div>
+            <p style="text-align:center;margin-top:15px;color:#9090a0;font-size:0.85rem;">
+                ⚠️ 视频需要网络连接，如无法播放请
+                <a href="https://www.youtube.com/results?search_query=Luffy+vs+Kaido+Gear+5" target="_blank" style="color:#ffd700;">点击前往 YouTube 搜索</a>
+            </p>
+        </div>
+
+        <!-- 原声音乐播放区 -->
+        <div class="music-section">
+            <h2>🎵 角色原声 &amp; 海贼王主题曲</h2>
+            <div class="audio-player">
+                <p>🎶 We Are! — 海贼王经典主题曲</p>
+                <div style="display:flex;justify-content:center;margin:20px 0;">
+                    <iframe
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="We Are - One Piece"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        style="width:100%;max-width:560px;height:315px;border-radius:12px;border:2px solid #ffd700;">
+                    </iframe>
+                </div>
+                <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+                    <a href="https://www.youtube.com/results?search_query=We+Are+One+Piece+OP" target="_blank"
+                       style="padding:10px 25px;background:#e63946;color:#fff;border-radius:25px;text-decoration:none;font-weight:700;">
+                        🎵 We Are!
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=Binks+Sake+One+Piece" target="_blank"
+                       style="padding:10px 25px;background:#0077b6;color:#fff;border-radius:25px;text-decoration:none;font-weight:700;">
+                        🍺 Bink's Sake
+                    </a>
+                    <a href="https://www.youtube.com/results?search_query=Luffy+Gear+5+OST" target="_blank"
+                       style="padding:10px 25px;background:#ffd700;color:#0a0f1e;border-radius:25px;text-decoration:none;font-weight:700;">
+                        ☀️ Gear 5 OST
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 经典语录专区 -->
+        <div class="quotes-section">
+            <h2>💬 经典语录</h2>
+            <div class="quotes-grid">
+                <div class="quote-card">
+                    <p>我不想征服世界，我只想让我的伙伴们不后悔跟着我！</p>
+                    <div class="quote-emoji">😤</div>
+                </div>
+                <div class="quote-card">
+                    <p>我不会死！我的伙伴们还在等我！</p>
+                    <div class="quote-emoji">🔥</div>
+                </div>
+                <div class="quote-card">
+                    <p>我要成为海贼王！</p>
+                    <div class="quote-emoji">👒</div>
+                </div>
+                <div class="quote-card">
+                    <p>如果你不冒险，就无法创造任何东西！</p>
+                    <div class="quote-emoji">⚡</div>
+                </div>
+                <div class="quote-card">
+                    <p>我不在乎世界政府，我不在乎海军，我只在乎我的伙伴！</p>
+                    <div class="quote-emoji">🏴‍☠️</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 伙伴与船队板块 -->
+        <div class="crew-section">
+            <h2>🏴‍☠️ 草帽海贼团</h2>
+            <div class="crew-grid">
+                <div class="crew-card" style="border-color:#e63946;">
+                    <div class="crew-emoji">👒</div>
+                    <h3>蒙奇·D·路飞</h3>
+                    <p>船长 · 橡胶果实</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">⚔️</div>
+                    <h3>罗罗诺亚·索隆</h3>
+                    <p>战斗员 · 三刀流</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🗺️</div>
+                    <h3>娜美</h3>
+                    <p>航海士 · 天候棒</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🎯</div>
+                    <h3>乌索普</h3>
+                    <p>狙击手 · 神狙击手</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🍳</div>
+                    <h3>文斯莫克·山治</h3>
+                    <p>厨师 · 地狱脚</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🦌</div>
+                    <h3>托尼托尼·乔巴</h3>
+                    <p>船医 · 人人果实</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">📚</div>
+                    <h3>妮可·罗宾</h3>
+                    <p>考古学家 · 花花果实</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🔧</div>
+                    <h3>弗兰奇</h3>
+                    <p>船匠 · 改造人</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🎸</div>
+                    <h3>布鲁克</h3>
+                    <p>音乐家 · 黄泉果实</p>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-emoji">🐟</div>
+                    <h3>甚平</h3>
+                    <p>舵手 · 鱼人空手道</p>
+                </div>
+            </div>
+
+            <!-- 船只展示 -->
+            <div style="margin-top:50px;">
+                <h3 style="color:#ffd700;font-size:1.5rem;text-align:center;margin-bottom:30px;">⛵ 草帽团座驾</h3>
+                <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:30px;">
+                    <div style="background:rgba(230,57,70,0.15);border:2px solid #e63946;border-radius:15px;padding:30px;text-align:center;">
+                        <div style="font-size:4rem;margin-bottom:15px;">⛵</div>
+                        <h4 style="color:#ffd700;font-size:1.3rem;margin-bottom:10px;">前进梅利号</h4>
+                        <p style="color:#c0c0d0;">草帽团第一艘船，承载无数冒险回忆，最终在水之都以"海上葬礼"告别。</p>
+                    </div>
+                    <div style="background:rgba(0,119,182,0.15);border:2px solid #0077b6;border-radius:15px;padding:30px;text-align:center;">
+                        <div style="font-size:4rem;margin-bottom:15px;">🚢</div>
+                        <h4 style="color:#ffd700;font-size:1.3rem;margin-bottom:10px;">千阳号</h4>
+                        <p style="color:#c0c0d0;">弗兰奇建造的超级战舰，搭载各种秘密武器，陪伴草帽团征战新世界。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer style="text-align:center;padding:40px 20px;border-top:2px solid rgba(255,215,0,0.3);margin-top:40px;">
+            <p style="font-size:2rem;margin-bottom:15px;">🏴‍☠️ 👒 ⚓ 🌊</p>
+            <p style="color:#ffd700;font-size:1.2rem;font-weight:700;margin-bottom:10px;">
+                "我要成为海贼王！" — 蒙奇·D·路飞
+            </p>
+            <p style="color:#606070;font-size:0.85rem;">
+                © ONE PIECE — 尾田荣一郎 / 集英社 · 东映动画<br>
+                本页面为赛博方舟典藏内容，仅供学习参考
+            </p>
+            <a href="../../../../../entity-list.html?cat=entertainment&sub=Anime-Characters-Top100%2FJapanese-Anime-Characters"
+               style="display:inline-block;margin-top:20px;padding:12px 30px;background:#e63946;color:#fff;border-radius:25px;text-decoration:none;font-weight:700;">
+                ← 返回日本动漫角色榜单
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        // 草帽随鼠标移动视差效果
+        document.addEventListener('mousemove', (e) => {
+            const hats = document.querySelectorAll('.hat');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            hats.forEach((hat, i) => {
+                const factor = (i + 1) * 0.5;
+                hat.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+            });
+        });
+
+        // 卡片入场动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.ability-card, .quote-card, .crew-card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

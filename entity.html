@@ -163,11 +163,22 @@
         const catSlug = urlParams.get('cat');
         const subSlug = urlParams.get('sub');
         const entityFile = urlParams.get('entity');
-        
+
         if (!catSlug || !subSlug || !entityFile) {
             document.getElementById('entityDetail').innerHTML = '<p style="color:#ff6b6b;text-align:center;">参数错误：缺少 cat/sub/entity</p>';
             return;
         }
+
+        // 检测是否存在专属 HTML 详情页，存在则直接跳转
+        const mdPath = buildMdPath(catSlug, subSlug, entityFile);
+        const htmlPath = mdPath.replace(/\.md$/, '.html');
+        try {
+            const probe = await fetch(htmlPath, { method: 'HEAD' });
+            if (probe.ok) {
+                window.location.replace(htmlPath);
+                return;
+            }
+        } catch(e) { /* 无专属页，继续正常渲染 */ }
         
         // 解析子子分类路径（如 medicine/Century-Pharmaceutical-Companies-Top50）
         const isSubSub = subSlug.includes('/');
