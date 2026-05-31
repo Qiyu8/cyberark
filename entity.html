@@ -219,6 +219,17 @@
         
         // entityFile 可能包含子目录前缀，buildMdPath 统一处理
         const mdUrl = buildMdPath(catSlug, subSlug, entityFile);
+
+        // 检测是否存在同名专属 HTML 页面，有则直接跳转
+        const htmlUrl = mdUrl.replace(/\.md$/, '.html');
+        try {
+            const htmlCheck = await fetch(htmlUrl, { method: 'HEAD' });
+            if (htmlCheck.ok) {
+                window.location.replace(htmlUrl);
+                return;
+            }
+        } catch(e) { /* 无专属页面，继续渲染 MD */ }
+
         try {
             const mdResp = await fetch(mdUrl);
             if (!mdResp.ok) throw new Error(`HTTP ${mdResp.status}`);
