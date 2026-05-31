@@ -444,12 +444,22 @@
     function buildCard(entity, index) {
         const rank = index + 1;
         const delay = Math.min(index * 0.06, 1.2);
-        
-        // 封面处理
+
+        // 封面处理：支持 http/https 外链和相对路径本地图
         let coverContent;
-        if (entity.imageUrl && !entity.imageUrl.includes('wikipedia.org/wiki/Special:') && 
-            (entity.imageUrl.startsWith('http') || entity.imageUrl.startsWith('//'))) {
-            coverContent = `<img src="${entity.imageUrl}" alt="${entity.title}" loading="lazy" 
+        const imgUrl = entity.imageUrl;
+        let resolvedImg = '';
+        if (imgUrl && !imgUrl.includes('wikipedia.org/wiki/Special:')) {
+            if (imgUrl.startsWith('http') || imgUrl.startsWith('//')) {
+                resolvedImg = imgUrl;
+            } else if (imgUrl && entity._mdDir) {
+                // 相对路径：拼上 MD 文件所在目录
+                resolvedImg = entity._mdDir + '/' + imgUrl;
+            }
+        }
+
+        if (resolvedImg) {
+            coverContent = `<img src="${resolvedImg}" alt="${entity.title || entity.name}" loading="lazy"
                 onerror="this.parentElement.innerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);font-size:3rem;>🎨</div>'">`;
         } else {
             const displayName = entity.title || entity.name || '??';
@@ -496,7 +506,8 @@
             artist: cached.artist,
             year: cached.year,
             desc: cached.desc,
-            extra: cached.extra
+            extra: cached.extra,
+            _mdDir: cached._mdDir,
         };
     }
 
@@ -586,7 +597,10 @@
                     const r = await fetch(mdPath);
                     if (!r.ok) return;
                     const text = await r.text();
-                    enrichCache.set(e.file, extractFromMd(text, e.file));
+                    const extracted = extractFromMd(text, e.file);
+                    // 记录 MD 文件所在目录，供相对路径图片使用
+                    extracted._mdDir = mdPath.substring(0, mdPath.lastIndexOf('/'));
+                    enrichCache.set(e.file, extracted);
                     // 更新对应卡片
                     const cardIndex = startIndex + i + bi;
                     updateCard(e, cardIndex);
