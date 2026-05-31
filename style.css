@@ -1281,3 +1281,43 @@ body.dark-mode {
 .search-highlight { color: #c9a84c; font-weight: 700; }
 
 .search-box { position: relative; }
+
+/* ===== 分页控件 ===== */
+.page-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    background: rgba(15, 15, 25, 0.9);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 8px;
+    color: #9090a0;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.page-btn:hover:not(.disabled) {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.5);
+    color: #00d4ff;
+}
+.page-btn.active {
+    background: rgba(0, 212, 255, 0.15);
+    border-color: #00d4ff;
+    color: #00d4ff;
+    font-weight: 700;
+}
+.page-btn.disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+.page-ellipsis {
+    color: #505060;
+    padding: 0 4px;
+    line-height: 36px;
+}
+.page-info {
+    font-size: 0.78rem;
+    color: #505060;
+    margin-left: 8px;
+    white-space: nowrap;
+}

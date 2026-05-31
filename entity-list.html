@@ -360,13 +360,16 @@
             
             <!-- 画廊网格 -->
             <div id="entityGrid" class="gallery-grid" style="display:none;"></div>
-            
+
             <!-- 无结果 -->
             <div id="emptyState" style="display:none; text-align:center; padding:80px 0;">
                 <p style="font-size:4rem; margin-bottom:20px;">🔍</p>
                 <p style="color:#9090a0; font-size:1.1rem;">未找到匹配的典藏</p>
                 <p style="color:#505060; font-size:0.85rem; margin-top:8px;">换个关键词试试吧</p>
             </div>
+
+            <!-- 分页控件 -->
+            <div id="pagination" style="display:none; margin-top:40px; display:flex; justify-content:center; align-items:center; gap:8px; flex-wrap:wrap;"></div>
         </div>
     </section>
 
@@ -388,9 +391,11 @@
     <script src="script.js"></script>
     <script>
     // ===== 实体列表页 - 画廊模式 =====
-    let allEntities = [];       // 原始列表
-    let enrichedEntities = [];  // 富媒体数据（带图片+简介）
-    let filteredEntities = [];
+    const PAGE_SIZE = 24;
+    let allEntities = [];       // 原始列表（全量）
+    let filteredEntities = [];  // 搜索过滤后的列表
+    let enrichCache = new Map();// file → enriched data 缓存
+    let currentPage = 1;
     let catSlug = '', subSlug = '';
     
     // 从 md 文本提取信息
@@ -481,77 +486,109 @@
         `;
     }
     
-    // 渲染网格
+    // 渲染当前页网格
     function renderGrid(entities) {
         const grid = document.getElementById('entityGrid');
         const skeleton = document.getElementById('skeletonGrid');
         const empty = document.getElementById('emptyState');
         const countEl = document.getElementById('filteredCount');
-        
+
         skeleton.style.display = 'none';
         countEl.textContent = entities.length;
-        
+
         if (entities.length === 0) {
             grid.style.display = 'none';
             empty.style.display = 'block';
+            renderPagination(0);
             return;
         }
-        
+
         empty.style.display = 'none';
         grid.style.display = 'grid';
-        grid.innerHTML = entities.map((e, i) => buildCard(e, i)).join('');
+
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const pageItems = entities.slice(start, start + PAGE_SIZE);
+        grid.innerHTML = pageItems.map((e, i) => buildCard(mergeEnriched(e), start + i)).join('');
+        renderPagination(entities.length);
+
+        // 加载当前页的 MD 富媒体（不阻塞渲染）
+        enrichPage(pageItems, start);
     }
-    
-    // 并行加载 md 内容（提取图片和简介）
-    async function enrichEntities(entities) {
-        // 限制并发数为 8
-        const concurrency = 8;
-        const results = [];
-        for (let i = 0; i < entities.length; i += concurrency) {
-            const batch = entities.slice(i, i + concurrency);
-            const batchResults = await Promise.all(
-                batch.map(async (e) => {
-                    if (e.file === 'index.md' || e.file === 'INDEX.md') return { ...e, _enriched: null };
-                    try {
-                        const mdPath = buildMdPath(catSlug, childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug, e.file);
-                        const r = await fetch(mdPath);
-                        if (!r.ok) return { ...e, _enriched: null };
-                        const text = await r.text();
-                        return { ...e, _enriched: extractFromMd(text, e.file) };
-                    } catch {
-                        return { ...e, _enriched: null };
-                    }
-                })
-            );
-            results.push(...batchResults);
-            // 渐进渲染：每批完成后立即显示
-            if (i === 0) {
-                document.getElementById('skeletonGrid').style.display = 'none';
-                const grid = document.getElementById('entityGrid');
-                grid.style.display = 'grid';
-                grid.innerHTML = batchResults.map((e, idx) => buildCard(mergeEnriched(e), idx)).join('');
-            } else {
-                // 追加新卡片
-                const grid = document.getElementById('entityGrid');
-                const existingCount = grid.querySelectorAll('.gallery-card').length;
-                const newCards = batchResults.map((e, idx) => buildCard(mergeEnriched(e), existingCount + idx)).join('');
-                grid.insertAdjacentHTML('beforeend', newCards);
-            }
+
+    // 渲染分页控件
+    function renderPagination(total) {
+        const container = document.getElementById('pagination');
+        const totalPages = Math.ceil(total / PAGE_SIZE);
+
+        if (totalPages <= 1) {
+            container.style.display = 'none';
+            return;
         }
-        return results;
+        container.style.display = 'flex';
+
+        const pages = [];
+        // 始终显示首页、末页，当前页前后各2页
+        const range = new Set([1, totalPages]);
+        for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) range.add(i);
+        const sorted = [...range].sort((a, b) => a - b);
+
+        let html = '';
+        // 上一页
+        html += `<button class="page-btn${currentPage === 1 ? ' disabled' : ''}" onclick="goPage(${currentPage - 1})">‹</button>`;
+
+        let prev = 0;
+        for (const p of sorted) {
+            if (prev && p - prev > 1) html += `<span class="page-ellipsis">…</span>`;
+            html += `<button class="page-btn${p === currentPage ? ' active' : ''}" onclick="goPage(${p})">${p}</button>`;
+            prev = p;
+        }
+
+        // 下一页
+        html += `<button class="page-btn${currentPage === totalPages ? ' disabled' : ''}" onclick="goPage(${currentPage + 1})">›</button>`;
+        html += `<span class="page-info">${currentPage} / ${totalPages} 页 · 共 ${total} 条</span>`;
+
+        container.innerHTML = html;
     }
-    
-    function mergeEnriched(entity) {
-        if (!entity._enriched) return entity;
-        return {
-            ...entity,
-            title: entity._enriched.title || entity.name,
-            imageUrl: entity._enriched.imageUrl,
-            artist: entity._enriched.artist,
-            year: entity._enriched.year,
-            desc: entity._enriched.desc,
-            extra: entity._enriched.extra
-        };
+
+    // 跳转页码
+    function goPage(page) {
+        const totalPages = Math.ceil(filteredEntities.length / PAGE_SIZE);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderGrid(filteredEntities);
+        document.getElementById('rankingHeader').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 异步加载当前页 MD 富媒体，加载完后逐张更新卡片
+    async function enrichPage(pageItems, startIndex) {
+        const concurrency = 6;
+        for (let i = 0; i < pageItems.length; i += concurrency) {
+            const batch = pageItems.slice(i, i + concurrency);
+            await Promise.all(batch.map(async (e, bi) => {
+                if (enrichCache.has(e.file)) return;
+                if (e.file === 'index.md' || e.file === 'INDEX.md') return;
+                try {
+                    const mdPath = buildMdPath(catSlug, childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug, e.file);
+                    const r = await fetch(mdPath);
+                    if (!r.ok) return;
+                    const text = await r.text();
+                    enrichCache.set(e.file, extractFromMd(text, e.file));
+                    // 更新对应卡片
+                    const cardIndex = startIndex + i + bi;
+                    updateCard(e, cardIndex);
+                } catch { /* 静默 */ }
+            }));
+        }
+    }
+
+    // 用富媒体数据原地更新单张卡片
+    function updateCard(entity, index) {
+        const grid = document.getElementById('entityGrid');
+        const cards = grid.querySelectorAll('.gallery-card');
+        const relIndex = index - (currentPage - 1) * PAGE_SIZE;
+        if (relIndex < 0 || relIndex >= cards.length) return;
+        const merged = mergeEnriched(entity);
+        cards[relIndex].outerHTML = buildCard(merged, index);
     }
     
     // 页面加载
@@ -742,26 +779,25 @@
         }
         
         // ===== 无子目录或只有一个子目录：正常渲染实体列表 =====
-        // 富媒体加载（并行 + 渐进渲染）
-        await enrichEntities(filteredEntities);
-        enrichedEntities = filteredEntities.map(e => {
-            const el = document.querySelector(`.gallery-card[onclick*="${encodeURIComponent(e.file)}"]`);
-            return e; // 渲染已完成，保留原始数据用于搜索过滤
-        });
-        
+        // 直接渲染第一页（不等待 MD 加载）
+        currentPage = 1;
+        renderGrid(filteredEntities);
+
         // 本地搜索
         const searchInput = document.getElementById('localSearch');
         searchInput.addEventListener('input', function() {
             const q = this.value.toLowerCase().trim();
+            currentPage = 1;
             if (!q) {
                 filteredEntities = [...allEntities];
             } else {
                 filteredEntities = allEntities.filter(e => {
-                    const en = mergeEnriched(e);
-                    return (en.title || '').toLowerCase().includes(q) ||
-                           (en.artist || '').toLowerCase().includes(q) ||
-                           (en.year || '').toLowerCase().includes(q) ||
-                           (en.file || '').toLowerCase().includes(q);
+                    const cached = enrichCache.get(e.file);
+                    const title = (cached && cached.title) || e.name || '';
+                    const artist = (cached && cached.artist) || '';
+                    return title.toLowerCase().includes(q) ||
+                           artist.toLowerCase().includes(q) ||
+                           (e.file || '').toLowerCase().includes(q);
                 });
             }
             renderGrid(filteredEntities);
