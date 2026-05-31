@@ -396,7 +396,7 @@
     let filteredEntities = [];  // 搜索过滤后的列表
     let enrichCache = new Map();// file → enriched data 缓存
     let currentPage = 1;
-    let catSlug = '', subSlug = '';
+    let catSlug = '', subSlug = '', fullSubSlug = '';
     
     // 从 md 文本提取信息
     function extractFromMd(mdText, fileName) {
@@ -463,7 +463,7 @@
         if (entity.year) tags.push(`<span class="card-tag blue">${entity.year}</span>`);
         if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
         
-        const subParam = subSlug;
+        const subParam = fullSubSlug;
         return `
             <div class="gallery-card" style="animation-delay:${delay}s"
                  onclick="window.location.href='${buildEntityPageUrl(catSlug, subParam, entity.file)}'">
@@ -629,7 +629,8 @@
         const isSubDirPath = subSlug.includes('/');
         const parentSubSlug = isSubDirPath ? subSlug.split('/')[0] : subSlug;
         childDirSlug = isSubDirPath ? subSlug.split('/').slice(1).join('/') : '';
-        
+        fullSubSlug = subSlug; // 保存完整路径，供 buildCard 使用
+
         // 将关键变量挂到 window，供全局函数 buildCard / renderGrid 访问
         window._cyberArk = window._cyberArk || {};
         window._cyberArk.catSlug = catSlug;
