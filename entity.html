@@ -199,12 +199,17 @@
             // entityFile 可能含子目录前缀，此时直接用 catSlug + entityFile 所在的目录
             const fileHasPath = entityFile.includes('/');
             if (fileHasPath) {
-                // entityFile = "top-supercar-collectionTop50/001_Bugatti-Veyron.md"
-                // idxUrl = "data/entities/consumption/top-supercar-collectionTop50.json"
+                // entityFile = "most-expensive-sports-carsTop20/001_Pagani-Huayra.md"
+                // parentSubSlug = "automobiles"
+                // idxUrl = "data/entities/consumption/automobiles/most-expensive-sports-carsTop20.json"
                 const fileDir = entityFile.split('/').slice(0, -1).join('/');
-                idxUrl = `data/entities/${catSlug}/${fileDir}.json`;
+                if (parentSubSlug) {
+                    idxUrl = `data/entities/${catSlug}/${parentSubSlug}/${fileDir}.json`;
+                } else {
+                    idxUrl = `data/entities/${catSlug}/${fileDir}.json`;
+                }
             } else if (isSubSub) {
-                idxUrl = `data/entities/${catSlug}/${childSlug}.json`;
+                idxUrl = `data/entities/${catSlug}/${parentSubSlug}/${childSlug}.json`;
             } else {
                 idxUrl = `data/entities/${catSlug}/${subSlug}.json`;
             }
@@ -223,10 +228,14 @@
         let mdUrl;
         const fileHasPath = entityFile.includes('/');
         if (fileHasPath) {
-            // entityFile 含路径：data/md/{catSlug}/{entityFile}
-            mdUrl = `data/md/${catSlug}/${entityFile}`;
+            // entityFile 含路径：data/md/{catSlug}/{parentSubSlug}/{entityFile}
+            if (parentSubSlug) {
+                mdUrl = `data/md/${catSlug}/${parentSubSlug}/${entityFile}`;
+            } else {
+                mdUrl = `data/md/${catSlug}/${entityFile}`;
+            }
         } else if (isSubSub) {
-            mdUrl = `data/md/${catSlug}/${childSlug}/${entityFile}`;
+            mdUrl = `data/md/${catSlug}/${parentSubSlug}/${childSlug}/${entityFile}`;
         } else {
             mdUrl = `data/md/${catSlug}/${subSlug}/${entityFile}`;
         }

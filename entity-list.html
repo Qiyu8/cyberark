@@ -724,7 +724,7 @@
                 const icon = sr.source === 'nav' ? '📋' : '📂';
                 return `
                     <div class="gallery-card" style="animation-delay:${delay}s; cursor:pointer;"
-                         onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${subSlug}%2F${sr.slug}'">
+                         onclick="window.location.href='entity-list.html?cat=${catSlug}&sub=${encodeURIComponent(sr.slug)}'">
                         <div class="card-cover" style="aspect-ratio:2/1;background:linear-gradient(135deg,#1a1a2e ${catColor}15,#0d0d1a);">
                             <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
                                 <span style="font-size:3rem;">${icon}</span>
