@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斯嘉丽·约翰逊 | 好莱坞巨星 · 黑寡妇 - 赛博方舟</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0a0f 100%);
+            color: #e0e0f6;
+            overflow-x: hidden;
+        }
+
+        /* 粒子背景 */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 15px 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #c9a84c;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #9090a0;
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #c9a84c;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            margin-top: 80px;
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #c9a84c, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #8b0000;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-en {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #606070;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* 主视觉区 */
+        .main-visual {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .avatar-section {
+            position: relative;
+        }
+
+        .avatar-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid #c9a84c;
+            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .avatar-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #c9a84c, #ffd700);
+            color: #0a0a0f;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 20px rgba(201, 168, 76, 0.5);
+        }
+
+        .info-section {
+            padding: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #808090;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #c9a84c;
+            font-weight: 600;
+        }
+
+        /* 时间线 */
+        .timeline-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #c9a84c;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+            margin: 15px auto 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #c9a84c, transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8b0000;
+            color: #ffd700;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.5);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: #c9a84c;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: #b0b0c0;
+            line-height: 1.6;
+        }
+
+        /* 作品集 */
+        .filmography-section {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+
+        .film-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .film-card {
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .film-card:hover {
+            transform: translateY(-5px);
+            border-color: #c9a84c;
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .film-year {
+            color: #8b0000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .film-title {
+            font-size: 1.2rem;
+            color: #c9a84c;
+            margin-bottom: 5px;
+        }
+
+        .film-title-en {
+            font-size: 0.9rem;
+            color: #808090;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .film-role {
+            color: #b0b0c0;
+            margin-bottom: 10px;
+        }
+
+        .film-rating {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.2);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* 语录区 */
+        .quotes-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .quote-card {
+            background: rgba(15, 15, 25, 0.9);
+            border-left: 4px solid #c9a84c;
+            border-radius: 10px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 4rem;
+            color: #c9a84c;
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0e6;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 成就区 */
+        .achievements-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .achievement-card {
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .achievement-card:hover {
+            transform: scale(1.05);
+            border-color: #c9a84c;
+            box-shadow: 0 10px 40px rgba(201, 168, 76, 0.3);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .achievement-title {
+            font-size: 1.3rem;
+            color: #c9a84c;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .achievement-desc {
+            color: #b0b0c0;
+            line-height: 1.6;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: rgba(10, 10, 20, 0.95);
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .footer-text {
+            color: #606070;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #c9a84c;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .main-visual { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { flex-direction: column !important; align-items: flex-start; }
+            .timeline-content { width: 100%; margin-left: 40px; }
+            .timeline-year { left: 20px; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="../../../index.html" class="logo">🏛️ 赛博方舟</a>
+        <div class="nav-links">
+            <a href="#timeline">生平</a>
+            <a href="#filmography">作品</a>
+            <a href="#achievements">成就</a>
+            <a href="#quotes">语录</a>
+        </div>
+    </nav>
+
+    <!-- Hero 区 -->
+    <section class="hero">
+        <h1 class="hero-title">斯嘉丽·约翰逊</h1>
+        <p class="hero-subtitle">好莱坞巨星 · 黑寡妇</p>
+        <p class="hero-en">Scarlett Johansson</p>
+    </section>
+
+    <!-- 主视觉区 -->
+    <section class="main-visual">
+        <div class="avatar-section">
+            <div class="avatar-frame">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg/440px-Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg" alt="斯嘉丽·约翰逊">
+                <div class="avatar-badge">好莱坞巨星</div>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">出生日期</div>
+                    <div class="info-value">1984年11月22日</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">出生地</div>
+                    <div class="info-value">美国纽约</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">国籍</div>
+                    <div class="info-value">美国</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">职业</div>
+                    <div class="info-value">演员、歌手</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">身高</div>
+                    <div class="info-value">160cm</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">主要奖项</div>
+                    <div class="info-value">托尼奖×2 · 金球奖提名×5 · BAFTA奖×1</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 时间线 -->
+    <section class="timeline-section" id="timeline">
+        <h2 class="section-title">生平履历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">童星出道</h3>
+                    <p class="timeline-desc">8岁出演《北方》，开启演艺生涯</p>
+                </div>
+                <div class="timeline-year">1994</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">《迷失东京》</h3>
+                    <p class="timeline-desc">凭借夏洛特一角获金球奖提名，国际声誉确立</p>
+                </div>
+                <div class="timeline-year">2003</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">加入漫威宇宙</h3>
+                    <p class="timeline-desc">《钢铁侠2》首次饰演黑寡妇</p>
+                </div>
+                <div class="timeline-year">2010</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">《复仇者联盟》</h3>
+                    <p class="timeline-desc">黑寡妇成为全球现象级角色</p>
+                </div>
+                <div class="timeline-year">2012</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">《超体》</h3>
+                    <p class="timeline-desc">全球票房4.63亿美元，证明女性主导动作片的商业价值</p>
+                </div>
+                <div class="timeline-year">2014</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">《婚姻故事》</h3>
+                    <p class="timeline-desc">奥斯卡最佳女主角提名，演技巅峰</p>
+                </div>
+                <div class="timeline-year">2019</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">《黑寡妇》独立电影</h3>
+                    <p class="timeline-desc">漫威首部女性超级英雄独立电影</p>
+                </div>
+                <div class="timeline-year">2021</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section class="filmography-section" id="filmography">
+        <h2 class="section-title">代表作品</h2>
+        <div class="film-grid">
+            <div class="film-card">
+                <div class="film-year">2003</div>
+                <div class="film-title">迷失东京</div>
+                <div class="film-title-en">Lost in Translation</div>
+                <div class="film-role">饰演：夏洛特</div>
+                <span class="film-rating">⭐ 9.5</span><br><small style="color: #ffd700;">🏆 金球奖最佳女主角提名 · BAFTA最佳女主角</small>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2004</div>
+                <div class="film-title">戴珍珠耳环的少女</div>
+                <div class="film-title-en">Girl with a Pearl Earring</div>
+                <div class="film-role">饰演：葛丽叶</div>
+                <span class="film-rating">⭐ 9.0</span><br><small style="color: #ffd700;">🏆 金球奖提名</small>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2010</div>
+                <div class="film-title">钢铁侠2</div>
+                <div class="film-title-en">Iron Man 2</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 8.5</span><span class="film-rating" style="margin-left: 10px;">💰 $623.9M</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2012</div>
+                <div class="film-title">复仇者联盟</div>
+                <div class="film-title-en">The Avengers</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 9.8</span><span class="film-rating" style="margin-left: 10px;">💰 $1.519B</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2013</div>
+                <div class="film-title">她</div>
+                <div class="film-title-en">Her</div>
+                <div class="film-role">饰演：Samantha (配音)</div>
+                <span class="film-rating">⭐ 9.3</span><br><small style="color: #ffd700;">🏆 奥斯卡最佳影片提名</small>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2014</div>
+                <div class="film-title">超体</div>
+                <div class="film-title-en">Lucy</div>
+                <div class="film-role">饰演：Lucy</div>
+                <span class="film-rating">⭐ 8.7</span><span class="film-rating" style="margin-left: 10px;">💰 $463.4M</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2015</div>
+                <div class="film-title">复仇者联盟2：奥创纪元</div>
+                <div class="film-title-en">Avengers: Age of Ultron</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 9.0</span><span class="film-rating" style="margin-left: 10px;">💰 $1.403B</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2016</div>
+                <div class="film-title">美国队长3：内战</div>
+                <div class="film-title-en">Captain America: Civil War</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 9.2</span><span class="film-rating" style="margin-left: 10px;">💰 $1.153B</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2017</div>
+                <div class="film-title">攻壳机动队</div>
+                <div class="film-title-en">Ghost in the Shell</div>
+                <div class="film-role">饰演：少校</div>
+                <span class="film-rating">⭐ 7.5</span><span class="film-rating" style="margin-left: 10px;">💰 $169.8M</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2018</div>
+                <div class="film-title">复仇者联盟3：无限战争</div>
+                <div class="film-title-en">Avengers: Infinity War</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 9.5</span><span class="film-rating" style="margin-left: 10px;">💰 $2.048B</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2019</div>
+                <div class="film-title">复仇者联盟4：终局之战</div>
+                <div class="film-title-en">Avengers: Endgame</div>
+                <div class="film-role">饰演：黑寡妇</div>
+                <span class="film-rating">⭐ 9.8</span><span class="film-rating" style="margin-left: 10px;">💰 $2.798B</span>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2019</div>
+                <div class="film-title">婚姻故事</div>
+                <div class="film-title-en">Marriage Story</div>
+                <div class="film-role">饰演：Nicole Barber</div>
+                <span class="film-rating">⭐ 9.6</span><br><small style="color: #ffd700;">🏆 奥斯卡最佳女主角提名 · 金球奖提名</small>
+            </div>
+            <div class="film-card">
+                <div class="film-year">2021</div>
+                <div class="film-title">黑寡妇</div>
+                <div class="film-title-en">Black Widow</div>
+                <div class="film-role">饰演：娜塔莎·罗曼诺夫</div>
+                <span class="film-rating">⭐ 8.8</span><span class="film-rating" style="margin-left: 10px;">💰 $379.8M</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成就 -->
+    <section class="achievements-section" id="achievements">
+        <h2 class="section-title">主要成就</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-icon">💰</div>
+                <h3 class="achievement-title">全球票房女王</h3>
+                <p class="achievement-desc">个人主演电影全球累计票房超过145亿美元</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🦸‍♀️</div>
+                <h3 class="achievement-title">漫威核心</h3>
+                <p class="achievement-desc">漫威电影宇宙首位女性超级英雄独立电影主角</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🎭</div>
+                <h3 class="achievement-title">双料托尼奖</h3>
+                <p class="achievement-desc">百老汇舞台剧《猫》和《亚瑟·米勒的观点》获托尼奖</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">👗</div>
+                <h3 class="achievement-title">时尚偶像</h3>
+                <p class="achievement-desc">多次登上Vogue封面，全球时尚风向标</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 语录 -->
+    <section class="quotes-section" id="quotes">
+        <h2 class="section-title">经典语录</h2>
+        <div class="quotes-grid">
+            <div class="quote-card">
+                <p class="quote-text">我不认为美丽应该定义一个女人的价值，它只是一个附加的东西。</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">作为女演员，你必须比男演员更努力才能获得同样的认可。</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">黑寡妇不仅仅是一个超级英雄，她代表了所有为自己战斗的女性。</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">我希望我的女儿能在一个更平等的世界中长大。</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">演戏让我能够探索人性的各个方面，这是我最热爱的事情。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 赛博方舟 Cyber Ark · 人类顶级文明数字载体</p>
+        <div class="footer-links">
+            <a href="../../../index.html">返回首页</a>
+            <a href="../../rankings.html?cat=entertainment">娱乐分类</a>
+        </div>
+    </footer>
+
+    <script>
+        // 粒子动画
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = 'rgba(201, 168, 76, ' + (Math.random() * 0.5 + 0.2) + ')';
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

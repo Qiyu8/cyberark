@@ -1,0 +1,236 @@
+{
+  "name": "斯嘉丽·约翰逊",
+  "nameEn": "Scarlett Johansson",
+  "title": "好莱坞巨星 · 黑寡妇",
+  "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg/440px-Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg",
+  "coverImage": "resources/Scarlett_Johansson_cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1984年11月22日",
+    "birthPlace": "美国纽约",
+    "nationality": "美国",
+    "occupation": "演员、歌手",
+    "height": "160cm",
+    "awards": ["托尼奖×2", "金球奖提名×5", "BAFTA奖×1"]
+  },
+  "gallery": [
+    {
+      "url": "resources/scarlett_black_widow.jpg",
+      "caption": "黑寡妇·娜塔莎",
+      "role": "Black Widow"
+    },
+    {
+      "url": "resources/scarlett_lucy.jpg",
+      "caption": "超体·Lucy",
+      "role": "Lucy"
+    },
+    {
+      "url": "resources/scarlett_ghost.jpg",
+      "caption": "攻壳机动队·少校",
+      "role": "Major"
+    },
+    {
+      "url": "resources/scarlett_her.jpg",
+      "caption": "她·Samantha",
+      "role": "Samantha (Voice)"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "1994",
+      "title": "童星出道",
+      "description": "8岁出演《北方》，开启演艺生涯"
+    },
+    {
+      "year": "2003",
+      "title": "《迷失东京》",
+      "description": "凭借夏洛特一角获金球奖提名，国际声誉确立"
+    },
+    {
+      "year": "2010",
+      "title": "加入漫威宇宙",
+      "description": "《钢铁侠2》首次饰演黑寡妇"
+    },
+    {
+      "year": "2012",
+      "title": "《复仇者联盟》",
+      "description": "黑寡妇成为全球现象级角色"
+    },
+    {
+      "year": "2014",
+      "title": "《超体》",
+      "description": "全球票房4.63亿美元，证明女性主导动作片的商业价值"
+    },
+    {
+      "year": "2019",
+      "title": "《婚姻故事》",
+      "description": "奥斯卡最佳女主角提名，演技巅峰"
+    },
+    {
+      "year": "2021",
+      "title": "《黑寡妇》独立电影",
+      "description": "漫威首部女性超级英雄独立电影"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2003,
+      "title": "迷失东京",
+      "titleEn": "Lost in Translation",
+      "role": "夏洛特",
+      "rating": 9.5,
+      "awards": ["金球奖最佳女主角提名", "BAFTA最佳女主角"]
+    },
+    {
+      "year": 2004,
+      "title": "戴珍珠耳环的少女",
+      "titleEn": "Girl with a Pearl Earring",
+      "role": "葛丽叶",
+      "rating": 9.0,
+      "awards": ["金球奖提名"]
+    },
+    {
+      "year": 2010,
+      "title": "钢铁侠2",
+      "titleEn": "Iron Man 2",
+      "role": "黑寡妇",
+      "rating": 8.5,
+      "boxOffice": "$623.9M"
+    },
+    {
+      "year": 2012,
+      "title": "复仇者联盟",
+      "titleEn": "The Avengers",
+      "role": "黑寡妇",
+      "rating": 9.8,
+      "boxOffice": "$1.519B"
+    },
+    {
+      "year": 2013,
+      "title": "她",
+      "titleEn": "Her",
+      "role": "Samantha (配音)",
+      "rating": 9.3,
+      "awards": ["奥斯卡最佳影片提名"]
+    },
+    {
+      "year": 2014,
+      "title": "超体",
+      "titleEn": "Lucy",
+      "role": "Lucy",
+      "rating": 8.7,
+      "boxOffice": "$463.4M"
+    },
+    {
+      "year": 2015,
+      "title": "复仇者联盟2：奥创纪元",
+      "titleEn": "Avengers: Age of Ultron",
+      "role": "黑寡妇",
+      "rating": 9.0,
+      "boxOffice": "$1.403B"
+    },
+    {
+      "year": 2016,
+      "title": "美国队长3：内战",
+      "titleEn": "Captain America: Civil War",
+      "role": "黑寡妇",
+      "rating": 9.2,
+      "boxOffice": "$1.153B"
+    },
+    {
+      "year": 2017,
+      "title": "攻壳机动队",
+      "titleEn": "Ghost in the Shell",
+      "role": "少校",
+      "rating": 7.5,
+      "boxOffice": "$169.8M"
+    },
+    {
+      "year": 2018,
+      "title": "复仇者联盟3：无限战争",
+      "titleEn": "Avengers: Infinity War",
+      "role": "黑寡妇",
+      "rating": 9.5,
+      "boxOffice": "$2.048B"
+    },
+    {
+      "year": 2019,
+      "title": "复仇者联盟4：终局之战",
+      "titleEn": "Avengers: Endgame",
+      "role": "黑寡妇",
+      "rating": 9.8,
+      "boxOffice": "$2.798B"
+    },
+    {
+      "year": 2019,
+      "title": "婚姻故事",
+      "titleEn": "Marriage Story",
+      "role": "Nicole Barber",
+      "rating": 9.6,
+      "awards": ["奥斯卡最佳女主角提名", "金球奖提名"]
+    },
+    {
+      "year": 2021,
+      "title": "黑寡妇",
+      "titleEn": "Black Widow",
+      "role": "娜塔莎·罗曼诺夫",
+      "rating": 8.8,
+      "boxOffice": "$379.8M"
+    }
+  ],
+  "quotes": [
+    "我不认为美丽应该定义一个女人的价值，它只是一个附加的东西。",
+    "作为女演员，你必须比男演员更努力才能获得同样的认可。",
+    "黑寡妇不仅仅是一个超级英雄，她代表了所有为自己战斗的女性。",
+    "我希望我的女儿能在一个更平等的世界中长大。",
+    "演戏让我能够探索人性的各个方面，这是我最热爱的事情。"
+  ],
+  "achievements": [
+    {
+      "title": "全球票房女王",
+      "description": "个人主演电影全球累计票房超过145亿美元",
+      "icon": "💰"
+    },
+    {
+      "title": "漫威核心",
+      "description": "漫威电影宇宙首位女性超级英雄独立电影主角",
+      "icon": "🦸‍♀️"
+    },
+    {
+      "title": "双料托尼奖",
+      "description": "百老汇舞台剧《猫》和《亚瑟·米勒的观点》获托尼奖",
+      "icon": "🎭"
+    },
+    {
+      "title": "时尚偶像",
+      "description": "多次登上Vogue封面，全球时尚风向标",
+      "icon": "👗"
+    }
+  ],
+  "videos": [
+    {
+      "title": "黑寡妇 vs 冬兵 - 美国队长2",
+      "thumbnail": "resources/video_thumb_1.jpg",
+      "url": "https://www.youtube.com/watch?v=example1"
+    },
+    {
+      "title": "超体觉醒场景",
+      "thumbnail": "resources/video_thumb_2.jpg",
+      "url": "https://www.youtube.com/watch?v=example2"
+    },
+    {
+      "title": "复仇者联盟终局之战牺牲场景",
+      "thumbnail": "resources/video_thumb_3.jpg",
+      "url": "https://www.youtube.com/watch?v=example3"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@scarlett",
+    "twitter": "@scarlett",
+    "imdb": "nm0424060"
+  }
+}
