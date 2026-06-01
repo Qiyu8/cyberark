@@ -1,0 +1,95 @@
+{
+  "name": "玛格特·罗比",
+  "nameEn": "Margot Robbie",
+  "title": "演员、制片人",
+  "avatar": "https://via.placeholder.com/400x500?text=玛格特·罗比",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1990年7月2日",
+    "birthPlace": "澳大利亚黄金海岸",
+    "nationality": "澳大利亚",
+    "occupation": "演员、制片人",
+    "works": "《华尔街之狼》《自杀小队》《芭比》《好莱坞往事》",
+    "awards": "奥斯卡最佳女主角提名、金球奖最佳女主角两次",
+    "年份": "作品",
+    "备注": "|------",
+    "2013": "华尔街之狼",
+    "成名作": "| 2016",
+    "哈莉·奎因": "|",
+    "好莱坞往事": "莎朗·泰特",
+    "| 2023": "芭比"
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![玛格特·罗比](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Margot_Robbie_%2828749872561%29_%28cropped%29.jpg/440px-Margot_Robbie_%2828749872561%29_%28cropped%29.jpg)"
+}

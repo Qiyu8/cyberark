@@ -1,0 +1,96 @@
+{
+  "name": "巩俐",
+  "nameEn": "Gong Li",
+  "title": "演员、导演",
+  "avatar": "https://via.placeholder.com/400x500?text=巩俐",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1965年12月31日",
+    "birthPlace": "中国沈阳",
+    "nationality": "新加坡/中国",
+    "occupation": "演员、导演",
+    "works": "《红高粱》《霸王别姬》《大红灯笼高高挂》《秋菊打官司》",
+    "awards": "威尼斯电影节最佳女演员、金棕榈奖特别奖",
+    "年份": "作品",
+    "备注": "|------",
+    "1987": "红高粱",
+    "柏林电影节金熊奖": "| 1992",
+    "秋菊": "威尼斯最佳女演员",
+    "1993": "霸王别姬",
+    "戛纳金棕榈奖": "| 2000",
+    "孙丽英": ""
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![巩俐](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Gong_Li_Cannes_2018_3.jpg/440px-Gong_Li_Cannes_2018_3.jpg)"
+}

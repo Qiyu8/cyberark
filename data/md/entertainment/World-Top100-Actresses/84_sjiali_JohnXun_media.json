@@ -1,0 +1,95 @@
+{
+  "name": "斯嘉丽·约翰逊",
+  "nameEn": "Scarlett Johansson",
+  "title": "演员",
+  "avatar": "https://via.placeholder.com/400x500?text=斯嘉丽·约翰逊",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1984年11月22日",
+    "birthPlace": "美国纽约",
+    "nationality": "美国",
+    "occupation": "演员",
+    "works": "《复仇者联盟》系列《迷失东京》《戴珍珠耳环的少女》《黑寡妇》",
+    "awards": "两次托尼奖、金球奖最佳女主角提名",
+    "年份": "作品",
+    "备注": "|------",
+    "2003": "迷失东京",
+    "金球奖提名": "| 2004",
+    "葛丽叶": "|",
+    "复仇者联盟": "黑寡妇",
+    "| 2021": "黑寡妇"
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![斯嘉丽·约翰逊](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg/440px-Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg)"
+}

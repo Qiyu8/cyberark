@@ -1,0 +1,96 @@
+{
+  "name": "米拉·乔沃维奇",
+  "nameEn": "Milla Jovovich",
+  "title": "演员、模特、歌手",
+  "avatar": "https://via.placeholder.com/400x500?text=米拉·乔沃维奇",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1975年12月19日",
+    "birthPlace": "乌克兰基辅",
+    "nationality": "美国/俄罗斯",
+    "occupation": "演员、模特、歌手",
+    "works": "《生化危机》系列《第五元素》《圣女贞德》《致命紫罗兰》",
+    "awards": "金酸梅奖提名、动作片标志性人物",
+    "年份": "作品",
+    "备注": "|------",
+    "1997": "第五元素",
+    "成名作": "| 2002",
+    "爱丽丝": "系列票房超12亿美元",
+    "2009": "生化危机：战神再生",
+    "|": "2017",
+    "阿尔忒弥斯": ""
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![米拉·乔沃维奇](https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Milla_Jovovich_2015.jpg/440px-Milla_Jovovich_2015.jpg)"
+}

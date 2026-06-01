@@ -1,0 +1,96 @@
+{
+  "name": "娜奥米·斯科特",
+  "nameEn": "Naomi Scott",
+  "title": "演员、歌手",
+  "avatar": "https://via.placeholder.com/400x500?text=娜奥米·斯科特",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1993年5月21日",
+    "birthPlace": "英国伦敦",
+    "nationality": "英国/美国",
+    "occupation": "演员、歌手",
+    "works": "《阿拉丁》《超凡战队》《_power rangers_》",
+    "awards": "MTV电影奖获奖、金球奖提名",
+    "年份": "作品",
+    "备注": "|------",
+    "2017": "超凡战队",
+    "粉红战士": "| 2019",
+    "茉莉公主": "迪士尼公主",
+    "2023": "微笑",
+    "|": "2022",
+    "": ""
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![娜奥米·斯科特](https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Naomi_Scott_%2829017975131%29_%28cropped%29.jpg/440px-Naomi_Scott_%2829017975131%29_%28cropped%29.jpg)"
+}

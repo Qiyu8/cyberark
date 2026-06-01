@@ -1,0 +1,96 @@
+{
+  "name": "薇诺娜·瑞德",
+  "nameEn": "Winona Ryder",
+  "title": "演员",
+  "avatar": "https://via.placeholder.com/400x500?text=薇诺娜·瑞德",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1971年10月29日",
+    "birthPlace": "美国明尼苏达州",
+    "nationality": "美国",
+    "occupation": "演员",
+    "works": "《剪刀手爱德华》《失女嫌疑犯》《纯真年代》《怪杰_libido_》",
+    "awards": "奥斯卡最佳女主角提名、金球奖最佳女主角两次",
+    "年份": "作品",
+    "备注": "|------",
+    "1990": "剪刀手爱德华",
+    "经典之作": "| 1993",
+    "梅·韦兰": "奥斯卡提名",
+    "1994": "纯真年代",
+    "|": "2016",
+    "乔伊斯·拜尔斯": "艾美奖提名"
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![薇诺娜·瑞德](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Winona_Ryder_by_Gage_Skidmore.jpg/440px-Winona_Ryder_by_Gage_Skidmore.jpg)"
+}

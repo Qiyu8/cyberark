@@ -1,0 +1,95 @@
+{
+  "name": "索菲·特纳",
+  "nameEn": "Sophie Turner",
+  "title": "演员",
+  "avatar": "https://via.placeholder.com/400x500?text=索菲·特纳",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1996年2月21日",
+    "birthPlace": "英国北安普顿郡",
+    "nationality": "英国",
+    "occupation": "演员",
+    "works": "《权力的游戏》系列《x战警：黑凤凰》《海岛旅人》",
+    "awards": "艾美奖最佳女配角提名、金球奖提名",
+    "年份": "作品",
+    "备注": "|------",
+    "2011-2019": "权力的游戏",
+    "8季系列": "| 2016",
+    "伊莎贝拉": "|",
+    "x战警：黑凤凰": "琴·格雷",
+    "| 2022": "乔的战斗"
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![索菲·特纳](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Sophie_Turner_BFA.jpg/440px-Sophie_Turner_BFA.jpg)"
+}

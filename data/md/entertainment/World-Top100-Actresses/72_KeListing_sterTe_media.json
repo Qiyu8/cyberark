@@ -1,0 +1,95 @@
+{
+  "name": "克里斯汀·斯图尔特",
+  "nameEn": "Kristen Stewart",
+  "title": "演员",
+  "avatar": "https://via.placeholder.com/400x500?text=克里斯汀·斯图尔特",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1990年4月9日",
+    "birthPlace": "美国加利福尼亚州洛杉矶",
+    "nationality": "美国",
+    "occupation": "演员",
+    "works": "《暮光之城》系列《雪国列车》《斯潘塞》《依旧热爱生活》",
+    "awards": "法国凯撒奖最佳女配角、法国凯撒奖最佳女主角",
+    "年份": "作品",
+    "备注": "|------",
+    "2008": "暮光之城",
+    "全球知名": "| 2018",
+    "塔莉娅·贝尔森": "|",
+    "斯潘塞": "戴安娜王妃",
+    "| 2023": "依旧热爱生活"
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "![克里斯汀·斯图尔特](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Kristen_Stewart_%289673295016%29.jpg/440px-Kristen_Stewart_%289673295016%29.jpg)"
+}

@@ -19,3 +19,4 @@ desktop.ini
 *.zip
 *.tar.gz
 *.rar
+node_modules

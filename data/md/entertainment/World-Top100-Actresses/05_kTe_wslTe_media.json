@@ -1,0 +1,96 @@
+{
+  "name": "凯特·温斯莱特",
+  "nameEn": "Kate Winslet",
+  "title": "演员、歌手",
+  "avatar": "https://via.placeholder.com/400x500?text=凯特·温斯莱特",
+  "coverImage": "resources/cover.jpg",
+  "theme": {
+    "primaryColor": "#c9a84c",
+    "secondaryColor": "#8b0000",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "birthDate": "1975年10月5日",
+    "birthPlace": "英国雷丁",
+    "nationality": "英国",
+    "occupation": "演员、歌手",
+    "works": "《泰坦尼克号》《朗读者》《生死朗读》《裁缝》",
+    "awards": "奥斯卡最佳女主角、奥斯卡最佳女配角、金球奖多次获奖",
+    "年份": "作品",
+    "备注": "|------",
+    "1997": "泰坦尼克号",
+    "影史票房冠军": "| 2008",
+    "汉娜·舒密特": "奥斯卡最佳女主角",
+    "2011": "生死朗读",
+    "奥斯卡最佳女配角": "| 2015",
+    "乔安娜·霍夫曼": ""
+  },
+  "gallery": [
+    {
+      "url": "resources/photo_1.jpg",
+      "caption": "代表作品1",
+      "role": "角色名"
+    },
+    {
+      "url": "resources/photo_2.jpg",
+      "caption": "代表作品2",
+      "role": "角色名"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "待填写",
+      "title": "早年经历",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "成名作品",
+      "description": "待填写描述"
+    },
+    {
+      "year": "待填写",
+      "title": "巅峰时期",
+      "description": "待填写描述"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "作品名称",
+      "titleEn": "Work Title",
+      "role": "角色",
+      "rating": 9.0,
+      "awards": [
+        "奖项1",
+        "奖项2"
+      ]
+    }
+  ],
+  "quotes": [
+    "待填写经典语录1",
+    "待填写经典语录2",
+    "待填写经典语录3"
+  ],
+  "achievements": [
+    {
+      "title": "成就标题",
+      "description": "成就描述",
+      "icon": "🏆"
+    }
+  ],
+  "videos": [
+    {
+      "title": "视频标题",
+      "thumbnail": "resources/video_thumb.jpg",
+      "url": "https://www.youtube.com/watch?v=example"
+    }
+  ],
+  "socialMedia": {
+    "instagram": "@username",
+    "twitter": "@username",
+    "imdb": "nm0000000"
+  },
+  "_note": "这是自动生成的模板，请根据实际情况填写完整信息",
+  "description": "凯特·温斯莱特出生于英国雷丁，1994年在李安执导的《饮食男女》中首次国际亮相。1997年出演《泰坦尼克号》让她一举成名全球，与莱昂纳多·迪卡普里奥的经典银幕搭档成为影史传奇。2008年凭借《朗读者》获得奥斯卡最佳女主角奖，成为首位在30岁前获得两次奥斯卡提名的英国女演员。"
+}
