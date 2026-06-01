@@ -221,14 +221,25 @@
         const mdUrl = buildMdPath(catSlug, subSlug, entityFile);
 
         // 检测是否存在同名专属 HTML 页面，有则直接跳转
-        const htmlUrl = mdUrl.replace(/\.md$/, '.html');
+        const htmlUrl = mdUrl.replace(/\.md$/, '_page.html');
         try {
             const htmlCheck = await fetch(htmlUrl, { method: 'HEAD' });
             if (htmlCheck.ok) {
                 window.location.replace(htmlUrl);
                 return;
             }
-        } catch(e) { /* 无专属页面，继续渲染 MD */ }
+        } catch(e) { /* 无专属页面，继续检测 media.json */ }
+
+        // 检测是否存在 media.json，有则渲染富媒体页面
+        const mediaJsonUrl = mdUrl.replace(/\.md$/, '_media.json');
+        try {
+            const mediaCheck = await fetch(mediaJsonUrl);
+            if (mediaCheck.ok) {
+                const mediaData = await mediaCheck.json();
+                renderRichMediaPage(mediaData, catSlug, subSlug, entityFile);
+                return;
+            }
+        } catch(e) { /* 无 media.json，继续渲染普通 MD */ }
 
         try {
             const mdResp = await fetch(mdUrl);
@@ -260,7 +271,213 @@
             document.getElementById('breadcrumbEntity').textContent = entityFile.replace('.md', '');
         }
     });
-    
+
+    function renderRichMediaPage(data, catSlug, subSlug, entityFile) {
+        const theme = data.theme || { primaryColor: '#c9a84c', secondaryColor: '#8b0000', accentColor: '#ffd700' };
+
+        // 更新页面标题和面包屑
+        document.title = `${data.name} | ${data.title} - 赛博方舟`;
+        document.getElementById('breadcrumbEntity').textContent = data.name;
+
+        // 构建富媒体页面 HTML
+        let html = `
+            <style>
+                .rich-media-page { max-width: 1400px; margin: 0 auto; }
+                .rich-hero { text-align: center; padding: 40px 0; }
+                .rich-hero-title { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, ${theme.primaryColor}, ${theme.accentColor}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+                .rich-hero-subtitle { font-size: 1.3rem; color: ${theme.secondaryColor}; margin-bottom: 15px; }
+                .rich-hero-en { font-size: 1.5rem; color: #606070; font-style: italic; }
+
+                .rich-main-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; align-items: center; }
+                .rich-avatar-frame { border-radius: 20px; overflow: hidden; border: 3px solid ${theme.primaryColor}; box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3); }
+                .rich-avatar-frame img { width: 100%; height: auto; display: block; }
+
+                .rich-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+                .rich-info-item { background: rgba(15, 15, 25, 0.8); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 12px 15px; }
+                .rich-info-label { font-size: 0.8rem; color: #808090; margin-bottom: 3px; }
+                .rich-info-value { font-size: 1rem; color: ${theme.primaryColor}; font-weight: 600; }
+
+                .rich-section { margin: 60px 0; }
+                .rich-section-title { font-size: 2rem; text-align: center; margin-bottom: 30px; color: ${theme.primaryColor}; position: relative; }
+                .rich-section-title::after { content: ''; display: block; width: 80px; height: 2px; background: ${theme.primaryColor}; margin: 10px auto 0; }
+
+                .rich-timeline { position: relative; padding: 20px 0; }
+                .rich-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, transparent, ${theme.primaryColor}, transparent); }
+                .rich-timeline-item { position: relative; margin-bottom: 40px; display: flex; align-items: center; }
+                .rich-timeline-item:nth-child(odd) { flex-direction: row; }
+                .rich-timeline-item:nth-child(even) { flex-direction: row-reverse; }
+                .rich-timeline-content { width: 45%; background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 20px; }
+                .rich-timeline-year { position: absolute; left: 50%; transform: translateX(-50%); background: ${theme.secondaryColor}; color: ${theme.accentColor}; padding: 6px 15px; border-radius: 15px; font-weight: 700; }
+                .rich-timeline-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 8px; }
+                .rich-timeline-desc { color: #b0b0c0; line-height: 1.5; font-size: 0.9rem; }
+
+                .rich-film-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+                .rich-film-card { background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 18px; transition: all 0.3s; cursor: pointer; }
+                .rich-film-card:hover { transform: translateY(-5px); border-color: ${theme.primaryColor}; box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3); }
+                .rich-film-year { color: ${theme.secondaryColor}; font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; }
+                .rich-film-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 4px; }
+                .rich-film-title-en { font-size: 0.85rem; color: #808090; font-style: italic; margin-bottom: 8px; }
+                .rich-film-role { color: #b0b0c0; margin-bottom: 8px; font-size: 0.9rem; }
+                .rich-film-rating { display: inline-block; background: rgba(201, 168, 76, 0.2); color: ${theme.accentColor}; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+
+                .rich-quotes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+                .rich-quote-card { background: rgba(15, 15, 25, 0.9); border-left: 3px solid ${theme.primaryColor}; border-radius: 8px; padding: 20px; position: relative; }
+                .rich-quote-card::before { content: '"'; position: absolute; top: 5px; left: 10px; font-size: 3rem; color: ${theme.primaryColor}; opacity: 0.2; font-family: serif; }
+                .rich-quote-text { font-size: 1rem; line-height: 1.7; color: #d0d0e6; font-style: italic; position: relative; z-index: 1; }
+
+                .rich-achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+                .rich-achievement-card { background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 25px; text-align: center; transition: all 0.3s; }
+                .rich-achievement-card:hover { transform: scale(1.05); border-color: ${theme.primaryColor}; box-shadow: 0 10px 40px rgba(201, 168, 76, 0.3); }
+                .rich-achievement-icon { font-size: 2.5rem; margin-bottom: 12px; }
+                .rich-achievement-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 8px; font-weight: 700; }
+                .rich-achievement-desc { color: #b0b0c0; line-height: 1.5; font-size: 0.85rem; }
+
+                @media (max-width: 768px) {
+                    .rich-main-visual { grid-template-columns: 1fr; }
+                    .rich-info-grid { grid-template-columns: 1fr; }
+                    .rich-timeline::before { left: 20px; }
+                    .rich-timeline-item { flex-direction: column !important; align-items: flex-start; }
+                    .rich-timeline-content { width: 100%; margin-left: 40px; }
+                    .rich-timeline-year { left: 20px; transform: none; }
+                }
+            </style>
+
+            <div class="rich-media-page">
+                <div class="rich-hero">
+                    <h1 class="rich-hero-title">${data.name}</h1>
+                    <p class="rich-hero-subtitle">${data.title}</p>
+                    <p class="rich-hero-en">${data.nameEn}</p>
+                </div>
+
+                <div class="rich-main-visual">
+                    <div class="rich-avatar-frame">
+                        <img src="${data.avatar}" alt="${data.name}">
+                    </div>
+                    <div>
+                        <div class="rich-info-grid">
+        `;
+
+        // 基本信息
+        const labelMap = {
+            birthDate: '出生日期', birthPlace: '出生地', nationality: '国籍',
+            occupation: '职业', height: '身高', awards: '主要奖项'
+        };
+        for (const [key, value] of Object.entries(data.basicInfo)) {
+            const label = labelMap[key] || key;
+            const val = Array.isArray(value) ? value.join(' · ') : value;
+            html += `
+                            <div class="rich-info-item">
+                                <div class="rich-info-label">${label}</div>
+                                <div class="rich-info-value">${val}</div>
+                            </div>`;
+        }
+
+        html += `
+                        </div>
+                    </div>
+                </div>
+        `;
+
+        // 时间线
+        if (data.timeline && data.timeline.length > 0) {
+            html += `
+                <div class="rich-section">
+                    <h2 class="rich-section-title">生平履历</h2>
+                    <div class="rich-timeline">`;
+
+            data.timeline.forEach(item => {
+                html += `
+                        <div class="rich-timeline-item">
+                            <div class="rich-timeline-content">
+                                <h3 class="rich-timeline-title">${item.title}</h3>
+                                <p class="rich-timeline-desc">${item.description}</p>
+                            </div>
+                            <div class="rich-timeline-year">${item.year}</div>
+                        </div>`;
+            });
+
+            html += `
+                    </div>
+                </div>`;
+        }
+
+        // 作品集
+        if (data.filmography && data.filmography.length > 0) {
+            html += `
+                <div class="rich-section">
+                    <h2 class="rich-section-title">代表作品</h2>
+                    <div class="rich-film-grid">`;
+
+            data.filmography.forEach(film => {
+                const awards = film.awards ? '<br><small style="color: #ffd700;">🏆 ' + film.awards.join(' · ') + '</small>' : '';
+                const rating = film.rating ? `<span class="rich-film-rating">⭐ ${film.rating}</span>` : '';
+                const boxOffice = film.boxOffice ? `<span class="rich-film-rating" style="margin-left: 8px;">💰 ${film.boxOffice}</span>` : '';
+
+                html += `
+                        <div class="rich-film-card">
+                            <div class="rich-film-year">${film.year}</div>
+                            <div class="rich-film-title">${film.title}</div>
+                            <div class="rich-film-title-en">${film.titleEn}</div>
+                            <div class="rich-film-role">饰演：${film.role}</div>
+                            ${rating}${boxOffice}${awards}
+                        </div>`;
+            });
+
+            html += `
+                    </div>
+                </div>`;
+        }
+
+        // 成就
+        if (data.achievements && data.achievements.length > 0) {
+            html += `
+                <div class="rich-section">
+                    <h2 class="rich-section-title">主要成就</h2>
+                    <div class="rich-achievements-grid">`;
+
+            data.achievements.forEach(achievement => {
+                html += `
+                        <div class="rich-achievement-card">
+                            <div class="rich-achievement-icon">${achievement.icon}</div>
+                            <h3 class="rich-achievement-title">${achievement.title}</h3>
+                            <p class="rich-achievement-desc">${achievement.description}</p>
+                        </div>`;
+            });
+
+            html += `
+                    </div>
+                </div>`;
+        }
+
+        // 语录
+        if (data.quotes && data.quotes.length > 0) {
+            html += `
+                <div class="rich-section">
+                    <h2 class="rich-section-title">经典语录</h2>
+                    <div class="rich-quotes-grid">`;
+
+            data.quotes.forEach(quote => {
+                html += `
+                        <div class="rich-quote-card">
+                            <p class="rich-quote-text">${quote}</p>
+                        </div>`;
+            });
+
+            html += `
+                    </div>
+                </div>`;
+        }
+
+        html += `
+            </div>
+        `;
+
+        document.getElementById('entityDetail').innerHTML = html;
+
+        // 渲染上下导航
+        renderEntityNav(catSlug, subSlug, entityFile);
+    }
+
     function renderEntityNav(catSlug, subSlug, currentFile) {
         if (!entityData || currentEntityIndex < 0) return;
         
