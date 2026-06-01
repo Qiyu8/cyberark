@@ -474,9 +474,20 @@
         if (entity.extra) tags.push(`<span class="card-tag">${entity.extra}</span>`);
         
         const subParam = fullSubSlug;
+
+        // 特殊实体：如果有自定义 HTML 页面，则链接到该页面
+        let entityPageUrl;
+        const entityFile = entity.file || '';
+        if (entityFile === '01_nike_jdeMan.md') {
+            // 妮可·基德曼的自定义精美网页
+            entityPageUrl = buildMdPath(catSlug, subParam, '').replace(/[^/]+$/, '') + 'nicole-kidman.html';
+        } else {
+            entityPageUrl = buildEntityPageUrl(catSlug, subParam, entity.file);
+        }
+
         return `
             <div class="gallery-card" style="animation-delay:${delay}s"
-                 onclick="window.location.href='${buildEntityPageUrl(catSlug, subParam, entity.file)}'">
+                 onclick="window.location.href='${entityPageUrl}'">
                 <div class="card-hover-overlay">
                     <button class="card-view-btn">✦ 查看详情</button>
                 </div>
