@@ -243,10 +243,46 @@
                 font-size: 1.3em;
             }
         }
+
+        /* Back button style */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            color: #1a1a2e;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+
+        <!-- Back to list button -->
+        <a href="javascript:history.back()" class="back-button">
+            <span>&#8592;</span>
+            <span>Back to List</span>
+        </a>
         <header>
             <h1>妮可·基德曼</h1>
             <p class="subtitle">Nicole Kidman | 奥斯卡影后 · 好莱坞巨星</p>
