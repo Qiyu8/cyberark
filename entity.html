@@ -36,6 +36,119 @@
         .md-content tr:hover td { background: rgba(0,212,255,0.05); }
         .md-content hr { border: none; border-top: 1px solid rgba(0,212,255,0.15); margin: 30px 0; }
         
+        /* 图片画廊 */
+        .image-gallery { margin: 40px 0; }
+        .gallery-title { font-size: 1.6rem; color: #00d4ff; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid rgba(0,212,255,0.15); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .gallery-item { 
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(0,212,255,0.2);
+            transition: all 0.3s ease;
+            aspect-ratio: 1;
+            background: rgba(15,15,25,0.8);
+        }
+        .gallery-item:hover { 
+            border-color: #00d4ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,212,255,0.3);
+        }
+        .gallery-item img { 
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0; right: 0;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #e0e0f6;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .gallery-item:hover .gallery-item-caption { opacity: 1; }
+        
+        /* 灯箱 */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: #e0e0f6;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            max-width: 80%;
+            text-align: center;
+        }
+        
         /* 上下实体导航 */
         .entity-nav { display: flex; justify-content: space-between; margin-top: 40px; gap: 15px; flex-wrap: wrap; }
         .entity-nav a { 
@@ -256,6 +369,12 @@
             document.title = `${entityName} - 赛博方舟`;
             document.getElementById('breadcrumbEntity').textContent = entityName;
             
+            // 加载图片画廊
+            await loadEntityResources(catSlug, subSlug, entityFile);
+            
+            // 加载图片画廊
+            await loadEntityResources(catSlug, subSlug, entityFile);
+            
             // 渲染上下导航
             renderEntityNav(catSlug, subSlug, entityFile);
         } catch(error) {
@@ -273,208 +392,146 @@
     });
 
     function renderRichMediaPage(data, catSlug, subSlug, entityFile) {
-        const theme = data.theme || { primaryColor: '#c9a84c', secondaryColor: '#8b0000', accentColor: '#ffd700' };
-
         // 更新页面标题和面包屑
-        document.title = `${data.name} | ${data.title} - 赛博方舟`;
+        document.title = `${data.name} - 赛博方舟`;
         document.getElementById('breadcrumbEntity').textContent = data.name;
 
         // 构建富媒体页面 HTML
         let html = `
             <style>
-                .rich-media-page { max-width: 1400px; margin: 0 auto; }
-                .rich-hero { text-align: center; padding: 40px 0; }
-                .rich-hero-title { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, ${theme.primaryColor}, ${theme.accentColor}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-                .rich-hero-subtitle { font-size: 1.3rem; color: ${theme.secondaryColor}; margin-bottom: 15px; }
-                .rich-hero-en { font-size: 1.5rem; color: #606070; font-style: italic; }
+                .rm-page { max-width: 960px; margin: 0 auto; padding: 30px 0 60px; }
 
-                .rich-main-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; align-items: center; }
-                .rich-avatar-frame { border-radius: 20px; overflow: hidden; border: 3px solid ${theme.primaryColor}; box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3); }
-                .rich-avatar-frame img { width: 100%; height: auto; display: block; }
+                /* 上：图片区 */
+                .rm-image { text-align: center; margin-bottom: 50px; }
+                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: inline-block; }
+                .rm-image-caption { margin-top: 12px; color: #808090; font-size: 0.9rem; }
 
-                .rich-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-                .rich-info-item { background: rgba(15, 15, 25, 0.8); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 12px 15px; }
-                .rich-info-label { font-size: 0.8rem; color: #808090; margin-bottom: 3px; }
-                .rich-info-value { font-size: 1rem; color: ${theme.primaryColor}; font-weight: 600; }
+                /* 下：高价值电子制品 */
+                .rm-media-title { font-size: 1.1rem; color: #9090a0; font-weight: 400; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+                .rm-media-title span { color: #e0e0f6; font-weight: 600; }
+                .rm-items { display: flex; flex-direction: column; gap: 16px; }
+                .rm-item { background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
+                .rm-item iframe { display: block; width: 100%; border: none; aspect-ratio: 16/9; }
+                .rm-item-link { display: flex; align-items: center; gap: 14px; padding: 16px 20px; text-decoration: none; color: #e0e0f6; transition: background 0.2s; }
+                .rm-item-link:hover { background: rgba(255,255,255,0.06); }
+                .rm-item-icon { font-size: 1.8rem; flex-shrink: 0; }
+                .rm-item-info { flex: 1; min-width: 0; }
+                .rm-item-name { font-size: 1rem; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+                .rm-item-meta { font-size: 0.82rem; color: #808090; }
+                .rm-item-arrow { color: #606070; font-size: 1.2rem; flex-shrink: 0; }
 
-                .rich-section { margin: 60px 0; }
-                .rich-section-title { font-size: 2rem; text-align: center; margin-bottom: 30px; color: ${theme.primaryColor}; position: relative; }
-                .rich-section-title::after { content: ''; display: block; width: 80px; height: 2px; background: ${theme.primaryColor}; margin: 10px auto 0; }
+                .rm-empty { color: #606070; text-align: center; padding: 40px; font-size: 0.95rem; }
 
-                .rich-timeline { position: relative; padding: 20px 0; }
-                .rich-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, transparent, ${theme.primaryColor}, transparent); }
-                .rich-timeline-item { position: relative; margin-bottom: 40px; display: flex; align-items: center; }
-                .rich-timeline-item:nth-child(odd) { flex-direction: row; }
-                .rich-timeline-item:nth-child(even) { flex-direction: row-reverse; }
-                .rich-timeline-content { width: 45%; background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 20px; }
-                .rich-timeline-year { position: absolute; left: 50%; transform: translateX(-50%); background: ${theme.secondaryColor}; color: ${theme.accentColor}; padding: 6px 15px; border-radius: 15px; font-weight: 700; }
-                .rich-timeline-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 8px; }
-                .rich-timeline-desc { color: #b0b0c0; line-height: 1.5; font-size: 0.9rem; }
-
-                .rich-film-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-                .rich-film-card { background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 18px; transition: all 0.3s; cursor: pointer; }
-                .rich-film-card:hover { transform: translateY(-5px); border-color: ${theme.primaryColor}; box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3); }
-                .rich-film-year { color: ${theme.secondaryColor}; font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; }
-                .rich-film-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 4px; }
-                .rich-film-title-en { font-size: 0.85rem; color: #808090; font-style: italic; margin-bottom: 8px; }
-                .rich-film-role { color: #b0b0c0; margin-bottom: 8px; font-size: 0.9rem; }
-                .rich-film-rating { display: inline-block; background: rgba(201, 168, 76, 0.2); color: ${theme.accentColor}; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
-
-                .rich-quotes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-                .rich-quote-card { background: rgba(15, 15, 25, 0.9); border-left: 3px solid ${theme.primaryColor}; border-radius: 8px; padding: 20px; position: relative; }
-                .rich-quote-card::before { content: '"'; position: absolute; top: 5px; left: 10px; font-size: 3rem; color: ${theme.primaryColor}; opacity: 0.2; font-family: serif; }
-                .rich-quote-text { font-size: 1rem; line-height: 1.7; color: #d0d0e6; font-style: italic; position: relative; z-index: 1; }
-
-                .rich-achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
-                .rich-achievement-card { background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 12px; padding: 25px; text-align: center; transition: all 0.3s; }
-                .rich-achievement-card:hover { transform: scale(1.05); border-color: ${theme.primaryColor}; box-shadow: 0 10px 40px rgba(201, 168, 76, 0.3); }
-                .rich-achievement-icon { font-size: 2.5rem; margin-bottom: 12px; }
-                .rich-achievement-title { font-size: 1.1rem; color: ${theme.primaryColor}; margin-bottom: 8px; font-weight: 700; }
-                .rich-achievement-desc { color: #b0b0c0; line-height: 1.5; font-size: 0.85rem; }
-
-                @media (max-width: 768px) {
-                    .rich-main-visual { grid-template-columns: 1fr; }
-                    .rich-info-grid { grid-template-columns: 1fr; }
-                    .rich-timeline::before { left: 20px; }
-                    .rich-timeline-item { flex-direction: column !important; align-items: flex-start; }
-                    .rich-timeline-content { width: 100%; margin-left: 40px; }
-                    .rich-timeline-year { left: 20px; transform: none; }
+                @media (max-width: 600px) {
+                    .rm-page { padding: 16px 0 40px; }
                 }
             </style>
 
-            <div class="rich-media-page">
-                <div class="rich-hero">
-                    <h1 class="rich-hero-title">${data.name}</h1>
-                    <p class="rich-hero-subtitle">${data.title}</p>
-                    <p class="rich-hero-en">${data.nameEn}</p>
-                </div>
+            <div class="rm-page">`;
 
-                <div class="rich-main-visual">
-                    <div class="rich-avatar-frame">
-                        <img src="${data.avatar}" alt="${data.name}">
-                    </div>
-                    <div>
-                        <div class="rich-info-grid">
-        `;
+        // 上：图片
 
-        // 基本信息
-        const labelMap = {
-            birthDate: '出生日期', birthPlace: '出生地', nationality: '国籍',
-            occupation: '职业', height: '身高', awards: '主要奖项'
-        };
-        for (const [key, value] of Object.entries(data.basicInfo)) {
-            const label = labelMap[key] || key;
-            const val = Array.isArray(value) ? value.join(' · ') : value;
+            <div class="rm-page">`;
+
+        // 上：图片
+        if (data.avatar) {
+            const caption = data.title ? `${data.name} · ${data.title}` : data.name;
             html += `
-                            <div class="rich-info-item">
-                                <div class="rich-info-label">${label}</div>
-                                <div class="rich-info-value">${val}</div>
-                            </div>`;
-        }
-
-        html += `
-                        </div>
-                    </div>
-                </div>
-        `;
-
-        // 时间线
-        if (data.timeline && data.timeline.length > 0) {
-            html += `
-                <div class="rich-section">
-                    <h2 class="rich-section-title">生平履历</h2>
-                    <div class="rich-timeline">`;
-
-            data.timeline.forEach(item => {
-                html += `
-                        <div class="rich-timeline-item">
-                            <div class="rich-timeline-content">
-                                <h3 class="rich-timeline-title">${item.title}</h3>
-                                <p class="rich-timeline-desc">${item.description}</p>
-                            </div>
-                            <div class="rich-timeline-year">${item.year}</div>
-                        </div>`;
-            });
-
-            html += `
-                    </div>
+                <div class="rm-image">
+                    <img src="${data.avatar}" alt="${data.name}">
+                    <p class="rm-image-caption">${caption}</p>
                 </div>`;
         }
 
-        // 作品集
+        // 下：高价值电子制品
+        // 收集所有媒体条目
+        const mediaItems = [];
+
+        // gallery 图片
+        if (data.gallery && data.gallery.length > 0) {
+            data.gallery.forEach(item => {
+                mediaItems.push({ type: 'image', url: item.url, name: item.caption || item.role, meta: item.role || '' });
+            });
+        }
+
+        // 视频嵌入（trailer / bilibili）
+        const m = data.media || {};
+        if (m.trailer) {
+            // 转成 embed URL
+            const embedUrl = m.trailer.includes('embed') ? m.trailer
+                : m.trailer.replace('watch?v=', 'embed/');
+            mediaItems.push({ type: 'embed', url: embedUrl, name: '预告片', meta: 'YouTube' });
+        }
+        if (m.bilibili) {
+            // 将 B 站普通链接转成 embed
+            const bvMatch = m.bilibili.match(/BV[\w]+/);
+            const embedUrl = bvMatch
+                ? `https://player.bilibili.com/player.html?bvid=${bvMatch[0]}&page=1&high_quality=1`
+                : m.bilibili;
+            mediaItems.push({ type: 'embed', url: embedUrl, name: '在 B 站观看', meta: 'bilibili' });
+        }
+
+        // filmography 作品链接（豆瓣/IMDB等，若有 link 字段）
         if (data.filmography && data.filmography.length > 0) {
-            html += `
-                <div class="rich-section">
-                    <h2 class="rich-section-title">代表作品</h2>
-                    <div class="rich-film-grid">`;
-
             data.filmography.forEach(film => {
-                const awards = film.awards ? '<br><small style="color: #ffd700;">🏆 ' + film.awards.join(' · ') + '</small>' : '';
-                const rating = film.rating ? `<span class="rich-film-rating">⭐ ${film.rating}</span>` : '';
-                const boxOffice = film.boxOffice ? `<span class="rich-film-rating" style="margin-left: 8px;">💰 ${film.boxOffice}</span>` : '';
-
-                html += `
-                        <div class="rich-film-card">
-                            <div class="rich-film-year">${film.year}</div>
-                            <div class="rich-film-title">${film.title}</div>
-                            <div class="rich-film-title-en">${film.titleEn}</div>
-                            <div class="rich-film-role">饰演：${film.role}</div>
-                            ${rating}${boxOffice}${awards}
-                        </div>`;
+                if (film.link) {
+                    mediaItems.push({ type: 'link', url: film.link, name: film.title, meta: `${film.year}${film.rating ? ' · ★' + film.rating : ''}${film.boxOffice ? ' · ' + film.boxOffice : ''}` });
+                }
             });
-
-            html += `
-                    </div>
-                </div>`;
         }
 
-        // 成就
-        if (data.achievements && data.achievements.length > 0) {
-            html += `
-                <div class="rich-section">
-                    <h2 class="rich-section-title">主要成就</h2>
-                    <div class="rich-achievements-grid">`;
+        // readOnline / virtualTour 等
+        if (m.readOnline)    mediaItems.push({ type: 'link', url: m.readOnline,    name: '在线阅读全文', meta: '原典' });
+        if (m.virtualTour)   mediaItems.push({ type: 'link', url: m.virtualTour,   name: '360° 虚拟参观', meta: '全景' });
+        if (m.artwork)       mediaItems.push({ type: 'link', url: m.artwork,       name: '高清画作', meta: 'Google Arts & Culture' });
+        if (m.spotify)       mediaItems.push({ type: 'link', url: `https://open.spotify.com/track/${m.spotify}`, name: '在 Spotify 收听', meta: 'Spotify' });
 
-            data.achievements.forEach(achievement => {
-                html += `
-                        <div class="rich-achievement-card">
-                            <div class="rich-achievement-icon">${achievement.icon}</div>
-                            <h3 class="rich-achievement-title">${achievement.title}</h3>
-                            <p class="rich-achievement-desc">${achievement.description}</p>
-                        </div>`;
+        const iconMap = { embed: '▶', link: '🔗', image: '🖼' };
+        const platformIcon = { YouTube: '▶', bilibili: '▶', 'Google Arts & Culture': '🎨', Spotify: '🎵', 原典: '📖', 全景: '🌐' };
+
+        html += `
+                <div class="rm-media-title">高价值电子制品 <span>${mediaItems.length} 项</span></div>
+                <div class="rm-items">`;
+
+        if (mediaItems.length === 0) {
+            html += `<div class="rm-empty">暂无电子制品，可在 media.json 中添加 media / gallery / filmography 字段</div>`;
+        } else {
+            mediaItems.forEach(item => {
+                if (item.type === 'embed') {
+                    html += `
+                    <div class="rm-item">
+                        <iframe src="${item.url}" allowfullscreen loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>`;
+                } else if (item.type === 'image') {
+                    html += `
+                    <div class="rm-item">
+                        <img src="${item.url}" alt="${item.name}" style="width:100%;border-radius:10px;display:block;"
+                            onerror="this.style.display='none'">
+                    </div>`;
+                } else {
+                    const icon = platformIcon[item.meta] || '🔗';
+                    html += `
+                    <div class="rm-item">
+                        <a class="rm-item-link" href="${item.url}" target="_blank" rel="noopener">
+                            <span class="rm-item-icon">${icon}</span>
+                            <div class="rm-item-info">
+                                <div class="rm-item-name">${item.name}</div>
+                                <div class="rm-item-meta">${item.meta}</div>
+                            </div>
+                            <span class="rm-item-arrow">›</span>
+                        </a>
+                    </div>`;
+                }
             });
-
-            html += `
-                    </div>
-                </div>`;
-        }
-
-        // 语录
-        if (data.quotes && data.quotes.length > 0) {
-            html += `
-                <div class="rich-section">
-                    <h2 class="rich-section-title">经典语录</h2>
-                    <div class="rich-quotes-grid">`;
-
-            data.quotes.forEach(quote => {
-                html += `
-                        <div class="rich-quote-card">
-                            <p class="rich-quote-text">${quote}</p>
-                        </div>`;
-            });
-
-            html += `
-                    </div>
-                </div>`;
         }
 
         html += `
-            </div>
-        `;
+                </div>
+            </div>`;
 
         document.getElementById('entityDetail').innerHTML = html;
-
-        // 渲染上下导航
         renderEntityNav(catSlug, subSlug, entityFile);
     }
 
@@ -507,6 +564,158 @@
         }
         
         nav.innerHTML = prevHtml + nextHtml;
+    }
+    
+    // ==================== 图片画廊功能 ====================
+    
+    let galleryImages = [];
+    let currentImageIndex = 0;
+    
+    async function loadEntityResources(catSlug, subSlug, entityFile) {
+        // 构建 resources 文件夹路径
+        const mdDir = buildMdDirPath(catSlug, subSlug);
+        const resourcesPath = `${mdDir}/resources`;
+        const resourcesJsonPath = `${resourcesPath}/resources.json`;
+        
+        try {
+            // 尝试加载 resources.json 清单文件
+            const resp = await fetch(resourcesJsonPath);
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data.images && data.images.length > 0) {
+                    galleryImages = data.images.map(img => ({
+                        src: `${resourcesPath}/${img.filename}`,
+                        caption: img.caption || ''
+                    }));
+                    renderGallery();
+                    return;
+                }
+            }
+        } catch(e) {
+            console.log('resources.json 不存在，尝试自动扫描...');
+        }
+        
+        // 如果没有 resources.json，尝试自动扫描常见图片文件
+        await scanResourcesFolder(resourcesPath);
+    }
+    
+    async function scanResourcesFolder(resourcesPath) {
+        // 尝试加载可能的图片文件（1.jpg, 2.png 等）
+        const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        const maxImages = 20;
+        
+        for (let i = 1; i <= maxImages; i++) {
+            for (const ext of extensions) {
+                const filename = `${i}.${ext}`;
+                const imgPath = `${resourcesPath}/${filename}`;
+                try {
+                    const probe = await fetch(imgPath, { method: 'HEAD' });
+                    if (probe.ok) {
+                        galleryImages.push({
+                            src: imgPath,
+                            caption: `图片 ${i}`
+                        });
+                    }
+                } catch(e) { /* 忽略 */ }
+            }
+        }
+        
+        if (galleryImages.length > 0) {
+            renderGallery();
+        }
+    }
+    
+    function renderGallery() {
+        if (galleryImages.length === 0) return;
+        
+        const galleryHtml = `
+            <div class="image-gallery">
+                <h2 class="gallery-title">📷 图片画廊 (${galleryImages.length}张)</h2>
+                <div class="gallery-grid">
+                    ${galleryImages.map((img, idx) => `
+                        <div class="gallery-item" onclick="openLightbox(${idx})">
+                            <img src="${img.src}" alt="${img.caption}" loading="lazy">
+                            ${img.caption ? `<div class="gallery-item-caption">${img.caption}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        // 插入到 entityDetail 末尾
+        const detailDiv = document.getElementById('entityDetail');
+        detailDiv.insertAdjacentHTML('beforeend', galleryHtml);
+        
+        // 添加灯箱 HTML
+        if (!document.getElementById('lightbox')) {
+            const lightboxHtml = `
+                <div class="lightbox" id="lightbox">
+                    <div class="lightbox-content">
+                        <img id="lightbox-img" src="" alt="">
+                    </div>
+                    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+                    <button class="lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+                    <button class="lightbox-next" onclick="lightboxNav(1)">›</button>
+                    <div class="lightbox-caption" id="lightbox-caption"></div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', lightboxHtml);
+            
+            // 点击背景关闭灯箱
+            document.getElementById('lightbox').addEventListener('click', function(e) {
+                if (e.target === this) closeLightbox();
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', function(e) {
+                const lightbox = document.getElementById('lightbox');
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') closeLightbox();
+                else if (e.key === 'ArrowLeft') lightboxNav(-1);
+                else if (e.key === 'ArrowRight') lightboxNav(1);
+            });
+        }
+    }
+    
+    function openLightbox(idx) {
+        currentImageIndex = idx;
+        const lightbox = document.getElementById('lightbox');
+        const img = galleryImages[idx];
+        
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-caption').textContent = img.caption || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function lightboxNav(direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
+        if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
+        
+        const img = galleryImages[currentImageIndex];
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-caption').textContent = img.caption || '';
+    }
+    
+    // 构建 MD 文件所在目录路径（辅助函数）
+    function buildMdDirPath(catSlug, subSlug) {
+        const isSubSub = subSlug.includes('/');
+        const parentSubSlug = isSubSub ? subSlug.split('/')[0] : subSlug;
+        const childSlug = isSubSub ? subSlug.split('/').slice(1).join('/') : '';
+        
+        if (isSubSub) {
+            return `data/md/${catSlug}/${parentSubSlug}/${childSlug}`;
+        } else {
+            return `data/md/${catSlug}/${subSlug}`;
+        }
     }
     </script>
 </body>
