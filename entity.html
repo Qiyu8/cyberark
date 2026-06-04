@@ -392,6 +392,11 @@
     });
 
     function renderRichMediaPage(data, catSlug, subSlug, entityFile) {
+        // md 文件所在目录，用于解析 media.json 中的相对路径
+        const mdUrl = buildMdPath(catSlug, subSlug, entityFile);
+        const mdDir = mdUrl.substring(0, mdUrl.lastIndexOf('/') + 1);
+        const resolvePath = p => (p && !p.startsWith('http')) ? mdDir + p : p;
+
         // 更新页面标题和面包屑
         document.title = `${data.name} - 赛博方舟`;
         document.getElementById('breadcrumbEntity').textContent = data.name;
@@ -434,7 +439,7 @@
             const caption = data.title ? `${data.name} · ${data.title}` : data.name;
             html += `
                 <div class="rm-image">
-                    <img src="${data.avatar}" alt="${data.name}">
+                    <img src="${resolvePath(data.avatar)}" alt="${data.name}">
                     <p class="rm-image-caption">${caption}</p>
                 </div>`;
         }
@@ -446,7 +451,7 @@
         // gallery 图片
         if (data.gallery && data.gallery.length > 0) {
             data.gallery.forEach(item => {
-                mediaItems.push({ type: 'image', url: item.url, name: item.caption || item.role, meta: item.role || '' });
+                mediaItems.push({ type: 'image', url: resolvePath(item.url), name: item.caption || item.role, meta: item.role || '' });
             });
         }
 
