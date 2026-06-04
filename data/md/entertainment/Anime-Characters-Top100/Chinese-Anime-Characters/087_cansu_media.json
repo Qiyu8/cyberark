@@ -1,0 +1,78 @@
+{
+  "name": "参宿",
+  "nameEn": "Shen Xiao",
+  "title": "深海 · 寻找南河",
+  "avatar": "resources/shenhai.png",
+  "theme": {
+    "primaryColor": "#00b4d8",
+    "secondaryColor": "#03045e",
+    "accentColor": "#90e0ef"
+  },
+  "basicInfo": {
+    "首次出现": "2023年",
+    "出处": "《深海》动画电影",
+    "制作方": "十月文化",
+    "导演": "田晓鹏",
+    "价值等级": "T2",
+    "角色类型": "主角"
+  },
+  "description": "2023年田晓鹏导演作品，《大圣归来》原班人马打造。参宿是一个患有抑郁症的少女，在深海中寻找离家出走的父亲。影片以\"粒子水墨\"技术创造出超现实的深海视觉奇观，用童话外壳探讨抑郁与爱的主题，是中国动画电影在叙事深度上的重要突破。",
+  "timeline": [
+    {
+      "year": "2016",
+      "title": "立项开发",
+      "description": "《大圣归来》成功后，田晓鹏开始开发《深海》，历时7年"
+    },
+    {
+      "year": "2023-01-22",
+      "title": "春节档上映",
+      "description": "与《满江红》《流浪地球2》同期竞争"
+    },
+    {
+      "year": "2023",
+      "title": "口碑两极分化",
+      "description": "视觉获极高赞誉，叙事引发争议，最终票房8.99亿"
+    },
+    {
+      "year": "2023",
+      "title": "豆瓣评分回升",
+      "description": "随二刷潮和抑郁议题讨论，评分从7.6升至8.1"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2023,
+      "title": "深海",
+      "titleEn": "Deep Sea",
+      "role": "参宿",
+      "rating": 8.1,
+      "boxOffice": "8.99亿人民币"
+    }
+  ],
+  "quotes": [
+    "南河，你在哪里？",
+    "我不是怪孩子，我只是想被爱。",
+    "深海之下，也有光。"
+  ],
+  "achievements": [
+    {
+      "title": "粒子水墨技术",
+      "description": "首创\"粒子水墨\"视觉风格，国产动画技术里程碑",
+      "icon": "✨"
+    },
+    {
+      "title": "抑郁议题破冰",
+      "description": "国产动画电影首次以抑郁症少女为主角，引发社会对心理健康的广泛讨论",
+      "icon": "💙"
+    },
+    {
+      "title": "7年磨一剑",
+      "description": "《大圣归来》后耗时7年，体现中国动画人对品质的坚守",
+      "icon": "⏳"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/Ll4kNqRiRgs",
+    "bilibili": "https://www.bilibili.com/video/BV1c84y1Q7Kb"
+  }
+}

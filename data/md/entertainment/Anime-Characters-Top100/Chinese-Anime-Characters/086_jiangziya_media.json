@@ -1,0 +1,68 @@
+{
+  "name": "姜子牙",
+  "nameEn": "Jiang Ziya",
+  "title": "封神宇宙 · 被贬下凡的战神",
+  "avatar": "resources/jiangziya.png",
+  "theme": {
+    "primaryColor": "#9b59b6",
+    "secondaryColor": "#1a0a2e",
+    "accentColor": "#d4a9f5"
+  },
+  "basicInfo": {
+    "首次出现": "2020年",
+    "出处": "《姜子牙》动画电影",
+    "制作方": "彩条屋影业",
+    "导演": "程腾、李炜",
+    "价值等级": "T2",
+    "角色类型": "主角"
+  },
+  "description": "2020年彩条屋影业出品，《哪吒之魔童降世》的封神宇宙联动作品。这版姜子牙不再是传统的封神英雄，而是一个被贬下凡、质疑天命是否公正的孤独智者。影片探讨了\"服从秩序还是追随良知\"的哲学命题，视觉风格极为成熟。",
+  "timeline": [
+    {
+      "year": "2019",
+      "title": "《哪吒》片尾彩蛋预告",
+      "description": "《魔童降世》片尾姜子牙出现，封神宇宙概念引爆期待"
+    },
+    {
+      "year": "2020-10-01",
+      "title": "国庆档上映",
+      "description": "疫情后首个国庆档，与《我和我的家乡》同期竞争"
+    },
+    {
+      "year": "2020",
+      "title": "最终票房16.02亿",
+      "description": "口碑略有分化，但视觉风格获高度认可"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2020,
+      "title": "姜子牙",
+      "titleEn": "Jiang Ziya",
+      "role": "姜子牙",
+      "rating": 7.3,
+      "boxOffice": "16.02亿人民币"
+    }
+  ],
+  "quotes": [
+    "救一人，还是救苍生？",
+    "若天道不公，我便问一问这天道。",
+    "一人，不能舍。"
+  ],
+  "achievements": [
+    {
+      "title": "封神宇宙奠基",
+      "description": "彩条屋封神宇宙第二部，建立了与《哪吒》共同的世界观框架",
+      "icon": "🌌"
+    },
+    {
+      "title": "视觉突破",
+      "description": "朦胧雪原美学风格，国产动画美术达到新高度",
+      "icon": "🎨"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/C3RA7GDmnkg",
+    "bilibili": "https://www.bilibili.com/video/BV1oZ4y1R7Nx"
+  }
+}

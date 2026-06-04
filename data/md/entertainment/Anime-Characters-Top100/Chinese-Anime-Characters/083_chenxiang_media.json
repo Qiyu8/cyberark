@@ -1,0 +1,71 @@
+{
+  "name": "沉香",
+  "nameEn": "Chen Xiang",
+  "title": "宝莲灯 · 劈山救母",
+  "avatar": "resources/baoliandeng.png",
+  "theme": {
+    "primaryColor": "#27ae60",
+    "secondaryColor": "#1a3a2a",
+    "accentColor": "#f1c40f"
+  },
+  "basicInfo": {
+    "首次出现": "1999年",
+    "出处": "《宝莲灯》动画电影",
+    "制作方": "上海美术电影制片厂",
+    "原著": "民间神话《沉香救母》",
+    "价值等级": "T2",
+    "角色类型": "主角"
+  },
+  "description": "1999年上海美术电影制片厂出品，改编自中国民间神话《沉香救母》。沉香历经艰险、拜师学艺，最终以神斧劈开华山救出母亲三圣母，是中国动画告别黄金时代前最后的经典之作，也是90后一代的共同记忆。",
+  "timeline": [
+    {
+      "year": "民间神话",
+      "title": "原型传说",
+      "description": "《沉香救母》民间故事流传千年"
+    },
+    {
+      "year": "1999",
+      "title": "《宝莲灯》上映",
+      "description": "上海美制片厂出品，国内首部引入流行音乐的动画电影"
+    },
+    {
+      "year": "1999",
+      "title": "主题曲大热",
+      "description": "刘欢演唱《天地在我心》、李玟演唱《爱就一个字》风靡全国"
+    },
+    {
+      "year": "2007",
+      "title": "《宝莲灯前传》",
+      "description": "电视动画续作，讲述三圣母与二郎神的故事"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 1999,
+      "title": "宝莲灯",
+      "titleEn": "Lotus Lantern",
+      "role": "沉香",
+      "rating": 8.8,
+      "awards": ["中国电影华表奖优秀美术片奖"]
+    }
+  ],
+  "quotes": [
+    "我一定会救出妈妈的！",
+    "只要心中有爱，什么困难都能克服。"
+  ],
+  "achievements": [
+    {
+      "title": "跨界破壁",
+      "description": "首部引入流行歌手（刘欢、李玟）创作主题曲的中国动画电影",
+      "icon": "🎵"
+    },
+    {
+      "title": "90后童年",
+      "description": "1999年上映，与一代人的童年紧密相连，是中国动画的温情符号",
+      "icon": "💛"
+    }
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1xs411Y7gJ"
+  }
+}

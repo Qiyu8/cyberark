@@ -1,0 +1,98 @@
+{
+  "name": "哪吒",
+  "nameEn": "Nezha",
+  "title": "魔童降世 · 我命由我不由天",
+  "avatar": "resources/motongnezha.png",
+  "theme": {
+    "primaryColor": "#e74c3c",
+    "secondaryColor": "#1a1a2e",
+    "accentColor": "#f39c12"
+  },
+  "basicInfo": {
+    "首次出现": "2019年",
+    "出处": "《哪吒之魔童降世》",
+    "制作方": "彩条屋影业",
+    "导演": "饺子（杨宇）",
+    "价值等级": "T1",
+    "角色类型": "主角"
+  },
+  "description": "2019年现象级国漫，彩条屋影业出品，饺子导演。这版哪吒颠覆传统形象，以黑眼圈、坏笑的叛逆少年面貌重新登场，\"我命由我不由天\"成为一代人的宣言。全球票房50.35亿人民币，中国动画电影票房纪录保持者。",
+  "timeline": [
+    {
+      "year": "2015",
+      "title": "立项开发",
+      "description": "导演饺子历时4年制作，66家特效公司参与制作"
+    },
+    {
+      "year": "2019-07-26",
+      "title": "上映",
+      "description": "首映即引爆市场，口碑票房双丰收"
+    },
+    {
+      "year": "2019-08",
+      "title": "票房破纪录",
+      "description": "超越《大圣归来》，成为中国动画电影票房冠军"
+    },
+    {
+      "year": "2019-09",
+      "title": "最终票房50.35亿",
+      "description": "中国影史第四，动画电影全球票房第七"
+    },
+    {
+      "year": "2025",
+      "title": "《哪吒之魔童闹海》",
+      "description": "续集上映，首日票房即破纪录"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2019,
+      "title": "哪吒之魔童降世",
+      "titleEn": "Ne Zha",
+      "role": "哪吒",
+      "rating": 8.5,
+      "boxOffice": "50.35亿人民币",
+      "awards": ["第33届中国电影金鸡奖最佳美术片", "第36届大众电影百花奖最佳影片提名"]
+    },
+    {
+      "year": 2025,
+      "title": "哪吒之魔童闹海",
+      "titleEn": "Ne Zha 2",
+      "role": "哪吒",
+      "rating": 9.2,
+      "boxOffice": "140亿人民币（持续更新）"
+    }
+  ],
+  "quotes": [
+    "我命由我不由天！",
+    "去你的鸟命！",
+    "若命运不公，就和它斗到底！",
+    "小爷天生是魔，又怎样！"
+  ],
+  "achievements": [
+    {
+      "title": "中国动画票房冠军",
+      "description": "50.35亿人民币，中国动画电影历史最高票房（2019年）",
+      "icon": "👑"
+    },
+    {
+      "title": "国漫复兴旗帜",
+      "description": "与《大圣归来》共同开创国漫新时代，证明中国动画工业化的成熟",
+      "icon": "🚀"
+    },
+    {
+      "title": "文化破圈",
+      "description": "\"我命由我不由天\"成为流行语，哪吒形象登上纽约时代广场大屏",
+      "icon": "🌍"
+    },
+    {
+      "title": "制作奇迹",
+      "description": "66家特效公司，1600多个特效镜头，4年打磨的工业奇迹",
+      "icon": "⚡"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/hDSjQBl5OMI",
+    "bilibili": "https://www.bilibili.com/video/BV1W4411W7aZ"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "哪吒",
+  "nameEn": "Nezha",
+  "title": "哪吒闹海 · 少年英雄",
+  "avatar": "resources/nezharaohai.png",
+  "theme": {
+    "primaryColor": "#e74c3c",
+    "secondaryColor": "#2c3e50",
+    "accentColor": "#e67e22"
+  },
+  "basicInfo": {
+    "首次出现": "1979年",
+    "出处": "《哪吒闹海》动画电影",
+    "制作方": "上海美术电影制片厂",
+    "原著": "《封神演义》",
+    "价值等级": "T2",
+    "角色类型": "主角"
+  },
+  "description": "1979年上海美术电影制片厂出品，改编自古典神话《封神演义》。哪吒削肉还母、剔骨还父，以莲花化身重生的故事诠释了反抗命运、追求自我的主题，是中国动画黄金时代的代表作之一。",
+  "timeline": [
+    {
+      "year": "约16世纪",
+      "title": "原著成书",
+      "description": "许仲琳《封神演义》确立哪吒形象"
+    },
+    {
+      "year": "1979",
+      "title": "《哪吒闹海》上映",
+      "description": "上海美美制片厂出品，严定宪导演，成为中国动画经典"
+    },
+    {
+      "year": "1999",
+      "title": "《宝莲灯》联动",
+      "description": "哪吒作为配角再度登场，陪伴新一代观众"
+    },
+    {
+      "year": "2019",
+      "title": "《哪吒之魔童降世》",
+      "description": "全新诠释，票房50.35亿，成为中国动画票房冠军"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 1979,
+      "title": "哪吒闹海",
+      "titleEn": "Nezha Conquers the Dragon King",
+      "role": "哪吒",
+      "rating": 9.4,
+      "awards": ["文化部优秀影片奖", "第3届百花奖最佳美术片"]
+    },
+    {
+      "year": 2019,
+      "title": "哪吒之魔童降世",
+      "titleEn": "Ne Zha",
+      "role": "哪吒（全新诠释）",
+      "rating": 8.5,
+      "boxOffice": "50.35亿人民币"
+    }
+  ],
+  "quotes": [
+    "我是小妖怪，逍遥又自在！",
+    "我命由我不由天！",
+    "生而为魔，那又如何！"
+  ],
+  "achievements": [
+    {
+      "title": "黄金时代代表作",
+      "description": "《哪吒闹海》获百花奖最佳美术片，中国动画黄金时代巅峰之作",
+      "icon": "🏅"
+    },
+    {
+      "title": "40年跨代传承",
+      "description": "从1979到2019，哪吒IP跨越40年，两代观众共同的精神偶像",
+      "icon": "⏳"
+    },
+    {
+      "title": "票房神话",
+      "description": "《魔童降世》50亿票房，证明传统神话IP的现代改编潜力无限",
+      "icon": "💰"
+    }
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1Ws411f7iZ"
+  }
+}

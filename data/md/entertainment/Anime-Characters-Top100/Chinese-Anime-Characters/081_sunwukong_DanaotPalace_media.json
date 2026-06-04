@@ -1,0 +1,99 @@
+{
+  "name": "孙悟空",
+  "nameEn": "Sun Wukong",
+  "title": "大闹天宫 · 齐天大圣",
+  "avatar": "resources/daraotiangong.png",
+  "theme": {
+    "primaryColor": "#f5a623",
+    "secondaryColor": "#c0392b",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "首次出现": "1965年",
+    "出处": "《大闹天宫》动画电影",
+    "制作方": "上海美术电影制片厂",
+    "原著": "《西游记》吴承恩",
+    "价值等级": "T1",
+    "角色类型": "主角"
+  },
+  "description": "中国动画史上最具影响力的角色，改编自古典名著《西游记》。1965年上海美术电影制片厂出品的《大闹天宫》以水墨动画风格呈现，孙悟空那反抗天庭、无拘无束的精神成为几代中国人的童年记忆，也是中国动画走向世界的标志性形象。",
+  "timeline": [
+    {
+      "year": "约16世纪",
+      "title": "原著诞生",
+      "description": "吴承恩《西游记》成书，孙悟空形象确立"
+    },
+    {
+      "year": "1961",
+      "title": "《大闹天宫》上集",
+      "description": "上海美术电影制片厂出品，万籁鸣导演，开创中国动画巅峰"
+    },
+    {
+      "year": "1964",
+      "title": "《大闹天宫》下集",
+      "description": "全片完成，水墨动画风格轰动国际，获多项国际奖项"
+    },
+    {
+      "year": "1986",
+      "title": "央视西游记",
+      "description": "六小龄童版真人剧集，孙悟空形象深入人心"
+    },
+    {
+      "year": "2015",
+      "title": "《大圣归来》",
+      "description": "国产动画复兴标志，票房9.56亿，重燃国漫热潮"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 1964,
+      "title": "大闹天宫",
+      "titleEn": "Havoc in Heaven",
+      "role": "孙悟空",
+      "rating": 9.5,
+      "awards": ["伦敦国际电影节最佳影片", "第14届洛迦诺国际电影节荣誉奖"]
+    },
+    {
+      "year": 2015,
+      "title": "西游记之大圣归来",
+      "titleEn": "Monkey King: Hero Is Back",
+      "role": "孙悟空",
+      "rating": 8.3,
+      "boxOffice": "9.56亿人民币"
+    },
+    {
+      "year": 2018,
+      "title": "西游记之女儿国",
+      "titleEn": "Monkey King 3",
+      "role": "孙悟空",
+      "rating": 6.5,
+      "boxOffice": "7.25亿人民币"
+    }
+  ],
+  "quotes": [
+    "俺老孙来也！",
+    "我乃齐天大圣孙悟空，天不收，地不管，自由自在！",
+    "皇帝轮流做，明年到我家。"
+  ],
+  "achievements": [
+    {
+      "title": "中国动画之魂",
+      "description": "《大闹天宫》被誉为中国动画史最高成就，入选多国教科书",
+      "icon": "🏆"
+    },
+    {
+      "title": "国际荣誉",
+      "description": "获伦敦国际电影节最佳影片，中国动画首次在国际舞台发光",
+      "icon": "🌍"
+    },
+    {
+      "title": "文化符号",
+      "description": "孙悟空形象跨越动画、游戏、文学，成为中华文化全球代言人",
+      "icon": "🎭"
+    }
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1Gs411r7A7",
+    "trailer": "https://www.youtube.com/embed/7pHFMDQHPkU"
+  }
+}

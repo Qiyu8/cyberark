@@ -1,0 +1,74 @@
+{
+  "name": "敖丙",
+  "nameEn": "Ao Bing",
+  "title": "魔童降世 · 龙王三太子",
+  "avatar": "resources/aobing.png",
+  "theme": {
+    "primaryColor": "#3498db",
+    "secondaryColor": "#0a1628",
+    "accentColor": "#74b9ff"
+  },
+  "basicInfo": {
+    "首次出现": "2019年",
+    "出处": "《哪吒之魔童降世》",
+    "制作方": "彩条屋影业",
+    "身份": "龙王三太子，灵珠转世",
+    "价值等级": "T2",
+    "角色类型": "男二号"
+  },
+  "description": "《哪吒之魔童降世》中的核心角色，龙王三太子，灵珠转世。外表温润如玉，内心背负着整个龙族命运的重压。他与哪吒从对立到惺惺相惜的情谊，是影片最打动人心的部分。\"你是唯一把我当朋友的人\"成为无数观众的泪点。",
+  "timeline": [
+    {
+      "year": "2019",
+      "title": "《魔童降世》登场",
+      "description": "以全新原创角色身份出现，成为哪吒最重要的羁绊"
+    },
+    {
+      "year": "2019",
+      "title": "现象级讨论",
+      "description": "\"哪吒敖丙\"CP在社交媒体引发巨大讨论，二创内容铺天盖地"
+    },
+    {
+      "year": "2025",
+      "title": "《魔童闹海》回归",
+      "description": "续集中两人关系进一步发展"
+    }
+  ],
+  "filmography": [
+    {
+      "year": 2019,
+      "title": "哪吒之魔童降世",
+      "titleEn": "Ne Zha",
+      "role": "敖丙",
+      "rating": 8.5,
+      "boxOffice": "50.35亿人民币（全片）"
+    },
+    {
+      "year": 2025,
+      "title": "哪吒之魔童闹海",
+      "titleEn": "Ne Zha 2",
+      "role": "敖丙",
+      "rating": 9.2
+    }
+  ],
+  "quotes": [
+    "你是这世上唯一把我当朋友的人。",
+    "我愿用这一身修为，换你平安。",
+    "若有来世，愿与你共游山海。"
+  ],
+  "achievements": [
+    {
+      "title": "最强男二",
+      "description": "人气几乎与主角哪吒持平，是影片情感核心之一",
+      "icon": "💙"
+    },
+    {
+      "title": "破圈CP",
+      "description": "与哪吒的羁绊情谊引发大量二创，成为国漫史上讨论度最高的角色关系",
+      "icon": "🔗"
+    }
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1W4411W7aZ"
+  }
+}
