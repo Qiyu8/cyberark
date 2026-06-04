@@ -1,0 +1,27 @@
+{
+  "name": "小青",
+  "nameEn": "Xiao Qing",
+  "title": "白蛇2：青蛇劫起 · 修罗场中的青蛇",
+  "avatar": "resources/xiaoqing.png",
+  "basicInfo": {
+    "首次出现": "2021年",
+    "出处": "《白蛇2：青蛇劫起》动画电影",
+    "制作方": "追光动画",
+    "价值等级": "T2"
+  },
+  "description": "追光动画「新传说系列」续作，以小青为主角，讲述她在赛博朋克风格的修罗城中寻找白素贞的故事。影片大胆融合传统神话与赛博朋克美学，小青的形象从配角升格为独当一面的女性英雄，是国漫在类型实验上的重要突破。",
+  "filmography": [
+    {
+      "year": 2021,
+      "title": "白蛇2：青蛇劫起",
+      "titleEn": "White Snake 2: The Tribulation of the Green Snake",
+      "role": "小青",
+      "rating": 7.3,
+      "boxOffice": "5.8亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/1JRKMoWzZKc",
+    "bilibili": "https://www.bilibili.com/video/BV16v411W7qU"
+  }
+}

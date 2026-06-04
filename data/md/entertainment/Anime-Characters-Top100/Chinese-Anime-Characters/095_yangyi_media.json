@@ -1,0 +1,27 @@
+{
+  "name": "杨戬",
+  "nameEn": "Yang Jian",
+  "title": "新神榜：杨戬 · 天眼通神",
+  "avatar": "resources/yangjian.png",
+  "basicInfo": {
+    "首次出现": "2022年",
+    "出处": "《新神榜：杨戬》动画电影",
+    "制作方": "追光动画",
+    "价值等级": "T2"
+  },
+  "description": "追光动画「新神榜系列」第二部，以杨戬为主角，延续《哪吒重生》的赛博朋克神话世界观。杨戬被设定为沉香的舅舅，在寻找失踪外甥的过程中揭开神界阴谋。追光动画以此作进一步深化了「传统神话×现代美学」的创作方法论。",
+  "filmography": [
+    {
+      "year": 2022,
+      "title": "新神榜：杨戬",
+      "titleEn": "New Gods: Yang Jian",
+      "role": "杨戬",
+      "rating": 7.2,
+      "boxOffice": "2.28亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/vAUwdjPfjos",
+    "bilibili": "https://www.bilibili.com/video/BV1eB4y1Q7ks"
+  }
+}

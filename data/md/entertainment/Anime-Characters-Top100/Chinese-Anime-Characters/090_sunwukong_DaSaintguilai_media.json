@@ -1,0 +1,28 @@
+{
+  "name": "孙悟空",
+  "nameEn": "Sun Wukong",
+  "title": "大圣归来 · 被封印后重获自由",
+  "avatar": "resources/qitiandasheng.png",
+  "basicInfo": {
+    "首次出现": "2015年",
+    "出处": "《西游记之大圣归来》",
+    "制作方": "横店影视",
+    "导演": "田晓鹏",
+    "价值等级": "T2"
+  },
+  "description": "2015年国漫复兴标志性作品中的孙悟空，被压五行山下五百年、失去法力的落魄大圣。在小唐僧江流儿的陪伴下重燃斗志、找回自我，是国产动画工业化起点的代表角色。全片票房9.56亿，改写了中国动画的历史。",
+  "filmography": [
+    {
+      "year": 2015,
+      "title": "西游记之大圣归来",
+      "titleEn": "Monkey King: Hero Is Back",
+      "role": "孙悟空",
+      "rating": 8.3,
+      "boxOffice": "9.56亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/k7VFzYjyVAs",
+    "bilibili": "https://www.bilibili.com/video/BV1Gs411r7A7"
+  }
+}

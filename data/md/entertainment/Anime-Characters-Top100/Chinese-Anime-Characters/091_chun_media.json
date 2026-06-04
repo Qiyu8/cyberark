@@ -1,0 +1,28 @@
+{
+  "name": "椿",
+  "nameEn": "Chun",
+  "title": "大鱼海棠 · 掌管海棠花的少女",
+  "avatar": "resources/chun.png",
+  "basicInfo": {
+    "首次出现": "2016年",
+    "出处": "《大鱼海棠》动画电影",
+    "制作方": "彼岸天文化",
+    "导演": "梁旋、张春",
+    "价值等级": "T2"
+  },
+  "description": "《大鱼海棠》主角，神族少女，掌管海棠花的生长。为救溺亡的人类男孩鲲，不惜以自己的寿命换取，是中国动画中罕见的以「代价」书写爱的女性角色。影片以《庄子》逍遥游为灵感，视觉风格融合闽南土楼与水墨美学。",
+  "filmography": [
+    {
+      "year": 2016,
+      "title": "大鱼海棠",
+      "titleEn": "Big Fish & Begonia",
+      "role": "椿",
+      "rating": 7.4,
+      "boxOffice": "5.65亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/Y2TGNbv3_oY",
+    "bilibili": "https://www.bilibili.com/video/BV1Ls411v7eX"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "白素贞",
+  "nameEn": "Bai Suzhen",
+  "title": "白蛇：缘起 · 千年白蛇",
+  "avatar": "resources/baisuzhen.png",
+  "basicInfo": {
+    "首次出现": "2019年",
+    "出处": "《白蛇：缘起》动画电影",
+    "制作方": "追光动画",
+    "价值等级": "T2"
+  },
+  "description": "追光动画「新传说系列」开篇作，以白蛇传说的前传切入，讲述白素贞失忆后与捕蛇人许宣相遇的故事。追光动画以此作正式确立了以中国传统神话为蓝本的精品动画路线，视觉风格融合水墨与写实，白素贞的造型成为国漫女性角色的新标杆。",
+  "filmography": [
+    {
+      "year": 2019,
+      "title": "白蛇：缘起",
+      "titleEn": "White Snake",
+      "role": "白素贞",
+      "rating": 7.9,
+      "boxOffice": "4.57亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/jRTjKzQoKaM",
+    "bilibili": "https://www.bilibili.com/video/BV1E4411N7n4"
+  }
+}

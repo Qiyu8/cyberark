@@ -1,0 +1,28 @@
+{
+  "name": "鲲",
+  "nameEn": "Kun",
+  "title": "大鱼海棠 · 化身大鱼的人类少年",
+  "avatar": "resources/kun.png",
+  "basicInfo": {
+    "首次出现": "2016年",
+    "出处": "《大鱼海棠》动画电影",
+    "制作方": "彼岸天文化",
+    "导演": "梁旋、张春",
+    "价值等级": "T2"
+  },
+  "description": "《大鱼海棠》中溺亡后被椿以寿命换回的人类少年，化身为一条不断生长的大鱼。名字取自《庄子》\"北冥有鱼，其名为鲲\"，承载着自由与归宿的双重象征。",
+  "filmography": [
+    {
+      "year": 2016,
+      "title": "大鱼海棠",
+      "titleEn": "Big Fish & Begonia",
+      "role": "鲲",
+      "rating": 7.4,
+      "boxOffice": "5.65亿人民币"
+    }
+  ],
+  "media": {
+    "trailer": "https://www.youtube.com/embed/Y2TGNbv3_oY",
+    "bilibili": "https://www.bilibili.com/video/BV1Ls411v7eX"
+  }
+}

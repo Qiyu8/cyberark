@@ -1,0 +1,18 @@
+{
+  "name": "小唐僧",
+  "nameEn": "Jiang Liuer",
+  "title": "大圣归来 · 唤醒大圣的小和尚",
+  "avatar": "resources/xiaotangsen.png",
+  "basicInfo": {
+    "首次出现": "2015年",
+    "出处": "《西游记之大圣归来》",
+    "制作方": "横店影视",
+    "导演": "田晓鹏",
+    "价值等级": "T2"
+  },
+  "description": "《大圣归来》的情感核心，一个纯真的小和尚，凭借无条件的信任与陪伴，唤醒了被封印五百年、失去法力的孙悟空。他代表了信念本身的力量。",
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1Gs411r7A7",
+    "trailer": "https://www.youtube.com/embed/k7VFzYjyVAs"
+  }
+}
