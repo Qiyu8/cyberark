@@ -423,7 +423,6 @@
                     overflow: hidden;
                     display: none;
                     z-index: 9999;
-                    transform: translate(-50%, -50%);
                 }
 
                 /* 下：高价值电子制品 */
@@ -543,8 +542,8 @@
                 const y = e.clientY - rect.top;
 
                 // 放大镜跟随鼠标
-                magnifier.style.left = e.clientX + 'px';
-                magnifier.style.top  = e.clientY + 'px';
+                magnifier.style.left = (e.clientX - MAG_R) + 'px';
+                magnifier.style.top  = (e.clientY - MAG_R) + 'px';
 
                 // 背景图片放大并偏移，使鼠标对应区域居中显示
                 const bgX = -(x * ZOOM - MAG_R);
