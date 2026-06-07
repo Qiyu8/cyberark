@@ -605,14 +605,36 @@
                 if (e.file === 'index.md' || e.file === 'INDEX.md') return;
                 try {
                     const mdPath = buildMdPath(catSlug, childDirSlug ? `${subSlug}/${childDirSlug}` : subSlug, e.file);
-                    const r = await fetch(mdPath);
-                    if (!r.ok) return;
-                    const text = await r.text();
-                    const extracted = extractFromMd(text, e.file);
-                    // 记录 MD 文件所在目录，供相对路径图片使用
-                    extracted._mdDir = mdPath.substring(0, mdPath.lastIndexOf('/'));
+                    const mdDir = mdPath.substring(0, mdPath.lastIndexOf('/'));
+
+                    // 优先尝试读取 _media.json 获取 avatar 作为缩略图
+                    const mediaJsonPath = mdPath.replace(/\.md$/, '_media.json');
+                    let extracted = { imageUrl: null, title: null, artist: null, year: null, desc: null, extra: null, _mdDir: mdDir };
+                    try {
+                        const mr = await fetch(mediaJsonPath);
+                        if (mr.ok) {
+                            const mediaData = await mr.json();
+                            if (mediaData.avatar) {
+                                // avatar 可能是相对路径，补全为完整路径
+                                const avatarUrl = mediaData.avatar.startsWith('http') || mediaData.avatar.startsWith('//')
+                                    ? mediaData.avatar
+                                    : `${mdDir}/${mediaData.avatar}`;
+                                extracted.imageUrl = avatarUrl;
+                                extracted.title = mediaData.name || null;
+                            }
+                        }
+                    } catch { /* 无 media.json，继续读 MD */ }
+
+                    // 若 media.json 没有提供图片，从 MD 提取
+                    if (!extracted.imageUrl) {
+                        const r = await fetch(mdPath);
+                        if (!r.ok) return;
+                        const text = await r.text();
+                        const fromMd = extractFromMd(text, e.file);
+                        extracted = { ...fromMd, _mdDir: mdDir };
+                    }
+
                     enrichCache.set(e.file, extracted);
-                    // 更新对应卡片
                     const cardIndex = startIndex + i + bi;
                     updateCard(e, cardIndex);
                 } catch { /* 静默 */ }
