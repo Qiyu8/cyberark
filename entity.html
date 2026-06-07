@@ -455,23 +455,6 @@
             });
         }
 
-        // 视频嵌入（trailer / bilibili）
-        const m = data.media || {};
-        if (m.trailer) {
-            // 转成 embed URL
-            const embedUrl = m.trailer.includes('embed') ? m.trailer
-                : m.trailer.replace('watch?v=', 'embed/');
-            mediaItems.push({ type: 'embed', url: embedUrl, name: '预告片', meta: 'YouTube' });
-        }
-        if (m.bilibili) {
-            // 将 B 站普通链接转成 embed
-            const bvMatch = m.bilibili.match(/BV[\w]+/);
-            const embedUrl = bvMatch
-                ? `https://player.bilibili.com/player.html?bvid=${bvMatch[0]}&page=1&high_quality=1`
-                : m.bilibili;
-            mediaItems.push({ type: 'embed', url: embedUrl, name: '在 B 站观看', meta: 'bilibili' });
-        }
-
         // filmography 作品链接（豆瓣/IMDB等，若有 link 字段）
         if (data.filmography && data.filmography.length > 0) {
             data.filmography.forEach(film => {
@@ -480,12 +463,6 @@
                 }
             });
         }
-
-        // readOnline / virtualTour 等
-        if (m.readOnline)    mediaItems.push({ type: 'link', url: m.readOnline,    name: '在线阅读全文', meta: '原典' });
-        if (m.virtualTour)   mediaItems.push({ type: 'link', url: m.virtualTour,   name: '360° 虚拟参观', meta: '全景' });
-        if (m.artwork)       mediaItems.push({ type: 'link', url: m.artwork,       name: '高清画作', meta: 'Google Arts & Culture' });
-        if (m.spotify)       mediaItems.push({ type: 'link', url: `https://open.spotify.com/track/${m.spotify}`, name: '在 Spotify 收听', meta: 'Spotify' });
 
         const iconMap = { embed: '▶', link: '🔗', image: '🖼' };
         const platformIcon = { YouTube: '▶', bilibili: '▶', 'Google Arts & Culture': '🎨', Spotify: '🎵', 原典: '📖', 全景: '🌐' };
