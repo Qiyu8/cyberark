@@ -407,22 +407,21 @@
                 .rm-page { max-width: 960px; margin: 0 auto; padding: 30px 0 60px; }
 
                 /* 上：图片区 */
-                .rm-image { text-align: center; margin-bottom: 50px; position: relative; display: inline-block; padding-bottom: 110px; margin-bottom: -60px; }
-                .rm-image-wrap { text-align: center; margin-bottom: 50px; overflow: hidden; }
-                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: block; cursor: none; }
+                .rm-image { text-align: center; margin-bottom: 50px; }
+                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: inline-block; cursor: none; }
                 .rm-image-caption { margin-top: 12px; color: #808090; font-size: 0.9rem; }
 
-                /* 放大镜效果 */
-                .rm-magnifier {
-                    position: absolute;
+                /* 放大镜效果 — 挂在 body，position:fixed 脱离文档流 */
+                #rm-magnifier-global {
+                    position: fixed;
                     width: 200px; height: 200px;
                     border-radius: 50%;
                     border: 2px solid rgba(180,160,255,0.6);
-                    box-shadow: 0 4px 24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);
+                    box-shadow: 0 4px 24px rgba(0,0,0,0.7);
                     pointer-events: none;
                     overflow: hidden;
                     display: none;
-                    z-index: 10;
+                    z-index: 99999;
                     transform: translate(-50%, -50%);
                 }
 
@@ -453,11 +452,8 @@
         if (data.avatar) {
             const caption = data.title ? `${data.name} · ${data.title}` : data.name;
             html += `
-                <div class="rm-image-wrap">
-                    <div class="rm-image">
-                        <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
-                        <div class="rm-magnifier" id="rm-magnifier"></div>
-                    </div>
+                <div class="rm-image">
+                    <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
                     <p class="rm-image-caption">${caption}</p>
                 </div>`;
         }
@@ -530,50 +526,62 @@
         document.getElementById('entityDetail').innerHTML = html;
         renderEntityNav(catSlug, subSlug, entityFile);
 
-        // 放大镜初始化
+        // 放大镜：挂在 body，完全脱离容器层级
         const avatarImg = document.getElementById('rm-avatar-img');
-        const magnifier = document.getElementById('rm-magnifier');
-        if (avatarImg && magnifier) {
+        if (avatarImg) {
             const ZOOM = 2.5;
             const MAG_R = 100;
-            const imgContainer = avatarImg.parentElement; // .rm-image
+
+            // 复用或新建 body 级放大镜
+            let magnifier = document.getElementById('rm-magnifier-global');
+            if (!magnifier) {
+                magnifier = document.createElement('div');
+                magnifier.id = 'rm-magnifier-global';
+                document.body.appendChild(magnifier);
+            }
+            magnifier.innerHTML = '';
 
             const zoomImg = document.createElement('img');
             zoomImg.style.cssText = 'position:absolute; pointer-events:none; max-width:none; border-radius:0;';
             magnifier.appendChild(zoomImg);
 
-            // 监听容器而非 img，避免放大镜遮住图片导致事件中断
-            imgContainer.addEventListener('mouseenter', () => { magnifier.style.display = 'block'; });
-            imgContainer.addEventListener('mouseleave', () => { magnifier.style.display = 'none'; });
-            imgContainer.addEventListener('mousemove', e => {
+            // 监听 document，用 rect 判断是否在图片范围内
+            function onMove(e) {
                 const rect = avatarImg.getBoundingClientRect();
-                const containerRect = imgContainer.getBoundingClientRect();
-
-                // 鼠标相对图片左上角的坐标
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // 放大镜圆心：相对容器定位，加上图片在容器中的偏移
-                const imgOffsetX = rect.left - containerRect.left;
-                const imgOffsetY = rect.top  - containerRect.top;
-                magnifier.style.left = (imgOffsetX + x) + 'px';
-                magnifier.style.top  = (imgOffsetY + y) + 'px';
-
-                // 仅在图片范围内显示
                 if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
                     magnifier.style.display = 'none';
                     return;
                 }
-                magnifier.style.display = 'block';
 
-                const iw = rect.width;
-                const ih = rect.height;
+                magnifier.style.display = 'block';
+                magnifier.style.left = e.clientX + 'px';
+                magnifier.style.top  = e.clientY + 'px';
+
                 zoomImg.src = avatarImg.src;
-                zoomImg.style.width  = (iw * ZOOM) + 'px';
-                zoomImg.style.height = (ih * ZOOM) + 'px';
-                zoomImg.style.left = (MAG_R - x * ZOOM) + 'px';
-                zoomImg.style.top  = (MAG_R - y * ZOOM) + 'px';
-            });
+                zoomImg.style.width  = (rect.width  * ZOOM) + 'px';
+                zoomImg.style.height = (rect.height * ZOOM) + 'px';
+                zoomImg.style.left   = (MAG_R - x * ZOOM) + 'px';
+                zoomImg.style.top    = (MAG_R - y * ZOOM) + 'px';
+            }
+
+            function onLeave(e) {
+                const rect = avatarImg.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+                    magnifier.style.display = 'none';
+                }
+            }
+
+            // 清理旧监听器，避免重复注册
+            document.removeEventListener('mousemove', document._rmMoveHandler);
+            document.removeEventListener('mousemove', document._rmLeaveHandler);
+            document._rmMoveHandler = onMove;
+            document._rmLeaveHandler = onLeave;
+            document.addEventListener('mousemove', onMove);
         }
     }
 
