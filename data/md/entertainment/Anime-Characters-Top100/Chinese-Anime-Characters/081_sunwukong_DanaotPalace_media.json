@@ -51,7 +51,10 @@
       "titleEn": "Havoc in Heaven",
       "role": "孙悟空",
       "rating": 9.5,
-      "awards": ["伦敦国际电影节最佳影片", "第14届洛迦诺国际电影节荣誉奖"]
+      "awards": [
+        "伦敦国际电影节最佳影片",
+        "第14届洛迦诺国际电影节荣誉奖"
+      ]
     },
     {
       "year": 2015,
@@ -91,9 +94,5 @@
       "description": "孙悟空形象跨越动画、游戏、文学，成为中华文化全球代言人",
       "icon": "🎭"
     }
-  ],
-  "media": {
-    "bilibili": "https://www.bilibili.com/video/BV1Gs411r7A7",
-    "trailer": "https://www.youtube.com/embed/7pHFMDQHPkU"
-  }
+  ]
 }

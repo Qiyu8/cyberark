@@ -52,7 +52,10 @@
       "role": "哪吒",
       "rating": 8.5,
       "boxOffice": "50.35亿人民币",
-      "awards": ["第33届中国电影金鸡奖最佳美术片", "第36届大众电影百花奖最佳影片提名"]
+      "awards": [
+        "第33届中国电影金鸡奖最佳美术片",
+        "第36届大众电影百花奖最佳影片提名"
+      ]
     },
     {
       "year": 2025,
@@ -90,9 +93,5 @@
       "description": "66家特效公司，1600多个特效镜头，4年打磨的工业奇迹",
       "icon": "⚡"
     }
-  ],
-  "media": {
-    "trailer": "https://www.youtube.com/embed/hDSjQBl5OMI",
-    "bilibili": "https://www.bilibili.com/video/BV1W4411W7aZ"
-  }
+  ]
 }

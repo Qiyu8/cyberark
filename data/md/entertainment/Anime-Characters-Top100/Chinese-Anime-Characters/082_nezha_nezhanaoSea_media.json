@@ -46,7 +46,10 @@
       "titleEn": "Nezha Conquers the Dragon King",
       "role": "哪吒",
       "rating": 9.4,
-      "awards": ["文化部优秀影片奖", "第3届百花奖最佳美术片"]
+      "awards": [
+        "文化部优秀影片奖",
+        "第3届百花奖最佳美术片"
+      ]
     },
     {
       "year": 2019,
@@ -78,8 +81,5 @@
       "description": "《魔童降世》50亿票房，证明传统神话IP的现代改编潜力无限",
       "icon": "💰"
     }
-  ],
-  "media": {
-    "bilibili": "https://www.bilibili.com/video/BV1Ws411f7iZ"
-  }
+  ]
 }

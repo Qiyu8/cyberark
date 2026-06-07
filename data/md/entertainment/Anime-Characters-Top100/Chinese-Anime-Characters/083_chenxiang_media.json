@@ -46,7 +46,9 @@
       "titleEn": "Lotus Lantern",
       "role": "沉香",
       "rating": 8.8,
-      "awards": ["中国电影华表奖优秀美术片奖"]
+      "awards": [
+        "中国电影华表奖优秀美术片奖"
+      ]
     }
   ],
   "quotes": [
@@ -64,8 +66,5 @@
       "description": "1999年上映，与一代人的童年紧密相连，是中国动画的温情符号",
       "icon": "💛"
     }
-  ],
-  "media": {
-    "bilibili": "https://www.bilibili.com/video/BV1xs411Y7gJ"
-  }
+  ]
 }
