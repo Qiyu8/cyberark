@@ -51,7 +51,6 @@
       "titleEn": "Havoc in Heaven",
       "role": "孙悟空",
       "rating": 9.5,
-      "link": "https://movie.douban.com/subject/1292366/",
       "awards": [
         "伦敦国际电影节最佳影片",
         "第14届洛迦诺国际电影节荣誉奖"
@@ -63,7 +62,6 @@
       "titleEn": "Monkey King: Hero Is Back",
       "role": "孙悟空",
       "rating": 8.3,
-      "link": "https://movie.douban.com/subject/10560439/",
       "boxOffice": "9.56亿人民币"
     },
     {
@@ -72,7 +70,6 @@
       "titleEn": "Monkey King 3",
       "role": "孙悟空",
       "rating": 6.5,
-      "link": "https://movie.douban.com/subject/26702550/",
       "boxOffice": "7.25亿人民币"
     }
   ],
@@ -83,13 +80,6 @@
       "name": "孙悟空 — 维基百科",
       "url": "https://zh.wikipedia.org/wiki/%E5%AD%99%E6%82%9F%E7%A9%BA",
       "description": "完整人物介绍、文化影响与各版本演变"
-    },
-    {
-      "type": "link",
-      "platform": "原典",
-      "name": "《西游记》全文 — 古诗文网",
-      "url": "https://www.gushiwen.cn/guwen/xiyouji.aspx",
-      "description": "吴承恩原著全文，免费公开阅读"
     },
     {
       "type": "link",
