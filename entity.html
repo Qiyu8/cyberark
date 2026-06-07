@@ -515,7 +515,20 @@
         }
 
         const iconMap = { embed: '▶', link: '🔗', image: '🖼' };
-        const platformIcon = { YouTube: '▶', bilibili: '▶', 'Google Arts & Culture': '🎨', Spotify: '🎵', 原典: '📖', 全景: '🌐' };
+        const platformIcon = { YouTube: '▶', bilibili: '▶', 'Google Arts & Culture': '🎨', Spotify: '🎵', 原典: '📖', 全景: '🌐', Wikipedia: '📚', 豆瓣: '🎬', IMDB: '🎬' };
+
+        // media 字段（通用链接/嵌入条目）
+        if (data.media && data.media.length > 0) {
+            data.media.forEach(item => {
+                mediaItems.push({
+                    type: item.type || 'link',
+                    url: item.url,
+                    name: item.name,
+                    meta: item.platform || item.description || '',
+                    desc: item.description || ''
+                });
+            });
+        }
 
         html += `
                 <div class="rm-media-title">高价值电子制品 <span>${mediaItems.length} 项</span></div>
@@ -540,13 +553,14 @@
                     </div>`;
                 } else {
                     const icon = platformIcon[item.meta] || '🔗';
+                    const subtitle = item.desc && item.desc !== item.meta ? item.desc : item.meta;
                     html += `
                     <div class="rm-item">
                         <a class="rm-item-link" href="${item.url}" target="_blank" rel="noopener">
                             <span class="rm-item-icon">${icon}</span>
                             <div class="rm-item-info">
                                 <div class="rm-item-name">${item.name}</div>
-                                <div class="rm-item-meta">${item.meta}</div>
+                                <div class="rm-item-meta">${subtitle}</div>
                             </div>
                             <span class="rm-item-arrow">›</span>
                         </a>
