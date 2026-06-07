@@ -407,22 +407,23 @@
                 .rm-page { max-width: 960px; margin: 0 auto; padding: 30px 0 60px; }
 
                 /* 上：图片区 */
-                .rm-image { text-align: center; margin-bottom: 50px; position: relative; }
-                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: inline-block; cursor: crosshair; transition: box-shadow 0.3s; }
-                .rm-image img:hover { box-shadow: 0 0 40px rgba(160,140,255,0.25); }
+                .rm-image { text-align: center; margin-bottom: 50px; position: relative; display: inline-block; }
+                .rm-image-wrap { text-align: center; margin-bottom: 50px; }
+                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: block; cursor: none; }
                 .rm-image-caption { margin-top: 12px; color: #808090; font-size: 0.9rem; }
 
                 /* 放大镜效果 */
                 .rm-magnifier {
-                    position: fixed;
-                    width: 220px; height: 220px;
+                    position: absolute;
+                    width: 200px; height: 200px;
                     border-radius: 50%;
-                    border: 2px solid rgba(180,160,255,0.5);
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+                    border: 2px solid rgba(180,160,255,0.6);
+                    box-shadow: 0 4px 24px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);
                     pointer-events: none;
                     overflow: hidden;
                     display: none;
-                    z-index: 9999;
+                    z-index: 10;
+                    transform: translate(-50%, -50%);
                 }
 
                 /* 下：高价值电子制品 */
@@ -452,9 +453,11 @@
         if (data.avatar) {
             const caption = data.title ? `${data.name} · ${data.title}` : data.name;
             html += `
-                <div class="rm-image">
-                    <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
-                    <div class="rm-magnifier" id="rm-magnifier"></div>
+                <div class="rm-image-wrap">
+                    <div class="rm-image">
+                        <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
+                        <div class="rm-magnifier" id="rm-magnifier"></div>
+                    </div>
                     <p class="rm-image-caption">${caption}</p>
                 </div>`;
         }
@@ -532,10 +535,8 @@
         const magnifier = document.getElementById('rm-magnifier');
         if (avatarImg && magnifier) {
             const ZOOM = 2.5;
-            const MAG_D = 220; // 直径
-            const MAG_R = MAG_D / 2;
+            const MAG_R = 100; // 半径
 
-            // 在放大镜内放一个 img 做放大内容
             const zoomImg = document.createElement('img');
             zoomImg.style.cssText = 'position:absolute; pointer-events:none; max-width:none; border-radius:0;';
             magnifier.appendChild(zoomImg);
@@ -543,24 +544,21 @@
             avatarImg.addEventListener('mouseenter', () => { magnifier.style.display = 'block'; });
             avatarImg.addEventListener('mouseleave', () => { magnifier.style.display = 'none'; });
             avatarImg.addEventListener('mousemove', e => {
-                const rect = avatarImg.getBoundingClientRect();
+                // offsetX/Y 相对图片左上角，与 absolute 定位容器坐标系一致
+                const x = e.offsetX;
+                const y = e.offsetY;
 
-                // 鼠标在图片内的相对坐标
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                // 放大镜圆心跟随鼠标（transform: translate(-50%,-50%) 已在 CSS 处理）
+                magnifier.style.left = x + 'px';
+                magnifier.style.top  = y + 'px';
 
-                // 放大镜圆心对齐鼠标
-                magnifier.style.left = (e.clientX - MAG_R) + 'px';
-                magnifier.style.top  = (e.clientY - MAG_R) + 'px';
-
-                // 放大图片尺寸
-                const zw = rect.width  * ZOOM;
-                const zh = rect.height * ZOOM;
+                // 放大图尺寸
+                const iw = avatarImg.offsetWidth;
+                const ih = avatarImg.offsetHeight;
                 zoomImg.src = avatarImg.src;
-                zoomImg.style.width  = zw + 'px';
-                zoomImg.style.height = zh + 'px';
-
-                // 偏移：让鼠标对应的位置出现在放大镜圆心
+                zoomImg.style.width  = (iw * ZOOM) + 'px';
+                zoomImg.style.height = (ih * ZOOM) + 'px';
+                // 偏移使鼠标对应位置出现在圆心
                 zoomImg.style.left = (MAG_R - x * ZOOM) + 'px';
                 zoomImg.style.top  = (MAG_R - y * ZOOM) + 'px';
             });
