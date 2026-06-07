@@ -460,7 +460,7 @@
         }
 
         if (resolvedImg) {
-            coverContent = `<img src="${resolvedImg}" alt="${entity.title || entity.name}" loading="lazy"
+            coverContent = `<img src="${resolvedImg}" alt="${entity.title || entity.name}" loading="lazy" data-magnify
                 onerror="this.parentElement.innerHTML='<div style=display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);font-size:3rem;>🎨</div>'">`;
         } else {
             const displayName = entity.title || entity.name || '??';
@@ -866,6 +866,62 @@
             renderGrid(filteredEntities);
         });
     });
+    </script>
+
+    <style>
+        #card-magnifier-global {
+            position: fixed;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 2px solid rgba(180,160,255,0.6);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+            pointer-events: none;
+            overflow: hidden;
+            display: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <div id="card-magnifier-global"><img id="card-magnifier-img" style="position:absolute;pointer-events:none;max-width:none;border-radius:0;"></div>
+    <script>
+    (function() {
+        const ZOOM = 2.5, MAG_R = 100;
+        const magnifier = document.getElementById('card-magnifier-global');
+        const zoomImg   = document.getElementById('card-magnifier-img');
+        let currentImg  = null;
+
+        document.addEventListener('mousemove', function(e) {
+            const target = e.target;
+            // 检查当前悬停元素是否是有 data-magnify 的 img
+            const img = (target.tagName === 'IMG' && target.hasAttribute('data-magnify')) ? target : null;
+
+            if (!img) {
+                if (magnifier.style.display !== 'none') magnifier.style.display = 'none';
+                currentImg = null;
+                return;
+            }
+
+            const rect = img.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+                magnifier.style.display = 'none';
+                return;
+            }
+
+            currentImg = img;
+            magnifier.style.display = 'block';
+            magnifier.style.left = e.clientX + 'px';
+            magnifier.style.top  = e.clientY + 'px';
+
+            zoomImg.src = img.src;
+            zoomImg.style.width  = (rect.width  * ZOOM) + 'px';
+            zoomImg.style.height = (rect.height * ZOOM) + 'px';
+            zoomImg.style.left   = (MAG_R - x * ZOOM) + 'px';
+            zoomImg.style.top    = (MAG_R - y * ZOOM) + 'px';
+        });
+    })();
     </script>
 </body>
 </html>
