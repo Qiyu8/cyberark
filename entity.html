@@ -532,26 +532,37 @@
         const magnifier = document.getElementById('rm-magnifier');
         if (avatarImg && magnifier) {
             const ZOOM = 2.5;
-            const MAG_R = 110; // 半径 px
+            const MAG_D = 220; // 直径
+            const MAG_R = MAG_D / 2;
+
+            // 在放大镜内放一个 img 做放大内容
+            const zoomImg = document.createElement('img');
+            zoomImg.style.cssText = 'position:absolute; pointer-events:none; max-width:none; border-radius:0;';
+            magnifier.appendChild(zoomImg);
 
             avatarImg.addEventListener('mouseenter', () => { magnifier.style.display = 'block'; });
             avatarImg.addEventListener('mouseleave', () => { magnifier.style.display = 'none'; });
             avatarImg.addEventListener('mousemove', e => {
                 const rect = avatarImg.getBoundingClientRect();
+
+                // 鼠标在图片内的相对坐标
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // 放大镜跟随鼠标
+                // 放大镜圆心对齐鼠标
                 magnifier.style.left = (e.clientX - MAG_R) + 'px';
                 magnifier.style.top  = (e.clientY - MAG_R) + 'px';
 
-                // 背景图片放大并偏移，使鼠标对应区域居中显示
-                const bgX = -(x * ZOOM - MAG_R);
-                const bgY = -(y * ZOOM - MAG_R);
-                magnifier.style.backgroundImage  = `url('${avatarImg.src}')`;
-                magnifier.style.backgroundSize   = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
-                magnifier.style.backgroundPosition = `${bgX}px ${bgY}px`;
-                magnifier.style.backgroundRepeat = 'no-repeat';
+                // 放大图片尺寸
+                const zw = rect.width  * ZOOM;
+                const zh = rect.height * ZOOM;
+                zoomImg.src = avatarImg.src;
+                zoomImg.style.width  = zw + 'px';
+                zoomImg.style.height = zh + 'px';
+
+                // 偏移：让鼠标对应的位置出现在放大镜圆心
+                zoomImg.style.left = (MAG_R - x * ZOOM) + 'px';
+                zoomImg.style.top  = (MAG_R - y * ZOOM) + 'px';
             });
         }
     }
