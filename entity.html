@@ -465,48 +465,16 @@
                 .rm-items { display: flex; flex-direction: column; gap: 16px; }
                 .rm-item { background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
 
-                /* 3D 金箍棒 */
+                /* 3D 金箍棒 Canvas */
                 .ruyi-stage {
-                    display: flex; align-items: center; justify-content: center;
-                    height: 240px; cursor: grab;
-                    perspective: 600px;
-                    user-select: none;
+                    display: flex; flex-direction: column; align-items: center;
+                    padding: 24px 0 0; cursor: grab; user-select: none;
+                    background: radial-gradient(ellipse at 50% 60%, rgba(255,200,50,0.06) 0%, transparent 70%);
                 }
-                .ruyi-scene {
-                    transform-style: preserve-3d;
-                    transition: transform 0.05s linear;
-                    position: relative;
-                    width: 320px; height: 32px;
-                }
-                .ruyi-body {
-                    position: absolute; inset: 0;
-                    border-radius: 16px;
-                    background: linear-gradient(
-                        to bottom,
-                        #fff8c0 0%, #ffd700 15%, #b8860b 35%,
-                        #ffd700 50%, #b8860b 65%, #ffd700 85%, #fff8c0 100%
-                    );
-                    box-shadow: inset 0 2px 6px rgba(255,255,255,0.5), inset 0 -2px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,215,0,0.3);
-                }
-                /* 两端端帽 */
-                .ruyi-cap {
-                    position: absolute; top: 50%; transform: translateY(-50%);
-                    width: 42px; height: 42px; border-radius: 50%;
-                    background: radial-gradient(circle at 35% 35%, #fffde0, #ffd700 40%, #8b6914 80%, #3a2a00);
-                    box-shadow: 0 0 12px rgba(255,215,0,0.6);
-                }
-                .ruyi-cap.left  { left: -18px; }
-                .ruyi-cap.right { right: -18px; }
-                /* 中间花纹环 */
-                .ruyi-ring {
-                    position: absolute; top: 50%; transform: translateY(-50%);
-                    width: 16px; height: 40px; border-radius: 4px;
-                    background: linear-gradient(to bottom, #fffde0, #ffd700, #8b6914, #ffd700, #fffde0);
-                    box-shadow: 0 0 8px rgba(255,215,0,0.5);
-                }
+                .ruyi-stage canvas { display: block; max-width: 100%; }
                 .ruyi-label {
-                    text-align: center; padding: 10px 0 14px;
-                    font-size: 0.8rem; color: #a0906a; letter-spacing: 0.1em;
+                    padding: 10px 0 14px; font-size: 0.78rem;
+                    color: #a0906a; letter-spacing: 0.12em;
                 }
                 .rm-item iframe { display: block; width: 100%; border: none; aspect-ratio: 16/9; }
                 .rm-item-link { display: flex; align-items: center; gap: 14px; padding: 16px 20px; text-decoration: none; color: #e0e0f6; transition: background 0.2s; }
@@ -586,16 +554,9 @@
                     html += `
                     <div class="rm-item">
                         <div class="ruyi-stage" id="ruyi-stage">
-                            <div class="ruyi-scene" id="ruyi-scene">
-                                <div class="ruyi-body"></div>
-                                <div class="ruyi-cap left"></div>
-                                <div class="ruyi-cap right"></div>
-                                <div class="ruyi-ring" style="left:calc(50% - 8px)"></div>
-                                <div class="ruyi-ring" style="left:calc(25% - 8px)"></div>
-                                <div class="ruyi-ring" style="left:calc(75% - 8px)"></div>
-                            </div>
+                            <canvas id="ruyi-canvas" width="480" height="200"></canvas>
                         </div>
-                        <div class="ruyi-label">如意金箍棒 · 随鼠标转动</div>
+                        <div class="ruyi-label" style="text-align:center;">如意金箍棒 · 拖拽旋转</div>
                     </div>`;
                 } else if (item.type === 'embed') {
                     html += `
@@ -693,65 +654,171 @@
             document.addEventListener('mousemove', onMove);
         }
 
-        // 金箍棒 3D 交互
-        const ruyiStage = document.getElementById('ruyi-stage');
-        const ruyiScene = document.getElementById('ruyi-scene');
-        if (ruyiStage && ruyiScene) {
-            let rotX = 15, rotY = -30;
-            let dragging = false, lastX = 0, lastY = 0;
-            let animX = rotX, animY = rotY;
-            let rafId;
+        // 金箍棒 3D Canvas 交互
+        const ruyiCanvas = document.getElementById('ruyi-canvas');
+        if (ruyiCanvas) {
+            const ctx = ruyiCanvas.getContext('2d');
+            const W = ruyiCanvas.width, H = ruyiCanvas.height;
+            let rotY = -25; // 水平旋转角（决定透视缩短）
+            let dragging = false, lastX = 0;
+            let velY = 0, animRotY = rotY;
 
-            function animateTo() {
-                animX += (rotX - animX) * 0.12;
-                animY += (rotY - animY) * 0.12;
-                ruyiScene.style.transform = `rotateX(${animX}deg) rotateY(${animY}deg)`;
-                if (Math.abs(rotX - animX) > 0.1 || Math.abs(rotY - animY) > 0.1) {
-                    rafId = requestAnimationFrame(animateTo);
-                }
+            // ── 绘制函数 ──────────────────────────────────────
+            function drawRuyi(ry) {
+                ctx.clearRect(0, 0, W, H);
+
+                const cx = W / 2, cy = H / 2;
+                const fullLen = 380;
+                const r = 14; // 棒半径
+                // 透视缩短：rotY 影响棒的视觉长度
+                const cosR = Math.cos(ry * Math.PI / 180);
+                const sinR = Math.sin(ry * Math.PI / 180);
+                const visLen = fullLen * Math.abs(cosR);
+                const x0 = cx - visLen / 2, x1 = cx + visLen / 2;
+
+                // ── 棒体阴影 ──
+                ctx.save();
+                ctx.shadowColor = 'rgba(255,180,0,0.35)';
+                ctx.shadowBlur = 28;
+
+                // ── 棒主体（圆柱渐变）──
+                const grad = ctx.createLinearGradient(x0, cy - r, x0, cy + r);
+                grad.addColorStop(0,    '#fffce0');
+                grad.addColorStop(0.08, '#fff176');
+                grad.addColorStop(0.22, '#ffd700');
+                grad.addColorStop(0.42, '#c8960c');
+                grad.addColorStop(0.55, '#7a5000');
+                grad.addColorStop(0.68, '#c8960c');
+                grad.addColorStop(0.82, '#ffd700');
+                grad.addColorStop(0.92, '#e8c000');
+                grad.addColorStop(1,    '#a07000');
+                ctx.beginPath();
+                ctx.roundRect(x0, cy - r, visLen, r * 2, r);
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // ── 高光线 ──
+                const hg = ctx.createLinearGradient(x0, cy - r, x1, cy - r);
+                hg.addColorStop(0,   'rgba(255,255,255,0)');
+                hg.addColorStop(0.2, 'rgba(255,255,255,0.55)');
+                hg.addColorStop(0.8, 'rgba(255,255,255,0.55)');
+                hg.addColorStop(1,   'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.roundRect(x0, cy - r, visLen, r * 0.45, r * 0.22);
+                ctx.fillStyle = hg;
+                ctx.fill();
+
+                ctx.restore();
+
+                // ── 雕纹环（5条）──
+                const ringPositions = [0.12, 0.3, 0.5, 0.7, 0.88];
+                ringPositions.forEach(t => {
+                    const rx = x0 + visLen * t;
+                    const rw = 12 * Math.abs(cosR) + 2; // 透视宽度
+                    const rr = ctx.createLinearGradient(rx - rw/2, cy - r - 3, rx - rw/2, cy + r + 3);
+                    rr.addColorStop(0,    '#fffce0');
+                    rr.addColorStop(0.15, '#ffe066');
+                    rr.addColorStop(0.45, '#8b6000');
+                    rr.addColorStop(0.6,  '#3a2000');
+                    rr.addColorStop(0.75, '#8b6000');
+                    rr.addColorStop(0.9,  '#ffe066');
+                    rr.addColorStop(1,    '#c8a000');
+                    ctx.save();
+                    ctx.shadowColor = 'rgba(255,220,0,0.5)';
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    ctx.roundRect(rx - rw/2, cy - r - 3, rw, (r + 3) * 2, 3);
+                    ctx.fillStyle = rr;
+                    ctx.fill();
+                    ctx.restore();
+                });
+
+                // ── 两端球形端帽 ──
+                [-1, 1].forEach(side => {
+                    const bx = side === -1 ? x0 : x1;
+                    const br = r * 1.7;
+                    const bg = ctx.createRadialGradient(bx + side * br * 0.3, cy - br * 0.3, br * 0.05, bx, cy, br);
+                    bg.addColorStop(0,    '#fffde8');
+                    bg.addColorStop(0.2,  '#ffe566');
+                    bg.addColorStop(0.5,  '#c8960c');
+                    bg.addColorStop(0.75, '#7a5000');
+                    bg.addColorStop(1,    '#2a1500');
+                    ctx.save();
+                    ctx.shadowColor = 'rgba(255,200,0,0.6)';
+                    ctx.shadowBlur = 18;
+                    ctx.beginPath();
+                    ctx.arc(bx, cy, br, 0, Math.PI * 2);
+                    ctx.fillStyle = bg;
+                    ctx.fill();
+                    // 端帽高光
+                    const hg2 = ctx.createRadialGradient(bx + side * br * 0.25, cy - br * 0.3, 0, bx, cy, br * 0.7);
+                    hg2.addColorStop(0,   'rgba(255,255,255,0.7)');
+                    hg2.addColorStop(0.4, 'rgba(255,255,255,0.15)');
+                    hg2.addColorStop(1,   'rgba(255,255,255,0)');
+                    ctx.beginPath();
+                    ctx.arc(bx, cy, br, 0, Math.PI * 2);
+                    ctx.fillStyle = hg2;
+                    ctx.fill();
+                    ctx.restore();
+                });
+
+                // ── 地面投影 ──
+                const shadowGrad = ctx.createRadialGradient(cx, cy + r + 18, 0, cx, cy + r + 18, visLen * 0.55);
+                shadowGrad.addColorStop(0,   'rgba(200,140,0,0.22)');
+                shadowGrad.addColorStop(1,   'rgba(200,140,0,0)');
+                ctx.beginPath();
+                ctx.ellipse(cx, cy + r + 22, visLen * 0.5, 10, 0, 0, Math.PI * 2);
+                ctx.fillStyle = shadowGrad;
+                ctx.fill();
             }
 
-            ruyiStage.addEventListener('mousedown', e => {
-                dragging = true;
-                lastX = e.clientX; lastY = e.clientY;
-                ruyiStage.style.cursor = 'grabbing';
-                cancelAnimationFrame(rafId);
+            // ── 动画循环 ──────────────────────────────────────
+            let rafId;
+            function tick() {
+                if (!dragging) {
+                    // 惯性 + 回弹到 -25
+                    velY += (-25 - animRotY) * 0.008;
+                    velY *= 0.92;
+                    animRotY += velY;
+                } else {
+                    animRotY = rotY;
+                }
+                drawRuyi(animRotY);
+                rafId = requestAnimationFrame(tick);
+            }
+
+            // ── 交互 ──────────────────────────────────────────
+            ruyiCanvas.addEventListener('mousedown', e => {
+                dragging = true; lastX = e.clientX;
+                ruyiCanvas.style.cursor = 'grabbing';
+                velY = 0;
             });
             document.addEventListener('mousemove', e => {
                 if (!dragging) return;
-                rotY += (e.clientX - lastX) * 0.6;
-                rotX -= (e.clientY - lastY) * 0.6;
-                rotX = Math.max(-60, Math.min(60, rotX));
-                lastX = e.clientX; lastY = e.clientY;
-                animX = rotX; animY = rotY;
-                ruyiScene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                const dx = e.clientX - lastX;
+                rotY += dx * 0.4;
+                animRotY = rotY;
+                lastX = e.clientX;
             });
             document.addEventListener('mouseup', () => {
                 if (!dragging) return;
                 dragging = false;
-                ruyiStage.style.cursor = 'grab';
+                ruyiCanvas.style.cursor = 'grab';
             });
 
-            // 鼠标悬停时缓慢自转
-            ruyiStage.addEventListener('mousemove', e => {
-                if (dragging) return;
-                const rect = ruyiStage.getBoundingClientRect();
-                const cx = (e.clientX - rect.left) / rect.width  - 0.5;
-                const cy = (e.clientY - rect.top)  / rect.height - 0.5;
-                rotY = -30 + cx * 60;
-                rotX =  15 - cy * 30;
-                cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(animateTo);
-            });
-            ruyiStage.addEventListener('mouseleave', () => {
-                if (dragging) return;
-                rotX = 15; rotY = -30;
-                cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(animateTo);
-            });
+            // 触摸支持
+            ruyiCanvas.addEventListener('touchstart', e => {
+                dragging = true; lastX = e.touches[0].clientX; velY = 0;
+            }, { passive: true });
+            ruyiCanvas.addEventListener('touchmove', e => {
+                if (!dragging) return;
+                const dx = e.touches[0].clientX - lastX;
+                rotY += dx * 0.4; animRotY = rotY;
+                lastX = e.touches[0].clientX;
+            }, { passive: true });
+            ruyiCanvas.addEventListener('touchend', () => { dragging = false; });
 
-            // 初始姿势
-            ruyiScene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            tick();
         }
     }
 
