@@ -923,6 +923,83 @@
         });
     })();
     </script>
+
+    <script>
+    // 3D tilt + 鼠标光斑
+    (function() {
+        const MAX_TILT = 12; // 最大倾斜角度（度）
+
+        document.addEventListener('mousemove', function(e) {
+            const card = e.target.closest('.gallery-card');
+            if (!card) return;
+
+            const cover = card.querySelector('.card-cover');
+            if (!cover) return;
+
+            const rect = card.getBoundingClientRect();
+            // 鼠标相对卡片中心的归一化坐标 [-1, 1]
+            const cx = (e.clientX - rect.left) / rect.width  - 0.5;
+            const cy = (e.clientY - rect.top)  / rect.height - 0.5;
+
+            const rotX = -cy * MAX_TILT;  // 上下倾斜
+            const rotY =  cx * MAX_TILT;  // 左右倾斜
+
+            card.style.transform = `translateY(-8px) perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+
+            // 光斑位置（百分比）
+            const px = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1);
+            const py = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1);
+            cover.style.setProperty('--glow-x', px + '%');
+            cover.style.setProperty('--glow-y', py + '%');
+            cover.classList.add('tilt-active');
+        });
+
+        document.addEventListener('mouseleave', resetCard, true);
+        document.addEventListener('mousemove', function(e) {
+            if (!e.target.closest('.gallery-card')) {
+                document.querySelectorAll('.gallery-card').forEach(resetCard);
+            }
+        });
+
+        function resetCard(card) {
+            const el = card.currentTarget || card;
+            if (el && el.classList && el.classList.contains('gallery-card')) {
+                el.style.transform = '';
+                const cover = el.querySelector('.card-cover');
+                if (cover) cover.classList.remove('tilt-active');
+            }
+        }
+    })();
+    </script>
+
+    <style>
+        /* 3D tilt 过渡 */
+        .gallery-card {
+            transition: transform 0.15s ease, border-color 0.4s, box-shadow 0.4s !important;
+            will-change: transform;
+        }
+        .gallery-card:not(:hover) {
+            transition: transform 0.5s ease, border-color 0.4s, box-shadow 0.4s !important;
+        }
+
+        /* 鼠标光斑 */
+        .card-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%),
+                rgba(255,255,255,0.18) 0%,
+                rgba(255,255,255,0.04) 50%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .card-cover.tilt-active::after {
+            opacity: 1;
+        }
+    </style>
 </body>
 </html>
 
