@@ -535,30 +535,42 @@
         const magnifier = document.getElementById('rm-magnifier');
         if (avatarImg && magnifier) {
             const ZOOM = 2.5;
-            const MAG_R = 100; // 半径
+            const MAG_R = 100;
+            const imgContainer = avatarImg.parentElement; // .rm-image
 
             const zoomImg = document.createElement('img');
             zoomImg.style.cssText = 'position:absolute; pointer-events:none; max-width:none; border-radius:0;';
             magnifier.appendChild(zoomImg);
 
-            avatarImg.addEventListener('mouseenter', () => { magnifier.style.display = 'block'; });
-            avatarImg.addEventListener('mouseleave', () => { magnifier.style.display = 'none'; });
-            avatarImg.addEventListener('mousemove', e => {
-                // offsetX/Y 相对图片左上角，与 absolute 定位容器坐标系一致
-                const x = e.offsetX;
-                const y = e.offsetY;
+            // 监听容器而非 img，避免放大镜遮住图片导致事件中断
+            imgContainer.addEventListener('mouseenter', () => { magnifier.style.display = 'block'; });
+            imgContainer.addEventListener('mouseleave', () => { magnifier.style.display = 'none'; });
+            imgContainer.addEventListener('mousemove', e => {
+                const rect = avatarImg.getBoundingClientRect();
+                const containerRect = imgContainer.getBoundingClientRect();
 
-                // 放大镜圆心跟随鼠标（transform: translate(-50%,-50%) 已在 CSS 处理）
-                magnifier.style.left = x + 'px';
-                magnifier.style.top  = y + 'px';
+                // 鼠标相对图片左上角的坐标
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-                // 放大图尺寸
-                const iw = avatarImg.offsetWidth;
-                const ih = avatarImg.offsetHeight;
+                // 放大镜圆心：相对容器定位，加上图片在容器中的偏移
+                const imgOffsetX = rect.left - containerRect.left;
+                const imgOffsetY = rect.top  - containerRect.top;
+                magnifier.style.left = (imgOffsetX + x) + 'px';
+                magnifier.style.top  = (imgOffsetY + y) + 'px';
+
+                // 仅在图片范围内显示
+                if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+                    magnifier.style.display = 'none';
+                    return;
+                }
+                magnifier.style.display = 'block';
+
+                const iw = rect.width;
+                const ih = rect.height;
                 zoomImg.src = avatarImg.src;
                 zoomImg.style.width  = (iw * ZOOM) + 'px';
                 zoomImg.style.height = (ih * ZOOM) + 'px';
-                // 偏移使鼠标对应位置出现在圆心
                 zoomImg.style.left = (MAG_R - x * ZOOM) + 'px';
                 zoomImg.style.top  = (MAG_R - y * ZOOM) + 'px';
             });
