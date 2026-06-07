@@ -1,0 +1,42 @@
+{
+  "name": "熊大",
+  "nameEn": "Boonie Bear",
+  "title": "熊出没 · 光头强的老朋友",
+  "avatar": "resources/xiongda.png",
+  "theme": {
+    "primaryColor": "#c0392b",
+    "secondaryColor": "#2e7d32",
+    "accentColor": "#ff6b6b"
+  },
+  "basicInfo": {
+    "出现年份": "2012年",
+    "制作方": "中国-华强方特",
+    "搭档": "熊二、光头强",
+    "价值等级": "T2"
+  },
+  "quotes": [
+    "光头强，你又来破坏森林了！",
+    "保护森林，人人有责！"
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/bangumi/play/ss1573"
+  },
+  "filmography": [
+    {
+      "year": "2014",
+      "title": "熊出没之夺宝熊兵",
+      "titleEn": "Boonie Bears: To the Rescue",
+      "role": "熊大",
+      "boxOffice": "2.49亿",
+      "rating": "7.2"
+    },
+    {
+      "year": "2024",
+      "title": "熊出没·逆转时空",
+      "titleEn": "Boonie Bears: Time Twist",
+      "role": "熊大",
+      "boxOffice": "15.0亿",
+      "rating": "7.8"
+    }
+  ]
+}

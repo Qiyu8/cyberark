@@ -1,0 +1,34 @@
+{
+  "name": "高适",
+  "nameEn": "Gao Shi",
+  "title": "长安三万里 · 边塞诗人",
+  "avatar": "resources/gaoshi.png",
+  "theme": {
+    "primaryColor": "#a0b4c8",
+    "secondaryColor": "#4a6741",
+    "accentColor": "#c8d8e8"
+  },
+  "basicInfo": {
+    "出现年份": "2023年",
+    "制作方": "追光动画",
+    "原型": "唐代诗人高适",
+    "价值等级": "T2"
+  },
+  "quotes": [
+    "莫愁前路无知己，天下谁人不识君。",
+    "战士军前半死生，美人帐下犹歌舞。"
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1mh4y1Q7dZ"
+  },
+  "filmography": [
+    {
+      "year": "2023",
+      "title": "长安三万里",
+      "titleEn": "Chang An",
+      "role": "高适（主视角）",
+      "boxOffice": "18.1亿",
+      "rating": "8.3"
+    }
+  ]
+}

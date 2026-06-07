@@ -1,0 +1,35 @@
+{
+  "name": "李白",
+  "nameEn": "Li Bai",
+  "title": "长安三万里 · 诗仙",
+  "avatar": "resources/libai.png",
+  "theme": {
+    "primaryColor": "#e8c96a",
+    "secondaryColor": "#8b5e3c",
+    "accentColor": "#ffd700"
+  },
+  "basicInfo": {
+    "出现年份": "2023年",
+    "制作方": "追光动画",
+    "原型": "唐代诗人李白",
+    "价值等级": "T1"
+  },
+  "quotes": [
+    "天生我材必有用，千金散尽还复来。",
+    "仰天大笑出门去，我辈岂是蓬蒿人。",
+    "长风破浪会有时，直挂云帆济沧海。"
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/video/BV1mh4y1Q7dZ"
+  },
+  "filmography": [
+    {
+      "year": "2023",
+      "title": "长安三万里",
+      "titleEn": "Chang An",
+      "role": "李白",
+      "boxOffice": "18.1亿",
+      "rating": "8.3"
+    }
+  ]
+}

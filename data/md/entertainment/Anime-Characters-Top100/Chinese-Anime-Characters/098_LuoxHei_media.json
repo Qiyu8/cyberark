@@ -1,0 +1,34 @@
+{
+  "name": "罗小黑",
+  "nameEn": "Luo Xiao Hei",
+  "title": "罗小黑战记 · 森林精灵",
+  "avatar": "resources/luoxiaohei.png",
+  "theme": {
+    "primaryColor": "#5b8fd4",
+    "secondaryColor": "#2a3a2a",
+    "accentColor": "#a8c8f0"
+  },
+  "basicInfo": {
+    "出现年份": "2011年（网络）/ 2019年（剧场版）",
+    "制作方": "中国-MTJJ / 寒木春华",
+    "种族": "猫系妖精",
+    "价值等级": "T2"
+  },
+  "quotes": [
+    "（用行动说话，不喜欢说话）",
+    "我要找一个可以安心待着的地方。"
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/bangumi/play/ss25739"
+  },
+  "filmography": [
+    {
+      "year": "2019",
+      "title": "罗小黑战记",
+      "titleEn": "The Legend of Hei",
+      "role": "罗小黑",
+      "boxOffice": "2.46亿",
+      "rating": "9.0"
+    }
+  ]
+}

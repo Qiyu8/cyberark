@@ -1,0 +1,41 @@
+{
+  "name": "喜羊羊",
+  "nameEn": "Pleasant Goat",
+  "title": "喜羊羊与灰太狼 · 草原最聪明的羊",
+  "avatar": "resources/xiyangyang.png",
+  "theme": {
+    "primaryColor": "#f0c040",
+    "secondaryColor": "#5b8c3a",
+    "accentColor": "#ffe880"
+  },
+  "basicInfo": {
+    "出现年份": "2005年",
+    "制作方": "中国-广东原创动力",
+    "身份": "羊村最聪明的羊",
+    "价值等级": "T1"
+  },
+  "quotes": [
+    "做羊就要做最聪明的羊！",
+    "灰太狼，你休想抓住我们！"
+  ],
+  "media": {
+    "bilibili": "https://www.bilibili.com/bangumi/play/ss1572"
+  },
+  "filmography": [
+    {
+      "year": "2009",
+      "title": "喜羊羊与灰太狼之牛气冲天",
+      "titleEn": "Pleasant Goat and Big Big Wolf",
+      "role": "喜羊羊",
+      "boxOffice": "0.82亿",
+      "rating": "7.5"
+    },
+    {
+      "year": "2024",
+      "title": "喜羊羊与灰太狼之守护",
+      "titleEn": "Pleasant Goat: Guardian",
+      "role": "喜羊羊",
+      "rating": "8.1"
+    }
+  ]
+}
