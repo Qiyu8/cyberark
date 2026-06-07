@@ -450,10 +450,11 @@
         const imgUrl = entity.imageUrl;
         let resolvedImg = '';
         if (imgUrl && !imgUrl.includes('wikipedia.org/wiki/Special:')) {
-            if (imgUrl.startsWith('http') || imgUrl.startsWith('//')) {
+            if (imgUrl.startsWith('http') || imgUrl.startsWith('//') || imgUrl.startsWith('data/')) {
+                // 已是绝对路径或完整相对路径，直接使用
                 resolvedImg = imgUrl;
-            } else if (imgUrl && entity._mdDir) {
-                // 相对路径：拼上 MD 文件所在目录
+            } else if (entity._mdDir) {
+                // 纯相对路径（如 resources/foo.png），拼上 MD 目录
                 resolvedImg = entity._mdDir + '/' + imgUrl;
             }
         }
