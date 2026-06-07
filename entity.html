@@ -408,8 +408,42 @@
 
                 /* 上：图片区 */
                 .rm-image { text-align: center; margin-bottom: 50px; }
-                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: inline-block; cursor: none; }
+                .rm-image-inner {
+                    position: relative;
+                    display: inline-block;
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+                .rm-image img { max-width: 100%; max-height: 600px; border-radius: 12px; display: block; cursor: none; }
                 .rm-image-caption { margin-top: 12px; color: #808090; font-size: 0.9rem; }
+
+                /* 扫光效果 */
+                .rm-image-inner::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(
+                        115deg,
+                        transparent 20%,
+                        rgba(255,255,255,0.0) 35%,
+                        rgba(255,255,255,0.45) 50%,
+                        rgba(255,240,200,0.25) 55%,
+                        transparent 70%
+                    );
+                    background-size: 250% 100%;
+                    background-position: 200% 0;
+                    opacity: 0;
+                    pointer-events: none;
+                    border-radius: 12px;
+                    transition: none;
+                }
+                .rm-image-inner:hover::after {
+                    animation: rm-shimmer 1.2s ease forwards;
+                }
+                @keyframes rm-shimmer {
+                    0%   { background-position: 200% 0; opacity: 1; }
+                    100% { background-position: -50% 0; opacity: 1; }
+                }
 
                 /* 放大镜效果 — 挂在 body，position:fixed 脱离文档流 */
                 #rm-magnifier-global {
@@ -453,7 +487,9 @@
             const caption = data.title ? `${data.name} · ${data.title}` : data.name;
             html += `
                 <div class="rm-image">
-                    <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
+                    <div class="rm-image-inner">
+                        <img id="rm-avatar-img" src="${resolvePath(data.avatar)}" alt="${data.name}">
+                    </div>
                     <p class="rm-image-caption">${caption}</p>
                 </div>`;
         }
