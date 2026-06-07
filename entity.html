@@ -464,6 +464,50 @@
                 .rm-media-title span { color: #e0e0f6; font-weight: 600; }
                 .rm-items { display: flex; flex-direction: column; gap: 16px; }
                 .rm-item { background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
+
+                /* 3D 金箍棒 */
+                .ruyi-stage {
+                    display: flex; align-items: center; justify-content: center;
+                    height: 240px; cursor: grab;
+                    perspective: 600px;
+                    user-select: none;
+                }
+                .ruyi-scene {
+                    transform-style: preserve-3d;
+                    transition: transform 0.05s linear;
+                    position: relative;
+                    width: 320px; height: 32px;
+                }
+                .ruyi-body {
+                    position: absolute; inset: 0;
+                    border-radius: 16px;
+                    background: linear-gradient(
+                        to bottom,
+                        #fff8c0 0%, #ffd700 15%, #b8860b 35%,
+                        #ffd700 50%, #b8860b 65%, #ffd700 85%, #fff8c0 100%
+                    );
+                    box-shadow: inset 0 2px 6px rgba(255,255,255,0.5), inset 0 -2px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,215,0,0.3);
+                }
+                /* 两端端帽 */
+                .ruyi-cap {
+                    position: absolute; top: 50%; transform: translateY(-50%);
+                    width: 42px; height: 42px; border-radius: 50%;
+                    background: radial-gradient(circle at 35% 35%, #fffde0, #ffd700 40%, #8b6914 80%, #3a2a00);
+                    box-shadow: 0 0 12px rgba(255,215,0,0.6);
+                }
+                .ruyi-cap.left  { left: -18px; }
+                .ruyi-cap.right { right: -18px; }
+                /* 中间花纹环 */
+                .ruyi-ring {
+                    position: absolute; top: 50%; transform: translateY(-50%);
+                    width: 16px; height: 40px; border-radius: 4px;
+                    background: linear-gradient(to bottom, #fffde0, #ffd700, #8b6914, #ffd700, #fffde0);
+                    box-shadow: 0 0 8px rgba(255,215,0,0.5);
+                }
+                .ruyi-label {
+                    text-align: center; padding: 10px 0 14px;
+                    font-size: 0.8rem; color: #a0906a; letter-spacing: 0.1em;
+                }
                 .rm-item iframe { display: block; width: 100%; border: none; aspect-ratio: 16/9; }
                 .rm-item-link { display: flex; align-items: center; gap: 14px; padding: 16px 20px; text-decoration: none; color: #e0e0f6; transition: background 0.2s; }
                 .rm-item-link:hover { background: rgba(255,255,255,0.06); }
@@ -538,7 +582,22 @@
             html += `<div class="rm-empty">暂无电子制品，可在 media.json 中添加 media / gallery / filmography 字段</div>`;
         } else {
             mediaItems.forEach(item => {
-                if (item.type === 'embed') {
+                if (item.type === '3d-ruyi') {
+                    html += `
+                    <div class="rm-item">
+                        <div class="ruyi-stage" id="ruyi-stage">
+                            <div class="ruyi-scene" id="ruyi-scene">
+                                <div class="ruyi-body"></div>
+                                <div class="ruyi-cap left"></div>
+                                <div class="ruyi-cap right"></div>
+                                <div class="ruyi-ring" style="left:calc(50% - 8px)"></div>
+                                <div class="ruyi-ring" style="left:calc(25% - 8px)"></div>
+                                <div class="ruyi-ring" style="left:calc(75% - 8px)"></div>
+                            </div>
+                        </div>
+                        <div class="ruyi-label">如意金箍棒 · 随鼠标转动</div>
+                    </div>`;
+                } else if (item.type === 'embed') {
                     html += `
                     <div class="rm-item">
                         <iframe src="${item.url}" allowfullscreen loading="lazy"
@@ -632,6 +691,67 @@
             document._rmMoveHandler = onMove;
             document._rmLeaveHandler = onLeave;
             document.addEventListener('mousemove', onMove);
+        }
+
+        // 金箍棒 3D 交互
+        const ruyiStage = document.getElementById('ruyi-stage');
+        const ruyiScene = document.getElementById('ruyi-scene');
+        if (ruyiStage && ruyiScene) {
+            let rotX = 15, rotY = -30;
+            let dragging = false, lastX = 0, lastY = 0;
+            let animX = rotX, animY = rotY;
+            let rafId;
+
+            function animateTo() {
+                animX += (rotX - animX) * 0.12;
+                animY += (rotY - animY) * 0.12;
+                ruyiScene.style.transform = `rotateX(${animX}deg) rotateY(${animY}deg)`;
+                if (Math.abs(rotX - animX) > 0.1 || Math.abs(rotY - animY) > 0.1) {
+                    rafId = requestAnimationFrame(animateTo);
+                }
+            }
+
+            ruyiStage.addEventListener('mousedown', e => {
+                dragging = true;
+                lastX = e.clientX; lastY = e.clientY;
+                ruyiStage.style.cursor = 'grabbing';
+                cancelAnimationFrame(rafId);
+            });
+            document.addEventListener('mousemove', e => {
+                if (!dragging) return;
+                rotY += (e.clientX - lastX) * 0.6;
+                rotX -= (e.clientY - lastY) * 0.6;
+                rotX = Math.max(-60, Math.min(60, rotX));
+                lastX = e.clientX; lastY = e.clientY;
+                animX = rotX; animY = rotY;
+                ruyiScene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            });
+            document.addEventListener('mouseup', () => {
+                if (!dragging) return;
+                dragging = false;
+                ruyiStage.style.cursor = 'grab';
+            });
+
+            // 鼠标悬停时缓慢自转
+            ruyiStage.addEventListener('mousemove', e => {
+                if (dragging) return;
+                const rect = ruyiStage.getBoundingClientRect();
+                const cx = (e.clientX - rect.left) / rect.width  - 0.5;
+                const cy = (e.clientY - rect.top)  / rect.height - 0.5;
+                rotY = -30 + cx * 60;
+                rotX =  15 - cy * 30;
+                cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(animateTo);
+            });
+            ruyiStage.addEventListener('mouseleave', () => {
+                if (dragging) return;
+                rotX = 15; rotY = -30;
+                cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(animateTo);
+            });
+
+            // 初始姿势
+            ruyiScene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
         }
     }
 

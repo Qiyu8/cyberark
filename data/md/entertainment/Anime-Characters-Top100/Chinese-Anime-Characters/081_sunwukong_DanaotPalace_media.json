@@ -82,11 +82,9 @@
       "description": "完整人物介绍、文化影响与各版本演变"
     },
     {
-      "type": "link",
-      "platform": "Wikipedia",
-      "name": "Havoc in Heaven (1964) — Wikipedia EN",
-      "url": "https://en.wikipedia.org/wiki/Havoc_in_Heaven",
-      "description": "《大闹天宫》英文条目，含国际获奖记录"
+      "type": "3d-ruyi",
+      "name": "如意金箍棒",
+      "description": "随鼠标转动的 3D 金箍棒"
     }
   ],
   "quotes": [
