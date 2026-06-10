@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>齐天大圣 - 国风3D交互场景</title>
+<style>
+  /* ============================================================
+     全局样式：水墨背景 + 古风按钮
+  ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "STKaiti", "KaiTi", "楷体", serif;
+    background: #f4ecd8; /* 宣纸底色 */
+  }
+  #scene-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    /* 水墨背景叠加：渐变 + 由 JS 注入的 canvas 山水 */
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(255, 240, 200, 0.4) 0%, rgba(244, 236, 216, 0) 60%),
+      linear-gradient(to bottom, #f5ecd5 0%, #e8d9b3 70%, #c9b58a 100%);
+  }
+  /* 顶部标题 */
+  #title-bar {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #4a1a0f;
+    font-size: 28px;
+    letter-spacing: 8px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.18), 0 0 20px rgba(212,160,60,0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+  #subtitle {
+    position: fixed;
+    top: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #7a3a1a;
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+  /* 状态提示 */
+  #action-tip {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #d4a03c;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 12px rgba(212,160,60,0.6);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  /* 底部技能按钮栏 */
+  #skill-bar {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 18px;
+    z-index: 10;
+    perspective: 800px;
+  }
+  .skill-btn {
+    min-width: 92px;
+    padding: 12px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: #f5e6c4;
+    background:
+      linear-gradient(180deg, #6b1a10 0%, #4a0f08 50%, #2d0904 100%);
+    border: 2px solid #c9a14a;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 220, 150, 0.35),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(70, 30, 10, 0.6);
+    transform-style: preserve-3d;
+    transform: translateZ(0) rotateX(8deg);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.6), 0 0 6px rgba(212,160,60,0.3);
+  }
+  .skill-btn::before {
+    /* 内嵌古纹路 */
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(212, 160, 60, 0.45);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .skill-btn:hover {
+    color: #fff4cc;
+    transform: translateZ(8px) rotateX(0deg);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 220, 150, 0.5),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+      0 6px 14px rgba(0, 0, 0, 0.5),
+      0 0 18px rgba(255, 200, 80, 0.6),
+      0 0 32px rgba(255, 180, 60, 0.35);
+  }
+  .skill-btn:active {
+    transform: translateZ(2px) rotateX(2deg);
+    box-shadow:
+      inset 0 2px 6px rgba(0, 0, 0, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.4),
+      0 0 12px rgba(255, 180, 60, 0.45);
+  }
+  /* 操作提示 */
+  #help {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    color: #5a2a14;
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: 0.7;
+    z-index: 10;
+    pointer-events: none;
+    letter-spacing: 1px;
+  }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+  <div id="scene-container"></div>
+  <div id="title-bar">齐 天 大 圣</div>
+  <div id="subtitle">花 果 山 · 水 帘 洞</div>
+  <div id="action-tip"></div>
+
+  <div id="skill-bar">
+    <button class="skill-btn" data-action="attack">普 攻</button>
+    <button class="skill-btn" data-action="sweep">横 扫</button>
+    <button class="skill-btn" data-action="transform">变 身</button>
+    <button class="skill-btn" data-action="cloud">筋 斗 云</button>
+    <button class="skill-btn" data-action="idle">站 姿</button>
+  </div>
+
+  <div id="help">
+    拖 拽 旋 转 视 角 &nbsp;·&nbsp; 滚 轮 缩 放 &nbsp;·&nbsp; 点 击 技 能 释 放 动 作
+  </div>
+
+<!-- ===========================================================
+     依赖：Three.js + OrbitControls (importmap)
+=========================================================== -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ============================================================
+   1. 配置常量（颜色、尺寸）
+============================================================ */
+const COLORS = {
+  skin:        0xe5b48a,   // 猴脸/手肤色
+  fur:         0xc28658,   // 棕黄毛色
+  furDark:     0x8e5a32,   // 深色毛
+  faceRed:     0xd06a4a,   // 桃形面颊红
+  eyeWhite:    0xfff8e6,
+  eyeBlack:    0x1a1a1a,
+  mouth:       0x4a1a10,
+  armorRed:    0xb91a1a,   // 战衣红
+  armorRedDk:  0x6e0d0d,
+  armorGold:   0xd4a03c,   // 金箍/腰带金色
+  armorGoldHi: 0xffe48a,
+  beltDark:    0x3a1a08,
+  staffBlack:  0x1a1310,   // 金箍棒黑色
+  staffGold:   0xf2c14b,   // 金箍棒金环
+  groundWood:  0x6b3a1a,
+  groundDark:  0x3a1a08,
+  cloudWhite:  0xffffff,
+  cloudBlue:   0xc9e6ff,
+  particleGold:0xffd24a,
+};
+
+const SIZES = {
+  headR:       0.55,
+  bodyH:       1.4,
+  bodyR:       0.55,
+  armLen:      0.55,
+  armR:        0.16,
+  legLen:      0.62,
+  legR:        0.20,
+  staffLen:    3.0,
+  staffR:      0.085,
+  platformR:   3.6,
+  platformH:   0.25,
+};
+
+/* ============================================================
+   2. 渲染器 / 场景 / 相机 / 控制器
+============================================================ */
+const container = document.getElementById('scene-container');
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0); // 透明，露出 CSS 渐变
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+container.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xe8d9b3, 14, 32);
+
+const camera = new THREE.PerspectiveCamera(
+  45, window.innerWidth / window.innerHeight, 0.1, 100
+);
+camera.position.set(0, 3.2, 8.5);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.minDistance = 4;
+controls.maxDistance = 16;
+controls.maxPolarAngle = Math.PI * 0.52;
+controls.target.set(0, 1.4, 0);
+
+/* ============================================================
+   3. 光照
+============================================================ */
+const ambient = new THREE.AmbientLight(0xfff1d6, 0.55);
+scene.add(ambient);
+
+const dirLight = new THREE.DirectionalLight(0xffe6b8, 0.95);
+dirLight.position.set(5, 9, 4);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.set(1024, 1024);
+dirLight.shadow.camera.left = -8;
+dirLight.shadow.camera.right = 8;
+dirLight.shadow.camera.top = 8;
+dirLight.shadow.camera.bottom = -8;
+scene.add(dirLight);
+
+// 头顶金色点光
+const goldPoint = new THREE.PointLight(0xffc24a, 1.2, 8, 1.6);
+goldPoint.position.set(0, 4.5, 0.5);
+scene.add(goldPoint);
+
+// 背面补光（蓝灰，强化轮廓）
+const rimLight = new THREE.DirectionalLight(0xa0b8d8, 0.35);
+rimLight.position.set(-4, 3, -5);
+scene.add(rimLight);
+
+/* ============================================================
+   4. 程序化贴图：水墨山水 + 红木纹
+============================================================ */
+function makeInkBackdropTexture(w = 1024, h = 512) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+
+  // 宣纸底
+  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, '#f5ecd5');
+  grad.addColorStop(0.65, '#e6d4ad');
+  grad.addColorStop(1, '#c9b58a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // 远山（淡墨）
+  ctx.fillStyle = 'rgba(60, 60, 70, 0.18)';
+  ctx.beginPath();
+  ctx.moveTo(0, h * 0.62);
+  for (let x = 0; x <= w; x += 24) {
+    const y = h * 0.62 - Math.sin(x * 0.011) * 28 - Math.sin(x * 0.027) * 14;
+    ctx.lineTo(x, y);
+  }
+  ctx.lineTo(w, h); ctx.lineTo(0, h);
+  ctx.closePath();
+  ctx.fill();
+
+  // 中景山（中墨）
+  ctx.fillStyle = 'rgba(40, 40, 50, 0.32)';
+  ctx.beginPath();
+  const peaks = [
+    [w * 0.10, h * 0.70], [w * 0.22, h * 0.52],
+    [w * 0.34, h * 0.66], [w * 0.48, h * 0.45],
+    [w * 0.62, h * 0.60], [w * 0.78, h * 0.50],
+    [w * 0.92, h * 0.68],
+  ];
+  ctx.moveTo(0, h);
+  ctx.lineTo(0, h * 0.72);
+  peaks.forEach(([x, y]) => ctx.lineTo(x, y));
+  ctx.lineTo(w, h * 0.72);
+  ctx.lineTo(w, h);
+  ctx.closePath();
+  ctx.fill();
+
+  // 近景山（浓墨）
+  ctx.fillStyle = 'rgba(20, 20, 28, 0.55)';
+  ctx.beginPath();
+  ctx.moveTo(0, h);
+  ctx.lineTo(0, h * 0.85);
+  ctx.bezierCurveTo(w * 0.15, h * 0.7, w * 0.22, h * 0.92, w * 0.32, h * 0.82);
+  ctx.bezierCurveTo(w * 0.42, h * 0.7, w * 0.55, h * 0.95, w * 0.68, h * 0.80);
+  ctx.bezierCurveTo(w * 0.80, h * 0.68, w * 0.92, h * 0.92, w, h * 0.85);
+  ctx.lineTo(w, h);
+  ctx.closePath();
+  ctx.fill();
+
+  // 墨晕：随机散点
+  for (let i = 0; i < 50; i++) {
+    const x = Math.random() * w;
+    const y = h * (0.4 + Math.random() * 0.5);
+    const r = 4 + Math.random() * 30;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(20,20,28,0.18)');
+    g.addColorStop(1, 'rgba(20,20,28,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 一轮淡日
+  const sun = ctx.createRadialGradient(w * 0.78, h * 0.22, 0, w * 0.78, h * 0.22, 80);
+  sun.addColorStop(0, 'rgba(255, 220, 150, 0.55)');
+  sun.addColorStop(1, 'rgba(255, 220, 150, 0)');
+  ctx.fillStyle = sun;
+  ctx.beginPath();
+  ctx.arc(w * 0.78, h * 0.22, 80, 0, Math.PI * 2);
+  ctx.fill();
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function makeWoodTexture(size = 512) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#6b3a1a';
+  ctx.fillRect(0, 0, size, size);
+  // 同心年轮（红木）
+  for (let r = 8; r < size; r += 6 + Math.random() * 6) {
+    ctx.strokeStyle = `rgba(${50 + Math.random() * 30}, ${20 + Math.random() * 15}, 8, ${0.3 + Math.random() * 0.4})`;
+    ctx.lineWidth = 1 + Math.random() * 1.5;
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  // 细丝纹理
+  for (let i = 0; i < 220; i++) {
+    ctx.strokeStyle = `rgba(40, 18, 6, ${0.15 + Math.random() * 0.25})`;
+    ctx.lineWidth = 0.6;
+    const a = Math.random() * Math.PI * 2;
+    const r1 = Math.random() * size * 0.5;
+    const r2 = r1 + 6 + Math.random() * 18;
+    const cx = size / 2, cy = size / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+    ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
+    ctx.stroke();
+  }
+  // 中心暗化
+  const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  g.addColorStop(0, 'rgba(58, 26, 8, 0.5)');
+  g.addColorStop(1, 'rgba(58, 26, 8, 0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+/* ============================================================
+   5. 背景平面 + 地面平台
+============================================================ */
+// 背景墙（水墨山水贴图）
+const backdropTex = makeInkBackdropTexture();
+const backdrop = new THREE.Mesh(
+  new THREE.PlaneGeometry(40, 18),
+  new THREE.MeshBasicMaterial({ map: backdropTex, transparent: true, opacity: 0.85, depthWrite: false })
+);
+backdrop.position.set(0, 5, -10);
+scene.add(backdrop);
+
+// 圆形红木平台
+const woodTex = makeWoodTexture();
+const platform = new THREE.Mesh(
+  new THREE.CylinderGeometry(SIZES.platformR, SIZES.platformR * 0.95, SIZES.platformH, 64),
+  new THREE.MeshStandardMaterial({
+    map: woodTex,
+    roughness: 0.55,
+    metalness: 0.05,
+  })
+);
+platform.position.y = -SIZES.platformH / 2;
+platform.receiveShadow = true;
+scene.add(platform);
+
+// 平台边缘金线
+const platformRing = new THREE.Mesh(
+  new THREE.TorusGeometry(SIZES.platformR * 0.99, 0.04, 12, 96),
+  new THREE.MeshStandardMaterial({
+    color: COLORS.armorGold,
+    metalness: 0.85,
+    roughness: 0.25,
+    emissive: 0x4a3010,
+  })
+);
+platformRing.rotation.x = Math.PI / 2;
+platformRing.position.y = 0.005;
+scene.add(platformRing);
+
+/* ============================================================
+   6. 孙悟空模型构建（Group 组织，命名清晰）
+============================================================ */
+function buildWukong() {
+  const root = new THREE.Group();
+  root.name = 'wukong_root';
+
+  // ---------- 材质 ----------
+  const matSkin   = new THREE.MeshStandardMaterial({ color: COLORS.skin,    roughness: 0.7, metalness: 0.0 });
+  const matFur    = new THREE.MeshStandardMaterial({ color: COLORS.fur,     roughness: 0.85, metalness: 0.0 });
+  const matFurDk  = new THREE.MeshStandardMaterial({ color: COLORS.furDark, roughness: 0.9,  metalness: 0.0 });
+  const matRed    = new THREE.MeshStandardMaterial({ color: COLORS.armorRed,roughness: 0.45, metalness: 0.15 });
+  const matRedDk  = new THREE.MeshStandardMaterial({ color: COLORS.armorRedDk,roughness: 0.5, metalness: 0.15 });
+  const matGold   = new THREE.MeshStandardMaterial({
+    color: COLORS.armorGold, roughness: 0.25, metalness: 0.9, emissive: 0x3a2408
+  });
+  const matGoldHi = new THREE.MeshStandardMaterial({
+    color: COLORS.armorGoldHi, roughness: 0.2, metalness: 0.95, emissive: 0x5a3a10, emissiveIntensity: 0.4
+  });
+  const matBlackS = new THREE.MeshStandardMaterial({ color: COLORS.staffBlack, roughness: 0.4, metalness: 0.6 });
+  const matBelt   = new THREE.MeshStandardMaterial({ color: COLORS.beltDark, roughness: 0.6, metalness: 0.1 });
+  const matEyeW   = new THREE.MeshStandardMaterial({ color: COLORS.eyeWhite, roughness: 0.3 });
+  const matEyeB   = new THREE.MeshStandardMaterial({ color: COLORS.eyeBlack, roughness: 0.2 });
+  const matMouth  = new THREE.MeshStandardMaterial({ color: COLORS.mouth, roughness: 0.6 });
+  const matCheek  = new THREE.MeshStandardMaterial({
+    color: COLORS.faceRed, roughness: 0.6, transparent: true, opacity: 0.85
+  });
+
+  // ============ 腿部（先建腿，root 整体 y 由腿撑起） ============
+  const hipY = SIZES.legLen + 0.05; // 髋部高度
+  function makeLeg(side) {
+    const leg = new THREE.Group();
+    leg.name = `leg_${side}`;
+    // 大腿
+    const thigh = new THREE.Mesh(
+      new THREE.CylinderGeometry(SIZES.legR, SIZES.legR * 0.9, SIZES.legLen * 0.55, 16),
+      matRed
+    );
+    thigh.position.y = -SIZES.legLen * 0.27;
+    thigh.castShadow = true;
+    leg.add(thigh);
+    // 小腿（黄毛裤腿）
+    const calf = new THREE.Mesh(
+      new THREE.CylinderGeometry(SIZES.legR * 0.85, SIZES.legR * 0.7, SIZES.legLen * 0.5, 16),
+      matFur
+    );
+    calf.position.y = -SIZES.legLen * 0.78;
+    calf.castShadow = true;
+    leg.add(calf);
+    // 靴子
+    const boot = new THREE.Mesh(
+      new THREE.BoxGeometry(SIZES.legR * 1.6, SIZES.legR * 0.7, SIZES.legR * 2.4),
+      matBlackS
+    );
+    boot.position.set(0, -SIZES.legLen * 1.05, SIZES.legR * 0.5);
+    boot.castShadow = true;
+    leg.add(boot);
+    // 靴口金边
+    const bootRim = new THREE.Mesh(
+      new THREE.TorusGeometry(SIZES.legR * 0.85, 0.03, 8, 24),
+      matGold
+    );
+    bootRim.rotation.x = Math.PI / 2;
+    bootRim.position.y = -SIZES.legLen * 0.92;
+    leg.add(bootRim);
+    return leg;
+  }
+  const legL = makeLeg('L'); legL.position.set(-0.22, hipY, 0); root.add(legL);
+  const legR = makeLeg('R'); legR.position.set( 0.22, hipY, 0); root.add(legR);
+
+  // ============ 躯干（红色战衣 + 黄毛胸前 + 腰带） ============
+  const torso = new THREE.Group();
+  torso.name = 'torso';
+  torso.position.y = hipY + SIZES.bodyH * 0.5;
+  root.add(torso);
+
+  // 主体（红甲，胶囊感）
+  const torsoMesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(SIZES.bodyR * 0.95, SIZES.bodyR, SIZES.bodyH, 24),
+    matRed
+  );
+  torsoMesh.castShadow = true;
+  torso.add(torsoMesh);
+
+  // 肩甲（两块金色）
+  const shoulderGeom = new THREE.SphereGeometry(0.22, 18, 14, 0, Math.PI * 2, 0, Math.PI / 2);
+  const shoulderL = new THREE.Mesh(shoulderGeom, matGold);
+  shoulderL.position.set(-SIZES.bodyR * 0.95, SIZES.bodyH * 0.42, 0);
+  shoulderL.rotation.z = Math.PI / 2 + 0.4;
+  shoulderL.castShadow = true;
+  torso.add(shoulderL);
+  const shoulderR = new THREE.Mesh(shoulderGeom, matGold);
+  shoulderR.position.set(SIZES.bodyR * 0.95, SIZES.bodyH * 0.42, 0);
+  shoulderR.rotation.z = -Math.PI / 2 - 0.4;
+  shoulderR.castShadow = true;
+  torso.add(shoulderR);
+
+  // 胸前金色护心镜
+  const chestPlate = new THREE.Mesh(
+    new THREE.CircleGeometry(0.22, 24),
+    matGoldHi
+  );
+  chestPlate.position.set(0, 0.18, SIZES.bodyR * 0.95);
+  torso.add(chestPlate);
+
+  // 腰带
+  const belt = new THREE.Mesh(
+    new THREE.CylinderGeometry(SIZES.bodyR * 1.02, SIZES.bodyR * 1.02, 0.18, 24),
+    matBelt
+  );
+  belt.position.y = -SIZES.bodyH * 0.35;
+  torso.add(belt);
+  const beltBuckle = new THREE.Mesh(
+    new THREE.BoxGeometry(0.28, 0.18, 0.08),
+    matGold
+  );
+  beltBuckle.position.set(0, -SIZES.bodyH * 0.35, SIZES.bodyR * 1.02);
+  torso.add(beltBuckle);
+
+  // 战裙（红色短裙）
+  const skirt = new THREE.Mesh(
+    new THREE.CylinderGeometry(SIZES.bodyR * 0.95, SIZES.bodyR * 1.25, 0.35, 24, 1, true),
+    matRedDk
+  );
+  skirt.position.y = -SIZES.bodyH * 0.5 + 0.08;
+  torso.add(skirt);
+
+  // 黄毛胸前一撮（多层细几何）
+  for (let i = 0; i < 12; i++) {
+    const fur = new THREE.Mesh(
+      new THREE.ConeGeometry(0.04, 0.12, 6),
+      matFur
+    );
+    const a = (i / 12) * Math.PI * 0.6 - Math.PI * 0.3;
+    fur.position.set(
+      Math.sin(a) * 0.18,
+      0.45 + Math.cos(a) * 0.05,
+      SIZES.bodyR * 0.9
+    );
+    fur.rotation.x = -Math.PI / 2 + 0.3;
+    fur.rotation.z = a;
+    torso.add(fur);
+  }
+
+  // ============ 手臂 ============
+  function makeArm(side) {
+    const sign = side === 'L' ? -1 : 1;
+    const arm = new THREE.Group();
+    arm.name = `arm_${side}`;
+    // 上臂（黄毛）
+    const upper = new THREE.Mesh(
+      new THREE.CylinderGeometry(SIZES.armR, SIZES.armR * 0.95, SIZES.armLen, 14),
+      matFur
+    );
+    upper.position.y = -SIZES.armLen / 2;
+    upper.castShadow = true;
+    arm.add(upper);
+
+    // 肘节（球关节）
+    const elbow = new THREE.Group();
+    elbow.name = `elbow_${side}`;
+    elbow.position.y = -SIZES.armLen;
+    arm.add(elbow);
+    const elbowBall = new THREE.Mesh(
+      new THREE.SphereGeometry(SIZES.armR * 1.05, 12, 10),
+      matFurDk
+    );
+    elbow.add(elbowBall);
+
+    // 前臂（黄毛 + 末端金护腕）
+    const fore = new THREE.Mesh(
+      new THREE.CylinderGeometry(SIZES.armR * 0.95, SIZES.armR * 0.85, SIZES.armLen * 0.95, 14),
+      matFur
+    );
+    fore.position.y = -SIZES.armLen * 0.475;
+    fore.castShadow = true;
+    elbow.add(fore);
+    const cuff = new THREE.Mesh(
+      new THREE.CylinderGeometry(SIZES.armR * 1.0, SIZES.armR * 1.0, 0.12, 16),
+      matGold
+    );
+    cuff.position.y = -SIZES.armLen * 0.92;
+    elbow.add(cuff);
+    // 手（小球）
+    const hand = new THREE.Mesh(
+      new THREE.SphereGeometry(SIZES.armR * 1.15, 14, 12),
+      matSkin
+    );
+    hand.position.y = -SIZES.armLen * 1.05;
+    hand.castShadow = true;
+    elbow.add(hand);
+    // 暴露 hand 节点便于挂金箍棒
+    elbow.userData.hand = hand;
+    return arm;
+  }
+  const armL = makeArm('L');
+  armL.position.set(-SIZES.bodyR * 0.95 - 0.05, SIZES.bodyH * 0.42, 0);
+  torso.add(armL);
+  const armR = makeArm('R');
+  armR.position.set( SIZES.bodyR * 0.95 + 0.05, SIZES.bodyH * 0.42, 0);
+  torso.add(armR);
+
+  // ============ 头部 + 颈 ============
+  const neck = new THREE.Group();
+  neck.name = 'neck';
+  neck.position.y = SIZES.bodyH * 0.5;
+  torso.add(neck);
+
+  const head = new THREE.Group();
+  head.name = 'head';
+  head.position.y = SIZES.headR + 0.1;
+  neck.add(head);
+
+  // 头球（毛色）
+  const headMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(SIZES.headR, 28, 22),
+    matFur
+  );
+  headMesh.castShadow = true;
+  head.add(headMesh);
+
+  // 桃形脸（前面贴一个略扁的肤色椭球）
+  const face = new THREE.Mesh(
+    new THREE.SphereGeometry(SIZES.headR * 0.78, 24, 20),
+    matSkin
+  );
+  face.position.set(0, -0.04, SIZES.headR * 0.32);
+  face.scale.set(1.0, 1.05, 0.7);
+  head.add(face);
+
+  // 双颊红（桃心两团）
+  const cheekL = new THREE.Mesh(new THREE.CircleGeometry(0.09, 16), matCheek);
+  cheekL.position.set(-0.18, -0.08, SIZES.headR * 0.78);
+  cheekL.rotation.y = -0.2;
+  head.add(cheekL);
+  const cheekR = new THREE.Mesh(new THREE.CircleGeometry(0.09, 16), matCheek);
+  cheekR.position.set( 0.18, -0.08, SIZES.headR * 0.78);
+  cheekR.rotation.y = 0.2;
+  head.add(cheekR);
+
+  // 眼白
+  const eyeWGeom = new THREE.SphereGeometry(0.075, 14, 12);
+  const eyeWL = new THREE.Mesh(eyeWGeom, matEyeW);
+  eyeWL.position.set(-0.13, 0.06, SIZES.headR * 0.82);
+  head.add(eyeWL);
+  const eyeWR = new THREE.Mesh(eyeWGeom, matEyeW);
+  eyeWR.position.set( 0.13, 0.06, SIZES.headR * 0.82);
+  head.add(eyeWR);
+  // 瞳仁（火眼金睛 - 加点金色 emissive）
+  const matEyeFire = new THREE.MeshStandardMaterial({
+    color: 0x1a0a05, emissive: 0xd4a03c, emissiveIntensity: 0.5, roughness: 0.2
+  });
+  const eyeBL = new THREE.Mesh(new THREE.SphereGeometry(0.04, 12, 10), matEyeFire);
+  eyeBL.position.set(-0.13, 0.06, SIZES.headR * 0.86);
+  head.add(eyeBL);
+  const eyeBR = new THREE.Mesh(new THREE.SphereGeometry(0.04, 12, 10), matEyeFire);
+  eyeBR.position.set( 0.13, 0.06, SIZES.headR * 0.86);
+  head.add(eyeBR);
+
+  // 眉毛（两道短弧形几何）
+  const browGeom = new THREE.BoxGeometry(0.12, 0.022, 0.02);
+  const matBrow = new THREE.MeshStandardMaterial({ color: 0x1a0a04, roughness: 0.6 });
+  const browL = new THREE.Mesh(browGeom, matBrow);
+  browL.position.set(-0.13, 0.16, SIZES.headR * 0.86);
+  browL.rotation.z = 0.25;
+  head.add(browL);
+  const browR = new THREE.Mesh(browGeom, matBrow);
+  browR.position.set( 0.13, 0.16, SIZES.headR * 0.86);
+  browR.rotation.z = -0.25;
+  head.add(browR);
+
+  // 嘴
+  const mouth = new THREE.Mesh(
+    new THREE.TorusGeometry(0.07, 0.018, 8, 16, Math.PI),
+    matMouth
+  );
+  mouth.position.set(0, -0.18, SIZES.headR * 0.83);
+  mouth.rotation.x = Math.PI;
+  head.add(mouth);
+
+  // 猴耳
+  const earGeom = new THREE.SphereGeometry(0.11, 14, 10, 0, Math.PI * 2, 0, Math.PI * 0.6);
+  const earL = new THREE.Mesh(earGeom, matFur);
+  earL.position.set(-SIZES.headR * 0.95, 0.05, 0);
+  earL.rotation.set(0, 0, Math.PI / 2);
+  earL.scale.set(1.0, 1.3, 0.55);
+  head.add(earL);
+  const earR = new THREE.Mesh(earGeom, matFur);
+  earR.position.set(SIZES.headR * 0.95, 0.05, 0);
+  earR.rotation.set(0, 0, -Math.PI / 2);
+  earR.scale.set(1.0, 1.3, 0.55);
+  head.add(earR);
+  // 耳内肤色
+  const earInGeom = new THREE.CircleGeometry(0.06, 16);
+  const earInL = new THREE.Mesh(earInGeom, matSkin);
+  earInL.position.set(-SIZES.headR * 1.0, 0.05, 0);
+  earInL.rotation.y = -Math.PI / 2;
+  head.add(earInL);
+  const earInR = new THREE.Mesh(earInGeom, matSkin);
+  earInR.position.set(SIZES.headR * 1.0, 0.05, 0);
+  earInR.rotation.y = Math.PI / 2;
+  head.add(earInR);
+
+  // 头顶毛簇（几个小锥体模拟毛发）
+  for (let i = 0; i < 14; i++) {
+    const tuft = new THREE.Mesh(
+      new THREE.ConeGeometry(0.05, 0.16, 6),
+      matFurDk
+    );
+    const a = (i / 14) * Math.PI * 2;
+    const r = 0.22 + Math.random() * 0.08;
+    tuft.position.set(
+      Math.cos(a) * r * 0.4,
+      SIZES.headR * 0.92 + Math.random() * 0.05,
+      Math.sin(a) * r * 0.4
+    );
+    tuft.rotation.set(
+      (Math.random() - 0.5) * 0.4,
+      a,
+      (Math.random() - 0.5) * 0.4
+    );
+    head.add(tuft);
+  }
+
+  // 金箍（圆环，戴在额头上）
+  const goldBand = new THREE.Mesh(
+    new THREE.TorusGeometry(SIZES.headR * 0.92, 0.045, 14, 40),
+    matGoldHi
+  );
+  goldBand.position.set(0, SIZES.headR * 0.42, 0);
+  goldBand.rotation.x = Math.PI / 2;
+  goldBand.rotation.z = -0.06;
+  head.add(goldBand);
+  // 金箍正中宝石
+  const gem = new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 14, 12),
+    new THREE.MeshStandardMaterial({
+      color: 0xff4030, emissive: 0x802010, emissiveIntensity: 0.6,
+      roughness: 0.2, metalness: 0.4
+    })
+  );
+  gem.position.set(0, SIZES.headR * 0.55, SIZES.headR * 0.92);
+  head.add(gem);
+
+  // ============ 金箍棒（挂在右手 elbow.userData.hand 上） ============
+  const staff = new THREE.Group();
+  staff.name = 'staff';
+  // 主杆
+  const staffShaft = new THREE.Mesh(
+    new THREE.CylinderGeometry(SIZES.staffR, SIZES.staffR, SIZES.staffLen, 18),
+    matBlackS
+  );
+  staffShaft.castShadow = true;
+  staff.add(staffShaft);
+  // 两端金帽
+  const capGeom = new THREE.CylinderGeometry(SIZES.staffR * 1.35, SIZES.staffR * 1.35, 0.18, 18);
+  const capTop = new THREE.Mesh(capGeom, matGold);
+  capTop.position.y = SIZES.staffLen / 2 + 0.06;
+  staff.add(capTop);
+  const capBot = new THREE.Mesh(capGeom, matGold);
+  capBot.position.y = -SIZES.staffLen / 2 - 0.06;
+  staff.add(capBot);
+  // 中段金环
+  for (let i = -1; i <= 1; i++) {
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(SIZES.staffR * 1.1, 0.02, 8, 18),
+      matGoldHi
+    );
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = i * 0.25;
+    staff.add(ring);
+  }
+  // 金箍棒挂在右手：把 staff 加到右手节点，并旋转到握持姿态
+  const rightHand = armR.children.find(c => c.name === 'elbow_R').userData.hand;
+  // 使棒平行于前臂方向稍倾
+  staff.position.set(0, -SIZES.staffLen * 0.35, 0.05);
+  staff.rotation.z = Math.PI * 0.05;
+  rightHand.add(staff);
+
+  // ---------- 暴露关键节点 ----------
+  root.userData.parts = {
+    torso, neck, head,
+    armL, armR,
+    elbowL: armL.children.find(c => c.name === 'elbow_L'),
+    elbowR: armR.children.find(c => c.name === 'elbow_R'),
+    legL, legR,
+    staff,
+    goldBand, gem,
+  };
+  return root;
+}
+
+const wukong = buildWukong();
+scene.add(wukong);
+
+// 整体材质收集（用于"变身"全身闪烁）
+const wukongMaterials = [];
+wukong.traverse(o => {
+  if (o.isMesh && o.material) wukongMaterials.push(o.material);
+});
+
+/* ============================================================
+   7. 粒子系统
+============================================================ */
+class ParticleBurst {
+  constructor({ count, color, size, lifeMin, lifeMax, gravity, speed }) {
+    this.count = count;
+    this.gravity = gravity;
+    const geom = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const velocities = new Float32Array(count * 3);
+    const lifes = new Float32Array(count);
+    const maxLifes = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = 0;
+      positions[i * 3 + 1] = 0;
+      positions[i * 3 + 2] = 0;
+      velocities[i * 3] = 0;
+      velocities[i * 3 + 1] = 0;
+      velocities[i * 3 + 2] = 0;
+      lifes[i] = 0;
+      maxLifes[i] = lifeMin + Math.random() * (lifeMax - lifeMin);
+    }
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    this.geom = geom;
+    this.velocities = velocities;
+    this.lifes = lifes;
+    this.maxLifes = maxLifes;
+    this.lifeMin = lifeMin;
+    this.lifeMax = lifeMax;
+    this.speed = speed;
+    this.mat = new THREE.PointsMaterial({
+      color, size, transparent: true, opacity: 0.0,
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+    });
+    this.points = new THREE.Points(geom, this.mat);
+    this.points.frustumCulled = false;
+    this.active = false;
+    this.elapsed = 0;
+    this.duration = lifeMax;
+  }
+
+  emit(origin) {
+    this.active = true;
+    this.elapsed = 0;
+    const positions = this.geom.attributes.position.array;
+    for (let i = 0; i < this.count; i++) {
+      positions[i * 3]     = origin.x;
+      positions[i * 3 + 1] = origin.y;
+      positions[i * 3 + 2] = origin.z;
+      // 球面均匀方向
+      const u = Math.random() * 2 - 1;
+      const t = Math.random() * Math.PI * 2;
+      const r = Math.sqrt(1 - u * u);
+      const sp = this.speed * (0.4 + Math.random() * 0.6);
+      this.velocities[i * 3]     = r * Math.cos(t) * sp;
+      this.velocities[i * 3 + 1] = u * sp;
+      this.velocities[i * 3 + 2] = r * Math.sin(t) * sp;
+      this.lifes[i] = this.maxLifes[i];
+    }
+    this.geom.attributes.position.needsUpdate = true;
+    this.mat.opacity = 1.0;
+  }
+
+  update(dt) {
+    if (!this.active) return;
+    this.elapsed += dt;
+    const positions = this.geom.attributes.position.array;
+    let alive = 0;
+    for (let i = 0; i < this.count; i++) {
+      if (this.lifes[i] <= 0) continue;
+      this.lifes[i] -= dt;
+      this.velocities[i * 3 + 1] -= this.gravity * dt;
+      positions[i * 3]     += this.velocities[i * 3]     * dt;
+      positions[i * 3 + 1] += this.velocities[i * 3 + 1] * dt;
+      positions[i * 3 + 2] += this.velocities[i * 3 + 2] * dt;
+      if (this.lifes[i] > 0) alive++;
+    }
+    this.geom.attributes.position.needsUpdate = true;
+    this.mat.opacity = Math.max(0, 1 - this.elapsed / this.duration);
+    if (alive === 0 || this.elapsed > this.duration) {
+      this.active = false;
+      this.mat.opacity = 0;
+    }
+  }
+}
+
+// 变身：金色爆发粒子
+const transformBurst = new ParticleBurst({
+  count: 280, color: COLORS.particleGold, size: 0.12,
+  lifeMin: 0.8, lifeMax: 1.4, gravity: 1.2, speed: 4.5,
+});
+scene.add(transformBurst.points);
+
+// 筋斗云：持续白蓝粒子
+class CloudPuff {
+  constructor() {
+    this.count = 160;
+    const geom = new THREE.BufferGeometry();
+    const positions = new Float32Array(this.count * 3);
+    const offsets = new Float32Array(this.count * 4); // 用作随机参数
+    for (let i = 0; i < this.count; i++) {
+      offsets[i * 4]     = Math.random() * Math.PI * 2;        // 角度
+      offsets[i * 4 + 1] = 0.3 + Math.random() * 1.0;          // 半径
+      offsets[i * 4 + 2] = (Math.random() - 0.5) * 0.4;        // y 偏移
+      offsets[i * 4 + 3] = 0.4 + Math.random() * 0.8;          // 速度系数
+      positions[i * 3]     = 0;
+      positions[i * 3 + 1] = 0;
+      positions[i * 3 + 2] = 0;
+    }
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    this.geom = geom;
+    this.offsets = offsets;
+    this.mat = new THREE.PointsMaterial({
+      color: COLORS.cloudWhite, size: 0.32, transparent: true, opacity: 0,
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+    });
+    this.points = new THREE.Points(geom, this.mat);
+    this.points.frustumCulled = false;
+    this.active = false;
+    this.t = 0;
+  }
+  setActive(v) {
+    this.active = v;
+    if (v) this.t = 0;
+  }
+  update(dt, footY) {
+    // 渐入渐出
+    const target = this.active ? 0.85 : 0;
+    this.mat.opacity += (target - this.mat.opacity) * Math.min(1, dt * 4);
+    if (this.mat.opacity < 0.01 && !this.active) return;
+    this.t += dt;
+    const positions = this.geom.attributes.position.array;
+    for (let i = 0; i < this.count; i++) {
+      const baseA = this.offsets[i * 4];
+      const baseR = this.offsets[i * 4 + 1];
+      const baseY = this.offsets[i * 4 + 2];
+      const sp    = this.offsets[i * 4 + 3];
+      const a = baseA + this.t * sp * 0.6;
+      const r = baseR + Math.sin(this.t * 2 + i) * 0.08;
+      positions[i * 3]     = Math.cos(a) * r;
+      positions[i * 3 + 1] = footY + baseY + Math.sin(this.t * 3 + i * 0.3) * 0.06;
+      positions[i * 3 + 2] = Math.sin(a) * r * 0.7;
+    }
+    this.geom.attributes.position.needsUpdate = true;
+  }
+}
+const cloudPuff = new CloudPuff();
+scene.add(cloudPuff.points);
+
+/* ============================================================
+   8. 动画状态机
+   - currentAction: 'idle' | 'attack' | 'sweep' | 'transform' | 'cloud'
+   - actionTime:    动作已运行时间
+   - actionDur:     动作总时长（结束自动回 idle）
+============================================================ */
+const state = {
+  currentAction: 'idle',
+  actionTime: 0,
+  actionDur: Infinity,
+  // 用于 cloud 模式下的额外位移
+  cloudY: 0,
+  cloudVY: 0,
+  // 整体根节点 baseline
+  rootY: 0,
+};
+
+const PARTS = wukong.userData.parts;
+
+function setAction(name) {
+  state.currentAction = name;
+  state.actionTime = 0;
+  switch (name) {
+    case 'idle':       state.actionDur = Infinity; cloudPuff.setActive(false); break;
+    case 'attack':     state.actionDur = 0.85;     cloudPuff.setActive(false); break;
+    case 'sweep':      state.actionDur = 1.20;     cloudPuff.setActive(false); break;
+    case 'transform':  state.actionDur = 1.30;     cloudPuff.setActive(false);
+                       transformBurst.emit(new THREE.Vector3(0, 1.6, 0)); break;
+    case 'cloud':      state.actionDur = 2.40;     cloudPuff.setActive(true);
+                       state.cloudVY = 6.0; break;
+  }
+  showTip(actionLabel(name));
+}
+
+function actionLabel(name) {
+  return ({
+    idle: '· 站  姿 ·',
+    attack: '· 普  攻 ·',
+    sweep: '· 横  扫 ·',
+    transform: '· 七十二变 ·',
+    cloud: '· 筋  斗  云 ·',
+  })[name] || '';
+}
+
+const tipEl = document.getElementById('action-tip');
+let tipTimer = null;
+function showTip(text) {
+  tipEl.textContent = text;
+  tipEl.style.opacity = '1';
+  if (tipTimer) clearTimeout(tipTimer);
+  tipTimer = setTimeout(() => { tipEl.style.opacity = '0'; }, 1100);
+}
+
+/* ---------- 动作姿态计算 ---------- */
+// 基础姿态（每帧先 reset，再叠加 idle 摇摆 + 当前动作的差量）
+function resetPose() {
+  PARTS.torso.rotation.set(0, 0, 0);
+  PARTS.neck.rotation.set(0, 0, 0);
+  PARTS.head.rotation.set(0, 0, 0);
+  PARTS.armL.rotation.set(0, 0, 0);
+  PARTS.armR.rotation.set(0, 0, 0);
+  PARTS.elbowL.rotation.set(0, 0, 0);
+  PARTS.elbowR.rotation.set(0, 0, 0);
+  PARTS.legL.rotation.set(0, 0, 0);
+  PARTS.legR.rotation.set(0, 0, 0);
+  // 手臂默认略下垂
+  PARTS.armL.rotation.z = 0.18;
+  PARTS.armR.rotation.z = -0.18;
+  // 右手持棒手臂略前抬
+  PARTS.armR.rotation.x = -0.25;
+  PARTS.elbowR.rotation.x = -0.4;
+  // 左手自然弯
+  PARTS.elbowL.rotation.x = -0.3;
+  // 整体缩放复位
+  wukong.scale.setScalar(1);
+}
+
+function applyIdle(t) {
+  // 上下浮动（呼吸）
+  PARTS.torso.position.y = SIZES.bodyH * 0.5 + (hipYOffset()) + Math.sin(t * 1.6) * 0.05;
+  // 左右轻摇
+  PARTS.torso.rotation.y = Math.sin(t * 0.8) * 0.08;
+  PARTS.head.rotation.y  = Math.sin(t * 0.8 + 0.3) * 0.18;
+  PARTS.head.rotation.x  = Math.sin(t * 1.2) * 0.05;
+  // 手臂随呼吸
+  PARTS.armL.rotation.x += Math.sin(t * 1.6) * 0.05;
+  PARTS.armR.rotation.x += Math.sin(t * 1.6 + 0.5) * 0.05;
+  // 尾摇（金箍棒）
+  PARTS.staff.rotation.y = Math.sin(t * 1.0) * 0.03;
+}
+
+// 髋部高度修正（动作内可能调整 root 整体高度，此处先保持）
+function hipYOffset() { return 0; }
+
+// 三次缓动
+function easeInOutCubic(x) {
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+function easeOutQuad(x) { return 1 - (1 - x) * (1 - x); }
+
+// 普攻：右臂前刺，回收
+function applyAttack(p) {
+  // p: 0~1
+  // 三段：抬棒(0~0.25) -> 前刺(0.25~0.6) -> 收回(0.6~1)
+  let armX = -0.25, elbowX = -0.4, torsoY = 0;
+  if (p < 0.25) {
+    const k = easeOutQuad(p / 0.25);
+    armX   = -0.25 + k * (-1.2);   // 上抬
+    elbowX = -0.4  + k * (-0.6);
+    torsoY = k * (-0.2);
+  } else if (p < 0.6) {
+    const k = easeOutQuad((p - 0.25) / 0.35);
+    armX   = -1.45 + k * (1.45 + 1.6);  // 向前刺到 +1.6
+    elbowX = -1.0  + k * (1.0);
+    torsoY = -0.2 + k * 0.5;
+  } else {
+    const k = easeInOutCubic((p - 0.6) / 0.4);
+    armX   = 1.6 + k * (-1.6 - 0.25);   // 回到 -0.25
+    elbowX = 0.0 + k * (-0.4);
+    torsoY = 0.3 + k * (-0.3);
+  }
+  PARTS.armR.rotation.x = armX;
+  PARTS.elbowR.rotation.x = elbowX;
+  PARTS.torso.rotation.y = torsoY;
+  // 头略低
+  PARTS.head.rotation.x = 0.1 * Math.sin(p * Math.PI);
+}
+
+// 横扫：身体旋转，棒水平大扫
+function applySweep(p) {
+  // 蓄力(0~0.25) -> 横扫(0.25~0.75) -> 收(0.75~1)
+  let torsoY = 0, armRZ = -0.18, armRX = -0.25, elbowRX = -0.4;
+  if (p < 0.25) {
+    const k = easeOutQuad(p / 0.25);
+    torsoY = k * (-0.9);
+    armRZ  = -0.18 + k * (-0.5);
+    armRX  = -0.25 + k * (-0.4);
+  } else if (p < 0.75) {
+    const k = easeInOutCubic((p - 0.25) / 0.5);
+    torsoY = -0.9 + k * 2.0;
+    armRZ  = -0.68 + k * 1.6;     // 抬到水平
+    armRX  = -0.65 + k * 0.4;
+    elbowRX = -0.4 + k * (-0.6);
+  } else {
+    const k = easeInOutCubic((p - 0.75) / 0.25);
+    torsoY = 1.1 + k * (-1.1);
+    armRZ  = 0.92 + k * (-1.1);
+    armRX  = -0.25;
+    elbowRX = -1.0 + k * 0.6;
+  }
+  PARTS.torso.rotation.y = torsoY;
+  PARTS.armR.rotation.z = armRZ;
+  PARTS.armR.rotation.x = armRX;
+  PARTS.elbowR.rotation.x = elbowRX;
+  // 腿略下蹲蓄力
+  const squat = Math.sin(p * Math.PI) * 0.1;
+  PARTS.legL.rotation.x = -squat;
+  PARTS.legR.rotation.x = -squat;
+}
+
+// 变身：原地缩放脉冲 + 闪烁（材质 emissiveIntensity）
+function applyTransform(p) {
+  const pulse = 1 + Math.sin(p * Math.PI * 3) * 0.08 * (1 - p);
+  wukong.scale.setScalar(pulse);
+  // 整体材质 emissive 临时增强
+  const flash = Math.sin(p * Math.PI) * 0.9;
+  wukongMaterials.forEach(m => {
+    if (!m.userData.origEmissive) {
+      m.userData.origEmissive = m.emissive ? m.emissive.clone() : new THREE.Color(0, 0, 0);
+      m.userData.origEmissiveIntensity = m.emissiveIntensity ?? 1.0;
+    }
+    if (m.emissive) {
+      m.emissive.copy(m.userData.origEmissive).lerp(new THREE.Color(0xffd24a), flash);
+      m.emissiveIntensity = m.userData.origEmissiveIntensity + flash * 1.2;
+    }
+  });
+  // 双臂上举
+  const k = Math.sin(p * Math.PI);
+  PARTS.armL.rotation.x = -0.25 - k * 1.4;
+  PARTS.armR.rotation.x = -0.25 - k * 1.4;
+  PARTS.armL.rotation.z = 0.18 + k * 0.4;
+  PARTS.armR.rotation.z = -0.18 - k * 0.4;
+  PARTS.head.rotation.x = -k * 0.25;
+}
+
+function restoreEmissive() {
+  wukongMaterials.forEach(m => {
+    if (m.userData.origEmissive && m.emissive) {
+      m.emissive.copy(m.userData.origEmissive);
+      m.emissiveIntensity = m.userData.origEmissiveIntensity ?? 1.0;
+    }
+  });
+}
+
+// 筋斗云：跳跃弧线（用 cloudY 累加到 root.position.y）
+function applyCloud(p, dt) {
+  // 跳跃物理：初速 cloudVY，重力 9.0
+  const G = 9.0;
+  state.cloudVY -= G * dt;
+  state.cloudY += state.cloudVY * dt;
+  if (state.cloudY < 0) { state.cloudY = 0; state.cloudVY = 0; }
+  // 蹲伏蓄力（最初 10%）
+  if (p < 0.1) {
+    const k = easeOutQuad(p / 0.1);
+    PARTS.legL.rotation.x = -k * 0.5;
+    PARTS.legR.rotation.x = -k * 0.5;
+    PARTS.torso.rotation.x = k * 0.15;
+  } else {
+    // 翘脚 + 双臂上扬
+    const k = Math.min(1, (p - 0.1) / 0.3);
+    PARTS.legL.rotation.x = -0.5 + k * 0.8;
+    PARTS.legR.rotation.x = -0.5 + k * 0.8;
+    PARTS.armL.rotation.x = -0.25 - 0.6 * k;
+    PARTS.armR.rotation.x = -0.25 - 0.6 * k;
+    PARTS.armL.rotation.z = 0.18 + 0.3 * k;
+    PARTS.armR.rotation.z = -0.18 - 0.3 * k;
+    PARTS.torso.rotation.x = 0.15 - k * 0.25;
+  }
+}
+
+/* ============================================================
+   9. 主循环
+============================================================ */
+const clock = new THREE.Clock();
+function animate() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const t = clock.elapsedTime;
+
+  resetPose();
+  // 始终先叠加 idle 微动
+  applyIdle(t);
+
+  state.actionTime += dt;
+  const p = Math.min(1, state.actionTime / state.actionDur);
+
+  switch (state.currentAction) {
+    case 'attack':    applyAttack(p);    break;
+    case 'sweep':     applySweep(p);     break;
+    case 'transform': applyTransform(p); break;
+    case 'cloud':     applyCloud(p, dt); break;
+  }
+
+  // 动作结束 -> 回 idle
+  if (state.currentAction !== 'idle' && state.actionTime >= state.actionDur) {
+    if (state.currentAction === 'transform') restoreEmissive();
+    if (state.currentAction === 'cloud') {
+      state.cloudY = 0;
+      state.cloudVY = 0;
+    }
+    setAction('idle');
+  }
+
+  // 整体高度：cloud 时跟随
+  wukong.position.y = state.cloudY;
+
+  // 金箍发光呼吸
+  PARTS.goldBand.material.emissiveIntensity = 0.45 + Math.sin(t * 2.5) * 0.18;
+  PARTS.gem.material.emissiveIntensity = 0.55 + Math.sin(t * 4) * 0.25;
+
+  // 粒子更新
+  transformBurst.update(dt);
+  // 筋斗云粒子跟脚下
+  cloudPuff.update(dt, state.cloudY + 0.05);
+
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ============================================================
+   10. UI 绑定 & 自适应
+============================================================ */
+document.querySelectorAll('.skill-btn').forEach(btn => {
+  btn.addEventListener('click', () => setAction(btn.dataset.action));
+});
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// 启动时显示一次提示
+showTip('· 齐 天 大 圣 ·');
+</script>
+</body>
+</html>
