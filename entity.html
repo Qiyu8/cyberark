@@ -559,9 +559,10 @@
                         <div class="ruyi-label" style="text-align:center;">如意金箍棒 · 拖拽旋转</div>
                     </div>`;
                 } else if (item.type === 'embed') {
+                    const embedSrc = (item.url && !item.url.startsWith('http')) ? resolvePath(item.url) : (item.url || '');
                     html += `
                     <div class="rm-item">
-                        <iframe src="${item.url}" allowfullscreen loading="lazy"
+                        <iframe src="${embedSrc}" allowfullscreen loading="lazy"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         </iframe>
                     </div>`;
